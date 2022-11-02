@@ -52,7 +52,7 @@ public class HUD : MonoBehaviour
         }
 
         //Controls the width of the health bar based on the player's total health
-        healthBarWidth = (float)NewPlayer.Instance.health / (float)NewPlayer.Instance.maxHealth;
+        healthBarWidth = (float)Floppy.Instance.health / (float)Floppy.Instance.maxHealth;
         healthBarWidthEased += (healthBarWidth - healthBarWidthEased) * Time.deltaTime * healthBarWidthEased;
         healthBar.transform.localScale = new Vector2(healthBarWidthEased, 1);
 

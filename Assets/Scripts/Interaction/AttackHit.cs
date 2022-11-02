@@ -25,7 +25,7 @@ public class AttackHit : MonoBehaviour
         if (isBomb) StartCoroutine(TempColliderDisable());
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
         //Determine which side the attack is on
         if (parent.transform.position.x < col.transform.position.x)
@@ -41,10 +41,8 @@ public class AttackHit : MonoBehaviour
 
         //Attack Player
         // if (attacksWhat == AttacksWhat.Floppy)
-        Debug.Log(col);
         if (attacksWhat == AttacksWhat.Floppy && col.GetComponent<Floppy>() != null)
         {
-            Debug.Log("Hitting Floppy");
             Floppy.Instance.GetHurt(targetSide, hitPower);
             // if (col.GetComponent<Floppy>() != null)
             // {

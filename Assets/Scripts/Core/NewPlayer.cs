@@ -241,7 +241,8 @@ public class NewPlayer : PhysicsObject
                 health -= hitPower;
             }
 
-            GameManager.Instance.hud.HealthBarHurt();
+            // todo undo
+            // GameManager.Instance.hud.HealthBarHurt();
         }
     }
 
