@@ -18,6 +18,9 @@ public class Floppy : PhysicsObject
     [SerializeField] private float launchRecovery;
     [SerializeField] private Component[] graphicSprites;
 
+    public bool hasLeftArm = true;
+    public bool hasRightArm = true;
+    public bool hasLegs = true;
 
     public int health;
     public int maxHealth;
@@ -40,12 +43,17 @@ public class Floppy : PhysicsObject
         origLocalScale = transform.localScale;
         Debug.Log("Script started!");
         graphicSprites = GetComponentsInChildren<SpriteRenderer>();
+
+        // disable all detached body parts
+        Arm.Instance.graphic.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        ComputeVelocity();
+        if (GameManager.instance.activeBodyPart == GameManager.BodyParts.Core)
+            ComputeVelocity();
+
     }
 
     protected void ComputeVelocity() {
@@ -77,8 +85,39 @@ public class Floppy : PhysicsObject
         {
             animator.SetTrigger("attack");
         }
+
+        if(Input.GetKeyDown(KeyCode.Space) ){
+            if (hasRightArm)
+                detachRightArm();
+            else 
+                attachRightArm(); // todo add range condition
+        }
+
+
+
     }
 
+    private void detachRightArm() {
+        // animator.SetBool("hasRightArm", false);
+        for (int i = 0; i < graphic.transform.childCount; i+= 1){
+            if (graphic.transform.GetChild(i).name == "Arm-L") {
+                graphic.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+        hasRightArm = false;
+        Arm.Instance.graphic.SetActive(true);
+    }
+
+    private void attachRightArm() {
+        // animator.SetBool("hasRightArm", false);
+        for (int i = 0; i < graphic.transform.childCount; i+= 1){
+            if (graphic.transform.GetChild(i).name == "Arm-L") {
+                graphic.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+        hasRightArm = true;
+        Arm.Instance.graphic.SetActive(false);
+    }
 
     public void GetHurt(int hurtDirection, int hitPower)
     {

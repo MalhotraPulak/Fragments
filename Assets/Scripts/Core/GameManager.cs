@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour
     public DialogueBoxController dialogueBoxController;
     public HUD hud; //A reference to the HUD holding your health UI, coins, dialogue, etc.
     public Dictionary<string, Sprite> inventory = new Dictionary<string, Sprite>();
-    private static GameManager instance;
+    public static GameManager instance;
     [SerializeField] public AudioTrigger gameMusic;
     [SerializeField] public AudioTrigger gameAmbience;
+    public enum BodyParts { LeftArm, RightArm, Leg, Core };
+    public BodyParts activeBodyPart;
 
     // Singleton instantiation
     public static GameManager Instance
@@ -28,6 +30,27 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        activeBodyPart = BodyParts.Core;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            activeBodyPart = BodyParts.Core;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            activeBodyPart = BodyParts.LeftArm;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            activeBodyPart = BodyParts.RightArm;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            activeBodyPart = BodyParts.Core;
+        }
     }
 
     // Use this for initialization
