@@ -45,7 +45,7 @@ public class EnemyBase : MonoBehaviour
             Debug.Log("Hitting something");
             if (!requirePoundAttack || (requirePoundAttack && NewPlayer.Instance.pounding))
             {
-                NewPlayer.Instance.cameraEffects.Shake(100, 1);
+                Floppy.Instance.cameraEffects.Shake(100, 1);
                 health -= 1;
                 animator.SetTrigger("hurt");
                 
@@ -99,12 +99,12 @@ public class EnemyBase : MonoBehaviour
 
     public void Die()
     {
-        if (NewPlayer.Instance.pounding)
-        {
-            NewPlayer.Instance.PoundEffect();
-        }
+        // if (NewPlayer.Instance.pounding)
+        // {
+        //     NewPlayer.Instance.PoundEffect();
+        // }
 
-        NewPlayer.Instance.cameraEffects.Shake(200, 1);
+        Floppy.Instance.cameraEffects.Shake(200, 1);
         health = 0;
         deathParticles.SetActive(true);
         deathParticles.transform.parent = transform.parent;

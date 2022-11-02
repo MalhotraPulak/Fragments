@@ -37,7 +37,7 @@ public class Lead : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanceFromPlayer.x = (NewPlayer.Instance.transform.position.x) - transform.position.x;
+        distanceFromPlayer.x = (Floppy.Instance.transform.position.x) - transform.position.x;
         // // distanceFromPlayer.y = (NewPlayer.Instance.transform.position.y + targetOffset.y) - transform.position.y;
         // speedEased += (speed - speedEased) * Time.deltaTime * easing;
         // transform.position += speedEased * Time.deltaTime;
@@ -50,7 +50,7 @@ public class Lead : MonoBehaviour
             } else {
                 dir = -1.0f;
             }
-            rigidbody2D.velocity = new Vector2(dir * 5f, 0);
+            rigidbody2D.velocity = new Vector2(dir * speedMultiplier, 0);
         }
     }
 

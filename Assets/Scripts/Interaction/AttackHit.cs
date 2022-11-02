@@ -8,7 +8,7 @@ so we use it for both player attacks and enemy attacks.
 
 public class AttackHit : MonoBehaviour
 {
-    private enum AttacksWhat { EnemyBase, NewPlayer };
+    private enum AttacksWhat { EnemyBase, Floppy };
     [SerializeField] private AttacksWhat attacksWhat;
     [SerializeField] private bool oneHitKill;
     [SerializeField] private float startCollisionDelay; //Some enemy types, like EnemyBombs, should not be able blow up until a set amount of time
@@ -25,7 +25,7 @@ public class AttackHit : MonoBehaviour
         if (isBomb) StartCoroutine(TempColliderDisable());
     }
 
-    void OnTriggerStay2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         //Determine which side the attack is on
         if (parent.transform.position.x < col.transform.position.x)
@@ -40,13 +40,17 @@ public class AttackHit : MonoBehaviour
         //Determine what components we're hitting
 
         //Attack Player
-        if (attacksWhat == AttacksWhat.NewPlayer)
+        // if (attacksWhat == AttacksWhat.Floppy)
+        Debug.Log(col);
+        if (attacksWhat == AttacksWhat.Floppy && col.GetComponent<Floppy>() != null)
         {
-            if (col.GetComponent<NewPlayer>() != null)
-            {
-                NewPlayer.Instance.GetHurt(targetSide, hitPower);
-                if (isBomb) transform.parent.GetComponent<EnemyBase>().Die(); 
-            }
+            Debug.Log("Hitting Floppy");
+            Floppy.Instance.GetHurt(targetSide, hitPower);
+            // if (col.GetComponent<Floppy>() != null)
+            // {
+                
+                // if (isBomb) transform.parent.GetComponent<EnemyBase>().Die(); 
+            // }
         }
 
         //Attack Enemies

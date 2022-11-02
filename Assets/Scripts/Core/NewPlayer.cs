@@ -226,7 +226,7 @@ public class NewPlayer : PhysicsObject
         if (!frozen && !recoveryCounter.recovering && !pounding)
         {
             HurtEffect();
-            cameraEffects.Shake(100, 1);
+            // cameraEffects.Shake(100, 1);
             animator.SetTrigger("hurt");
             velocity.y = hurtLaunchPower.y;
             launch = hurtDirection * (hurtLaunchPower.x);
@@ -259,7 +259,7 @@ public class NewPlayer : PhysicsObject
         {
             whichHurtSound++;
         }
-        cameraEffects.Shake(100, 1f);
+        // cameraEffects.Shake(100, 1f);
     }
 
     public IEnumerator FreezeFrameEffect(float length = .007f)
@@ -348,7 +348,7 @@ public class NewPlayer : PhysicsObject
     public void PunchEffect()
     {
         GameManager.Instance.audioSource.PlayOneShot(punchSound);
-        cameraEffects.Shake(100, 1f);
+        // cameraEffects.Shake(100, 1f);
     }
 
     public void ActivatePound()
@@ -377,7 +377,7 @@ public class NewPlayer : PhysicsObject
             velocity.y = jumpPower / 1.4f;
             animator.SetBool("pounded", true);
             GameManager.Instance.audioSource.PlayOneShot(poundSound);
-            cameraEffects.Shake(200, 1f);
+            // cameraEffects.Shake(200, 1f);
             pounding = false;
             recoveryCounter.counter = 0;
             animator.SetBool("pounded", true);

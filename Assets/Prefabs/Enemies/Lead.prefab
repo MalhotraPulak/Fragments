@@ -9979,8 +9979,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedDeviation: 1
   easing: 1
-  attentionRange: 3
-  speedMultiplier: 0.5
+  attentionRange: 5
+  speedMultiplier: 1
 --- !u!114 &4366714931600107146
 MonoBehaviour:
   m_ObjectHideFlags: 0
