@@ -25,6 +25,10 @@ public class Floppy : PhysicsObject
     public int health;
     public int maxHealth;
 
+    public float attachDistance = 5f;
+
+    public bool isJumping = false; 
+    public float upVelocity = 5f;
 
     // Singleton instantiation
     private static Floppy instance;
@@ -46,6 +50,7 @@ public class Floppy : PhysicsObject
 
         // disable all detached body parts
         Arm.Instance.graphic.SetActive(false);
+        Legs.Instance.graphic.SetActive(false);
     }
 
     // Update is called once per frame
@@ -53,16 +58,26 @@ public class Floppy : PhysicsObject
     {
         if (GameManager.instance.activeBodyPart == GameManager.BodyParts.Core)
             ComputeVelocity();
+        Debug.Log(graphic.GetComponent<Rigidbody2D>().velocity);
 
+    }
+
+    void Jump()
+    {
+        Vector2 vel = graphic.GetComponent<Rigidbody2D>().velocity;
+        graphic.GetComponent<Rigidbody2D>().velocity = new Vector2(vel.x, upVelocity);
+        isJumping = true;
     }
 
     protected void ComputeVelocity() {
         Vector2 move = Vector2.zero;
         launch += (0 - launch) * Time.deltaTime * launchRecovery;
         move.x = Input.GetAxis("Horizontal") + launch;
-        if (frozen) {
-            launch = 0;
-            return;
+        
+        if (Input.GetButtonDown("Jump") && !isJumping)
+        {
+            Debug.Log("I was made to jump");
+            Jump();
         }
 
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
@@ -86,14 +101,19 @@ public class Floppy : PhysicsObject
             animator.SetTrigger("attack");
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) ){
+        if(Input.GetKeyDown(KeyCode.Z) ){
             if (hasRightArm)
                 detachRightArm();
-            else 
+            else if ( Vector2.Distance(graphic.transform.position, Arm.Instance.transform.position) < attachDistance) 
                 attachRightArm(); // todo add range condition
         }
 
-
+        if(Input.GetKeyDown(KeyCode.X) ){
+            if (hasLegs)
+                detachLegs();
+            else if ( Vector2.Distance(graphic.transform.position, Legs.Instance.transform.position) < attachDistance)
+                attachLegs(); // todo add range condition
+        }
 
     }
 
@@ -117,6 +137,28 @@ public class Floppy : PhysicsObject
         }
         hasRightArm = true;
         Arm.Instance.graphic.SetActive(false);
+    }
+
+    private void detachLegs() {
+        // animator.SetBool("hasRightArm", false);
+        for (int i = 0; i < graphic.transform.childCount; i+= 1){
+            if (graphic.transform.GetChild(i).name == "Leg-R" || graphic.transform.GetChild(i).name == "Leg-L") {
+                graphic.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+        hasLegs = false;
+        Legs.Instance.graphic.SetActive(true);
+    }
+
+    private void attachLegs() {
+        // animator.SetBool("hasRightArm", false);
+        for (int i = 0; i < graphic.transform.childCount; i+= 1){
+            if (graphic.transform.GetChild(i).name == "Leg-R" || graphic.transform.GetChild(i).name == "Leg-L") {
+                graphic.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+        hasLegs = true;
+        Legs.Instance.graphic.SetActive(false);
     }
 
     public void GetHurt(int hurtDirection, int hitPower)
@@ -186,4 +228,15 @@ public class Floppy : PhysicsObject
             Time.timeScale = 1f;
         }
     }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (LayerMask.LayerToName(col.gameObject.layer) == "Ground" && isJumping)
+        {
+            isJumping = false;
+            graphic.GetComponent<Rigidbody2D>().velocity = new Vector2(
+                graphic.GetComponent<Rigidbody2D>().velocity.x, 0);
+        }
+    }
+
 }

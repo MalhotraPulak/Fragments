@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] public AudioTrigger gameMusic;
     [SerializeField] public AudioTrigger gameAmbience;
-    public enum BodyParts { LeftArm, RightArm, Leg, Core };
+    public enum BodyParts { LeftArm, RightArm, Legs, Core };
     public BodyParts activeBodyPart;
 
     // Singleton instantiation
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            activeBodyPart = BodyParts.Core;
+            activeBodyPart = BodyParts.Legs;
         }
     }
 
