@@ -52,6 +52,7 @@ public class AttackHit : MonoBehaviour
         //Attack Enemies
         else if (attacksWhat == AttacksWhat.EnemyBase && col.GetComponent<EnemyBase>() != null)
         {
+            Debug.Log("Attacking enemy");
             col.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
         }
 

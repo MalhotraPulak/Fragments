@@ -17,7 +17,7 @@ public class EnemyBase : MonoBehaviour
 
     [Header ("Properties")]
     [SerializeField] private GameObject deathParticles;
-    [SerializeField] private int health = 3;
+    [SerializeField] private int health = 1;
     public AudioClip hitSound;
     public bool isBomb;
     [SerializeField] bool requirePoundAttack; //Requires the player to use the down attack to hurt
@@ -40,17 +40,19 @@ public class EnemyBase : MonoBehaviour
     public void GetHurt(int launchDirection, int hitPower)
     {
         //Hit the enemy, causing a damage effect, and decreasing health. Allows for requiring a downward pound attack
-        if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null) && !recoveryCounter.recovering)
+        if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null) && !recoveryCounter.recovering)
         {
+            Debug.Log("Hitting something");
             if (!requirePoundAttack || (requirePoundAttack && NewPlayer.Instance.pounding))
             {
                 NewPlayer.Instance.cameraEffects.Shake(100, 1);
-                health -= hitPower;
+                health -= 1;
                 animator.SetTrigger("hurt");
-
-                audioSource.pitch = (1);
-                audioSource.PlayOneShot(hitSound);
-
+                
+                if (audioSource!=null) {
+                    audioSource.pitch = (1);
+                    audioSource.PlayOneShot(hitSound);
+                }
                 //Ensure the enemy and also the player cannot engage in hitting each other for the max recoveryTime for each
                 recoveryCounter.counter = 0;
                 NewPlayer.Instance.recoveryCounter.counter = 0;
@@ -69,6 +71,16 @@ public class EnemyBase : MonoBehaviour
                     walker.velocity.y = walker.hurtLaunchPower;
                     walker.directionSmooth = launchDirection;
                     walker.direction = walker.directionSmooth;
+                }
+
+                if (GetComponent<Lead>() != null)
+                {
+                    Debug.Log("HIT A LEAD");
+                    Lead walker = GetComponent<Lead>();
+                    // walker.launch = launchDirection * walker.hurtLaunchPower / 5;
+                    // walker.velocity.y = walker.hurtLaunchPower;
+                    // walker.directionSmooth = launchDirection;
+                    // walker.direction = walker.directionSmooth;
                 }
 
                 if (GetComponent<Flyer>() != null)

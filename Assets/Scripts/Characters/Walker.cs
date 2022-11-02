@@ -91,118 +91,118 @@ public class Walker : PhysicsObject
                 transform.localScale = new Vector3(origScale.x, origScale.y, origScale.z);
             }
 
-            // if (!enemyBase.recoveryCounter.recovering)
-            // {
-            //     //Flip the graphic depending on the speed
-            //     if (move.x > 0.01f)
-            //     {
-            //         if (graphic.transform.localScale.x == -1)
-            //         {
-            //             graphic.transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
-            //         }
-            //     }
-            //     else if (move.x < -0.01f)
-            //     {
-            //         if (graphic.transform.localScale.x == 1)
-            //         {
-            //             graphic.transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
-            //         }
-            //     }
+            if (enemyBase && enemyBase.recoveryCounter && !enemyBase.recoveryCounter.recovering)
+            {
+                //Flip the graphic depending on the speed
+                if (move.x > 0.01f)
+                {
+                    if (graphic.transform.localScale.x == -1)
+                    {
+                        graphic.transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+                    }
+                }
+                else if (move.x < -0.01f)
+                {
+                    if (graphic.transform.localScale.x == 1)
+                    {
+                        graphic.transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+                    }
+                }
 
-            //     //Check floor type
-            //     ground = Physics2D.Raycast(transform.position, -Vector2.up);
-            //     Debug.DrawRay(transform.position, -Vector2.up, Color.green);
+                //Check floor type
+                ground = Physics2D.Raycast(transform.position, -Vector2.up);
+                Debug.DrawRay(transform.position, -Vector2.up, Color.green);
 
-            //     //Check if player is within range to follow
-            //     if (enemyType == EnemyType.Zombie)
-            //     {
-            //         if ((Mathf.Abs(distanceFromPlayer.x) < attentionRange) && (Mathf.Abs(distanceFromPlayer.y) < attentionRange))
-            //         {
-            //             followPlayer = true;
-            //             sitStillMultiplier = 1;
+                //Check if player is within range to follow
+                if (enemyType == EnemyType.Zombie)
+                {
+                    if ((Mathf.Abs(distanceFromPlayer.x) < attentionRange) && (Mathf.Abs(distanceFromPlayer.y) < attentionRange))
+                    {
+                        followPlayer = true;
+                        sitStillMultiplier = 1;
 
-            //             if (neverStopFollowing)
-            //             {
-            //                 attentionRange = 10000000000;
-            //             }
-            //         }
-            //         else
-            //         {
-            //             if (sitStillWhenNotFollowing)
-            //             {
-            //                 sitStillMultiplier = 0;
-            //             }
-            //             else
-            //             {
-            //                 sitStillMultiplier = 1;
-            //             }
-            //         }
-            //     }
+                        if (neverStopFollowing)
+                        {
+                            attentionRange = 10000000000;
+                        }
+                    }
+                    else
+                    {
+                        if (sitStillWhenNotFollowing)
+                        {
+                            sitStillMultiplier = 0;
+                        }
+                        else
+                        {
+                            sitStillMultiplier = 1;
+                        }
+                    }
+                }
 
-            //     if (followPlayer)
-            //     {
-            //         rayCastSize.y = 200;
-            //         if (distanceFromPlayer.x < 0)
-            //         {
-            //             direction = -1;
-            //         }
-            //         else
-            //         {
-            //             direction = 1;
-            //         }
-            //     }
-            //     else
-            //     {
-            //         rayCastSize.y = rayCastSizeOrig.y;
-            //     }
+                if (followPlayer)
+                {
+                    rayCastSize.y = 200;
+                    if (distanceFromPlayer.x < 0)
+                    {
+                        direction = -1;
+                    }
+                    else
+                    {
+                        direction = 1;
+                    }
+                }
+                else
+                {
+                    rayCastSize.y = rayCastSizeOrig.y;
+                }
 
-            //     //Check for walls
-            //     rightWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right, rayCastSize.x, layerMask);
-            //     Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right * rayCastSize.x, Color.yellow);
+                //Check for walls
+                rightWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right, rayCastSize.x, layerMask);
+                Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right * rayCastSize.x, Color.yellow);
 
-            //     if (rightWall.collider != null)
-            //     {
-            //         if (!followPlayer)
-            //         {
-            //             direction = -1;
-            //         }
-            //         else if (direction == 1)
-            //         {
-            //             Jump();
-            //         }
+                if (rightWall.collider != null)
+                {
+                    if (!followPlayer)
+                    {
+                        direction = -1;
+                    }
+                    else if (direction == 1)
+                    {
+                        Jump();
+                    }
 
-            //     }
+                }
 
-            //     leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
-            //     Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left * rayCastSize.x, Color.blue);
+                leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
+                Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left * rayCastSize.x, Color.blue);
 
-            //     if (leftWall.collider != null)
-            //     {
-            //         if (!followPlayer)
-            //         {
-            //             direction = 1;
-            //         }
-            //         else if (direction == -1)
-            //         {
-            //             Jump();
-            //         }
-            //     }
+                if (leftWall.collider != null)
+                {
+                    if (!followPlayer)
+                    {
+                        direction = 1;
+                    }
+                    else if (direction == -1)
+                    {
+                        Jump();
+                    }
+                }
 
-            //     //Check for ledges. Walker's height check is much higher! They will fall pretty far, but will not fall to death. 
-            //     rightLedge = Physics2D.Raycast(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
-            //     Debug.DrawRay(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
-            //     if ((rightLedge.collider == null || rightLedge.collider.gameObject.layer == 14) && direction == 1)
-            //     {
-            //         direction = -1;
-            //     }
+                //Check for ledges. Walker's height check is much higher! They will fall pretty far, but will not fall to death. 
+                rightLedge = Physics2D.Raycast(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
+                Debug.DrawRay(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
+                if ((rightLedge.collider == null || rightLedge.collider.gameObject.layer == 14) && direction == 1)
+                {
+                    direction = -1;
+                }
 
-            //     leftLedge = Physics2D.Raycast(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
-            //     Debug.DrawRay(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
-            //     if ((leftLedge.collider == null || leftLedge.collider.gameObject.layer == 14) && direction == -1)
-            //     {
-            //         direction = 1;
-            //     }
-            // }
+                leftLedge = Physics2D.Raycast(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
+                Debug.DrawRay(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
+                if ((leftLedge.collider == null || leftLedge.collider.gameObject.layer == 14) && direction == -1)
+                {
+                    direction = 1;
+                }
+            }
         }
 
         enemyBase.animator.SetBool("grounded", grounded);

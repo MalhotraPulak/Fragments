@@ -129,7 +129,6 @@ public class NewPlayer : PhysicsObject
             }
             else if (move.x < -0.01f)
             {
-                 Debug.Log("Flipping Player");
                graphic.transform.localScale = new Vector3(-origLocalScale.x, transform.localScale.y, transform.localScale.z);
             }
 

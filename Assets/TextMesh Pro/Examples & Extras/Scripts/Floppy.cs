@@ -38,7 +38,6 @@ public class Floppy : PhysicsObject
         }
         else if (move.x < -0.01f)
         {
-            Debug.Log("Flipped!");
             graphic.transform.localScale = new Vector3(-origLocalScale.x, transform.localScale.y, transform.localScale.z);
         }
 
