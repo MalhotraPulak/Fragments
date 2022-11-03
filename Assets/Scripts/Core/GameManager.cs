@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public enum BodyParts { LeftArm, RightArm, Legs, Core };
     public BodyParts activeBodyPart;
 
-    public CinemachineVirtualCamera virtualCamera;
+        public CinemachineVirtualCamera virtualCamera;
 
     // Singleton instantiation
     public static GameManager Instance

@@ -10663,6 +10663,7 @@ MonoBehaviour:
   hurtLaunchPower: {x: 1, y: 1}
   launchRecovery: 3
   graphicSprites: []
+  virtualCamera: {fileID: 2080967542}
   hasLeftArm: 1
   hasRightArm: 1
   hasLegs: 1

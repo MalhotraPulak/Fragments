@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class Floppy : PhysicsObject
 {
@@ -17,6 +18,7 @@ public class Floppy : PhysicsObject
     [SerializeField] Vector2 hurtLaunchPower;
     [SerializeField] private float launchRecovery;
     [SerializeField] private Component[] graphicSprites;
+    public CinemachineVirtualCamera virtualCamera;
 
     public bool hasLeftArm = true;
     public bool hasRightArm = true;
@@ -57,9 +59,51 @@ public class Floppy : PhysicsObject
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.activeBodyPart == GameManager.BodyParts.Core)
+        if (GameManager.instance.activeBodyPart == GameManager.BodyParts.Core){
             ComputeVelocity();
-        Debug.Log(graphic.GetComponent<Rigidbody2D>().velocity);
+            Detach();
+        }
+        Attach();
+    }
+
+    void Attach()
+    {
+
+        if(Input.GetKeyDown(KeyCode.C)){
+            if(!hasLeftArm && Vector2.Distance(graphic.transform.position, LeftArm.Instance.transform.position) < attachDistance){
+                attachLeftArm(); // todo add range condition
+            }
+            else if(!hasRightArm && Vector2.Distance(graphic.transform.position, RightArm.Instance.transform.position) < attachDistance){
+                attachRightArm();
+                virtualCamera.Follow = Floppy.Instance.transform;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.V)){
+            if (!hasLegs && Vector2.Distance(graphic.transform.position, Legs.Instance.transform.position) < attachDistance){
+                Debug.Log("Attach Legs called");
+                attachLegs(); // todo add range condition
+                virtualCamera.Follow = Floppy.Instance.transform;
+            }
+        }
+
+    }
+
+    void Detach()
+    {
+        if(Input.GetKeyDown(KeyCode.Z) ){
+            if (hasLeftArm)
+                detachLeftArm();
+            else if (hasRightArm)
+                detachRightArm();
+        }
+
+        if(Input.GetKeyDown(KeyCode.X) ){
+            if (hasLegs){
+                Debug.Log("Legs have detached");
+                detachLegs();
+            }
+        }
 
     }
 
@@ -75,7 +119,7 @@ public class Floppy : PhysicsObject
         launch += (0 - launch) * Time.deltaTime * launchRecovery;
         move.x = Input.GetAxis("Horizontal") + launch;
         
-        if (Input.GetButtonDown("Jump") && !isJumping)
+        if (Input.GetButtonDown("Jump") && !isJumping && hasLegs)
         {
             Debug.Log("I was made to jump");
             Jump();
@@ -102,27 +146,6 @@ public class Floppy : PhysicsObject
             animator.SetTrigger("attack");
         }
 
-        if(Input.GetKeyDown(KeyCode.Z) ){
-            if (hasLeftArm)
-                detachLeftArm();
-            else if (hasRightArm)
-                detachRightArm();
-        }
-
-        if(Input.GetKeyDown(KeyCode.V)){
-            if(!hasLeftArm && Vector2.Distance(graphic.transform.position, LeftArm.Instance.transform.position) < attachDistance) 
-                attachLeftArm(); // todo add range condition
-            else if(!hasRightArm && Vector2.Distance(graphic.transform.position, RightArm.Instance.transform.position) < attachDistance) 
-                attachRightArm();
-        }
-
-        if(Input.GetKeyDown(KeyCode.X) ){
-            if (hasLegs)
-                detachLegs();
-            else if ( Vector2.Distance(graphic.transform.position, Legs.Instance.transform.position) < attachDistance)
-                attachLegs(); // todo add range condition
-        }
-
     }
 
     private void detachLeftArm() {
@@ -134,6 +157,8 @@ public class Floppy : PhysicsObject
         }
         hasLeftArm = false;
         LeftArm.Instance.graphic.SetActive(true);
+        GameManager.Instance.activeBodyPart = GameManager.BodyParts.LeftArm;
+        virtualCamera.Follow = LeftArm.Instance.transform;
     }
 
     private void detachRightArm() {
@@ -145,6 +170,8 @@ public class Floppy : PhysicsObject
         }
         hasRightArm = false;
         RightArm.Instance.graphic.SetActive(true);
+        GameManager.Instance.activeBodyPart = GameManager.BodyParts.RightArm;
+        virtualCamera.Follow = RightArm.Instance.transform;
     }
 
     private void attachLeftArm() {
@@ -156,6 +183,8 @@ public class Floppy : PhysicsObject
         }
         hasLeftArm = true;
         LeftArm.Instance.graphic.SetActive(false);
+        GameManager.Instance.activeBodyPart = GameManager.BodyParts.Core;
+        virtualCamera.Follow = Floppy.Instance.transform;
     }
 
 
@@ -168,6 +197,8 @@ public class Floppy : PhysicsObject
         }
         hasRightArm = true;
         RightArm.Instance.graphic.SetActive(false);
+        GameManager.Instance.activeBodyPart = GameManager.BodyParts.Core;
+        virtualCamera.Follow = Floppy.Instance.transform;
     }
 
     private void detachLegs() {
@@ -179,6 +210,10 @@ public class Floppy : PhysicsObject
         }
         hasLegs = false;
         Legs.Instance.graphic.SetActive(true);
+        Debug.Log("Active part before: " + GameManager.Instance.activeBodyPart);
+        GameManager.Instance.activeBodyPart = GameManager.BodyParts.Legs;
+        Debug.Log("Active part after: " + GameManager.Instance.activeBodyPart);
+        virtualCamera.Follow = Legs.Instance.transform;
     }
 
     private void attachLegs() {
@@ -190,6 +225,8 @@ public class Floppy : PhysicsObject
         }
         hasLegs = true;
         Legs.Instance.graphic.SetActive(false);
+        GameManager.Instance.activeBodyPart = GameManager.BodyParts.Core;
+        virtualCamera.Follow = Floppy.Instance.transform;
     }
 
     public void GetHurt(int hurtDirection, int hitPower)
