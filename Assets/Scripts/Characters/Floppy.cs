@@ -31,6 +31,7 @@ public class Floppy : PhysicsObject
 
     public bool isJumping = false; 
     public float upVelocity = 5f;
+    public float jumpForce = 0.1f;
 
     // Singleton instantiation
     private static Floppy instance;
@@ -59,6 +60,9 @@ public class Floppy : PhysicsObject
     // Update is called once per frame
     void Update()
     {
+        // Debug.Log("Floppy Velocity X: " + graphic.GetComponent<Rigidbody2D>().velocity.x);
+        graphic.GetComponent<Rigidbody2D>().velocity = new Vector2(0, !isJumping ? 0 : graphic.GetComponent<Rigidbody2D>().velocity.y);
+
         if (GameManager.instance.activeBodyPart == GameManager.BodyParts.Core){
             ComputeVelocity();
             Detach();
@@ -116,6 +120,7 @@ public class Floppy : PhysicsObject
 
     protected void ComputeVelocity() {
         Vector2 move = Vector2.zero;
+
         launch += (0 - launch) * Time.deltaTime * launchRecovery;
         move.x = Input.GetAxis("Horizontal") + launch;
         
@@ -203,7 +208,7 @@ public class Floppy : PhysicsObject
 
     private void detachLegs() {
         // animator.SetBool("hasRightArm", false);
-        for (int i = 0; i < graphic.transform.childCount; i+= 1){
+        for (int i = 0; i < graphic.transform.childCount; i += 1){
             if (graphic.transform.GetChild(i).name == "Leg-R" || graphic.transform.GetChild(i).name == "Leg-L") {
                 graphic.transform.GetChild(i).gameObject.SetActive(false);
             }
@@ -302,8 +307,6 @@ public class Floppy : PhysicsObject
         if (LayerMask.LayerToName(col.gameObject.layer) == "Ground" && isJumping)
         {
             isJumping = false;
-            graphic.GetComponent<Rigidbody2D>().velocity = new Vector2(
-                graphic.GetComponent<Rigidbody2D>().velocity.x, 0);
         }
     }
 

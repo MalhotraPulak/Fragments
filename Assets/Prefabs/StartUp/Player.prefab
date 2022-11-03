@@ -12572,15 +12572,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bc2cc5ac55974d43a623715964618e3, type: 3}
---- !u!4 &999013877064453279 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4727661067630430, guid: 9bc2cc5ac55974d43a623715964618e3,
-    type: 3}
-  m_PrefabInstance: {fileID: 994730490450754497}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1084583076897638173 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 198378920401403100, guid: 9bc2cc5ac55974d43a623715964618e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 994730490450754497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &999013877064453279 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4727661067630430, guid: 9bc2cc5ac55974d43a623715964618e3,
     type: 3}
   m_PrefabInstance: {fileID: 994730490450754497}
   m_PrefabAsset: {fileID: 0}
