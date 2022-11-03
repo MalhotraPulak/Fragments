@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Legs : PhysicsObject
+public class LeftArm : PhysicsObject
 {
     // [SerializeField] private Animator animator;
     [SerializeField] public GameObject graphic;
@@ -13,16 +13,13 @@ public class Legs : PhysicsObject
     [SerializeField] private float launchRecovery;
     [SerializeField] private Component[] graphicSprites;    
 
-    public bool isJumping = false; 
-    public float upVelocity = 9f;
-
     // Singleton instantiation
-    private static Legs instance;
-    public static Legs Instance
+    private static LeftArm instance;
+    public static LeftArm Instance
     {
         get
         {
-            if (instance == null) instance = GameObject.FindObjectOfType<Legs>();
+            if (instance == null) instance = GameObject.FindObjectOfType<LeftArm>();
             return instance;
         }
     }
@@ -31,34 +28,21 @@ public class Legs : PhysicsObject
     void Start()
     {
         origLocalScale = transform.localScale;
-        Debug.Log("Legs Script started!");
+        Debug.Log("LeftArm Script started!");
         graphicSprites = GetComponentsInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.activeBodyPart == GameManager.BodyParts.Legs)
+        if (GameManager.instance.activeBodyPart == GameManager.BodyParts.LeftArm)
             ComputeVelocity();
-    }
-
-    void Jump()
-    {
-        Vector2 vel = graphic.GetComponent<Rigidbody2D>().velocity;
-        graphic.GetComponent<Rigidbody2D>().velocity = new Vector2(vel.x, upVelocity);
-        isJumping = true;
     }
 
     protected void ComputeVelocity() {
         Vector2 move = Vector2.zero;
         launch += (0 - launch) * Time.deltaTime * launchRecovery;
         move.x = Input.GetAxis("Horizontal") + launch;
-
-        if (Input.GetButtonDown("Jump") && !isJumping)
-        {
-            Debug.Log("I was made to jump");
-            Jump();
-        }
 
         // animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
         // animator.SetFloat("velocityY", velocity.y);
@@ -79,16 +63,6 @@ public class Legs : PhysicsObject
         if (Input.GetMouseButtonDown(0))
         {
             // animator.SetTrigger("attack");
-        }
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (LayerMask.LayerToName(col.gameObject.layer) == "Ground" && isJumping)
-        {
-            isJumping = false;
-            graphic.GetComponent<Rigidbody2D>().velocity = new Vector2(
-                graphic.GetComponent<Rigidbody2D>().velocity.x, 0);
         }
     }
 }

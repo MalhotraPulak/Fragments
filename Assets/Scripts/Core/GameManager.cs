@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 /*Manages inventory, keeps several component references, and any other future control of the game itself you may need*/
 
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public AudioTrigger gameAmbience;
     public enum BodyParts { LeftArm, RightArm, Legs, Core };
     public BodyParts activeBodyPart;
+
+    public CinemachineVirtualCamera virtualCamera;
 
     // Singleton instantiation
     public static GameManager Instance
@@ -38,18 +41,23 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             activeBodyPart = BodyParts.Core;
+            virtualCamera.Follow = Floppy.Instance.transform;
+
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && !Floppy.Instance.hasLeftArm)
         {
             activeBodyPart = BodyParts.LeftArm;
+            virtualCamera.Follow = LeftArm.Instance.transform;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && !Floppy.Instance.hasRightArm)
         {
             activeBodyPart = BodyParts.RightArm;
+            virtualCamera.Follow = RightArm.Instance.transform;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && !Floppy.Instance.hasLegs)
         {
             activeBodyPart = BodyParts.Legs;
+            virtualCamera.Follow = Legs.Instance.transform;
         }
     }
 

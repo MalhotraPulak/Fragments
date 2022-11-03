@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arm : PhysicsObject
+public class RightArm : PhysicsObject
 {
-    [SerializeField] private Animator animator;
+    // [SerializeField] private Animator animator;
     [SerializeField] public GameObject graphic;
     public float maxSpeed = 5;
     private Vector3 origLocalScale;
@@ -14,12 +14,12 @@ public class Arm : PhysicsObject
     [SerializeField] private Component[] graphicSprites;    
 
     // Singleton instantiation
-    private static Arm instance;
-    public static Arm Instance
+    private static RightArm instance;
+    public static RightArm Instance
     {
         get
         {
-            if (instance == null) instance = GameObject.FindObjectOfType<Arm>();
+            if (instance == null) instance = GameObject.FindObjectOfType<RightArm>();
             return instance;
         }
     }
@@ -28,14 +28,14 @@ public class Arm : PhysicsObject
     void Start()
     {
         origLocalScale = transform.localScale;
-        Debug.Log("Arm Script started!");
+        Debug.Log("RightArm Script started!");
         graphicSprites = GetComponentsInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.activeBodyPart == GameManager.BodyParts.LeftArm)
+        if (GameManager.instance.activeBodyPart == GameManager.BodyParts.RightArm)
             ComputeVelocity();
     }
 
@@ -44,10 +44,10 @@ public class Arm : PhysicsObject
         launch += (0 - launch) * Time.deltaTime * launchRecovery;
         move.x = Input.GetAxis("Horizontal") + launch;
 
-        animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+        // animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
         // animator.SetFloat("velocityY", velocity.y);
         // animator.SetInteger("attackDirectionY", (int)Input.GetAxis("VerticalDirection"));
-        animator.SetInteger("moveDirection", (int)Input.GetAxis("HorizontalDirection"));
+        // animator.SetInteger("moveDirection", (int)Input.GetAxis("HorizontalDirection"));
         // animator.SetBool("hasChair", GameManager.Instance.inventory.ContainsKey("chair"));
         targetVelocity = move * maxSpeed;
 
@@ -62,7 +62,7 @@ public class Arm : PhysicsObject
 
         if (Input.GetMouseButtonDown(0))
         {
-            animator.SetTrigger("attack");
+            // animator.SetTrigger("attack");
         }
     }
 }

@@ -49,7 +49,8 @@ public class Floppy : PhysicsObject
         graphicSprites = GetComponentsInChildren<SpriteRenderer>();
 
         // disable all detached body parts
-        Arm.Instance.graphic.SetActive(false);
+        LeftArm.Instance.graphic.SetActive(false);
+        RightArm.Instance.graphic.SetActive(false);
         Legs.Instance.graphic.SetActive(false);
     }
 
@@ -102,10 +103,17 @@ public class Floppy : PhysicsObject
         }
 
         if(Input.GetKeyDown(KeyCode.Z) ){
-            if (hasRightArm)
+            if (hasLeftArm)
+                detachLeftArm();
+            else if (hasRightArm)
                 detachRightArm();
-            else if ( Vector2.Distance(graphic.transform.position, Arm.Instance.transform.position) < attachDistance) 
-                attachRightArm(); // todo add range condition
+        }
+
+        if(Input.GetKeyDown(KeyCode.V)){
+            if(!hasLeftArm && Vector2.Distance(graphic.transform.position, LeftArm.Instance.transform.position) < attachDistance) 
+                attachLeftArm(); // todo add range condition
+            else if(!hasRightArm && Vector2.Distance(graphic.transform.position, RightArm.Instance.transform.position) < attachDistance) 
+                attachRightArm();
         }
 
         if(Input.GetKeyDown(KeyCode.X) ){
@@ -117,26 +125,49 @@ public class Floppy : PhysicsObject
 
     }
 
-    private void detachRightArm() {
+    private void detachLeftArm() {
         // animator.SetBool("hasRightArm", false);
         for (int i = 0; i < graphic.transform.childCount; i+= 1){
             if (graphic.transform.GetChild(i).name == "Arm-L") {
                 graphic.transform.GetChild(i).gameObject.SetActive(false);
             }
         }
-        hasRightArm = false;
-        Arm.Instance.graphic.SetActive(true);
+        hasLeftArm = false;
+        LeftArm.Instance.graphic.SetActive(true);
     }
 
-    private void attachRightArm() {
+    private void detachRightArm() {
+        // animator.SetBool("hasRightArm", false);
+        for (int i = 0; i < graphic.transform.childCount; i+= 1){
+            if (graphic.transform.GetChild(i).name == "Arm-R") {
+                graphic.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+        hasRightArm = false;
+        RightArm.Instance.graphic.SetActive(true);
+    }
+
+    private void attachLeftArm() {
         // animator.SetBool("hasRightArm", false);
         for (int i = 0; i < graphic.transform.childCount; i+= 1){
             if (graphic.transform.GetChild(i).name == "Arm-L") {
                 graphic.transform.GetChild(i).gameObject.SetActive(true);
             }
         }
+        hasLeftArm = true;
+        LeftArm.Instance.graphic.SetActive(false);
+    }
+
+
+    private void attachRightArm() {
+        // animator.SetBool("hasRightArm", false);
+        for (int i = 0; i < graphic.transform.childCount; i+= 1){
+            if (graphic.transform.GetChild(i).name == "Arm-R") {
+                graphic.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
         hasRightArm = true;
-        Arm.Instance.graphic.SetActive(false);
+        RightArm.Instance.graphic.SetActive(false);
     }
 
     private void detachLegs() {
