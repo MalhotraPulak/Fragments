@@ -8,7 +8,7 @@ public class LeftArm : PhysicsObject
     [SerializeField] public GameObject graphic;
     public float maxSpeed = 5;
     private Vector3 origLocalScale;
-    private float launch;
+    public float launch;
     [SerializeField] Vector2 hurtLaunchPower;
     [SerializeField] private float launchRecovery;
     [SerializeField] private Component[] graphicSprites;    
@@ -43,6 +43,7 @@ public class LeftArm : PhysicsObject
         Vector2 move = Vector2.zero;
         launch += (0 - launch) * Time.deltaTime * launchRecovery;
         move.x = Input.GetAxis("Horizontal") + launch;
+        move.y = launch;
 
         // animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
         // animator.SetFloat("velocityY", velocity.y);

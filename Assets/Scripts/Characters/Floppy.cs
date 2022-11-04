@@ -19,6 +19,8 @@ public class Floppy : PhysicsObject
     [SerializeField] private float launchRecovery;
     [SerializeField] private Component[] graphicSprites;
     public CinemachineVirtualCamera virtualCamera;
+    public Vector3 legsOffset;
+    public float ArmLaunchPower;
 
     public bool hasLeftArm = true;
     public bool hasRightArm = true;
@@ -50,7 +52,6 @@ public class Floppy : PhysicsObject
         origLocalScale = transform.localScale;
         Debug.Log("Script started!");
         graphicSprites = GetComponentsInChildren<SpriteRenderer>();
-
         // disable all detached body parts
         LeftArm.Instance.graphic.SetActive(false);
         RightArm.Instance.graphic.SetActive(false);
@@ -103,6 +104,7 @@ public class Floppy : PhysicsObject
         }
 
         if(Input.GetKeyDown(KeyCode.X) ){
+
             if (hasLegs){
                 Debug.Log("Legs have detached");
                 detachLegs();
@@ -163,6 +165,9 @@ public class Floppy : PhysicsObject
         hasLeftArm = false;
         LeftArm.Instance.graphic.SetActive(true);
         GameManager.Instance.activeBodyPart = GameManager.BodyParts.LeftArm;
+        LeftArm.Instance.graphic.transform.position = graphic.transform.position;
+        LeftArm.Instance.launch = ArmLaunchPower;
+        LeftArm.Instance.graphic.GetComponent<Rigidbody2D>().velocity = new Vector2(10, 10);
         virtualCamera.Follow = LeftArm.Instance.transform;
     }
 
@@ -174,8 +179,12 @@ public class Floppy : PhysicsObject
             }
         }
         hasRightArm = false;
+        RightArm.Instance.launch = ArmLaunchPower;
+        RightArm.Instance.velocity.y = 17;
         RightArm.Instance.graphic.SetActive(true);
         GameManager.Instance.activeBodyPart = GameManager.BodyParts.RightArm;
+        // RightArm.Instance.graphic.transform.position = graphic.transform.position;
+
         virtualCamera.Follow = RightArm.Instance.transform;
     }
 
@@ -214,6 +223,8 @@ public class Floppy : PhysicsObject
             }
         }
         hasLegs = false;
+        // move legs legsOffset distance away from floppy
+        Legs.Instance.graphic.transform.position =  graphic.transform.position + legsOffset;
         Legs.Instance.graphic.SetActive(true);
         Debug.Log("Active part before: " + GameManager.Instance.activeBodyPart);
         GameManager.Instance.activeBodyPart = GameManager.BodyParts.Legs;
@@ -232,6 +243,7 @@ public class Floppy : PhysicsObject
         Legs.Instance.graphic.SetActive(false);
         GameManager.Instance.activeBodyPart = GameManager.BodyParts.Core;
         virtualCamera.Follow = Floppy.Instance.transform;
+        ///a sdf
     }
 
     public void GetHurt(int hurtDirection, int hitPower)

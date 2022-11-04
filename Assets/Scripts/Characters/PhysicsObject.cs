@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-/*The base physics for walking objects (NewPlayer.cs and Walker.cs). Source: https://learn.unity.com/tutorial/live-session-2d-platformer-character-controller! 
+ 
+/*The base physics for walking objects (NewPlayer.cs and Walker.cs). Source: https://learn.unity.com/tutorial/live-session-2d-platformer-character-controller!
 Lots of complex stuff going on here. In ten years of making games, I've never worried about understanding any of this kind of stuff!*/
 
 public class PhysicsObject : MonoBehaviour
@@ -86,7 +86,10 @@ public class PhysicsObject : MonoBehaviour
                 float projection = Vector2.Dot(velocity, currentNormal);
                 if (projection < 0)
                 {
-                    velocity = velocity - projection * currentNormal;
+                    Debug.Log("changing vel from: " + velocity);
+                    // velocity = velocity 0.99f;
+                    // velocity = velocity - projection * currentNormal;
+                    Debug.Log("changing vel to: " + velocity);
                 }
 
                 float modifiedDistance = hitBuffer[i].distance - shellRadius;
