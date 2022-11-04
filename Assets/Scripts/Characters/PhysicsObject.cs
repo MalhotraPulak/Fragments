@@ -21,12 +21,14 @@ public class PhysicsObject : MonoBehaviour
     protected const float minMoveDistance = 0.001f;
     protected const float shellRadius = 0.01f;
 
+    // todo use onEnable in bodyparts?
     void OnEnable()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        groundNormal = Vector2.up;
     }
 
-    void Start()
+    protected void Start()
     {
         contactFilter.useTriggers = false;
         contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
@@ -36,6 +38,11 @@ public class PhysicsObject : MonoBehaviour
     void Update()
     {
         targetVelocity = Vector2.zero;
+        ComputeVelocity();
+    }
+
+    protected virtual void ComputeVelocity()
+    {
     }
 
     void FixedUpdate()
@@ -45,10 +52,13 @@ public class PhysicsObject : MonoBehaviour
 
         grounded = false;
         Vector2 deltaPosition = velocity * Time.deltaTime;
+
+        // move in x direction
         Vector2 moveAlongGround = new Vector2(groundNormal.y, -groundNormal.x);
         Vector2 move = moveAlongGround * deltaPosition.x;
-
         Movement(move, false);
+
+        // move in y direction
         move = Vector2.up * deltaPosition.y;
         Movement(move, true);
     }
@@ -56,46 +66,49 @@ public class PhysicsObject : MonoBehaviour
     void Movement(Vector2 move, bool yMovement)
     {
         float distance = move.magnitude;
-        if (distance > minMoveDistance)
+        if (distance <= minMoveDistance)
         {
-            int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
-            hitBufferList.Clear();
+            // we just move a little bit, so we don't need to check for collisions
+            rb2d.position = rb2d.position + move.normalized * distance;
+            return;
+        }
 
-            for (int i = 0; i < count; i++)
+        // in this case we check for collision and then move
+        int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
+        hitBufferList.Clear();
+
+        for (int i = 0; i < count; i++)
+        {
+            PlatformEffector2D platform = hitBuffer[i].collider.GetComponent<PlatformEffector2D>();
+            if (!platform || (hitBuffer[i].normal == Vector2.up && velocity.y < 0 && yMovement))
             {
-                PlatformEffector2D platform = hitBuffer[i].collider.GetComponent<PlatformEffector2D>();
-                if (!platform || (hitBuffer[i].normal == Vector2.up && velocity.y < 0 && yMovement))
+                hitBufferList.Add(hitBuffer[i]);
+            }
+        }
+
+        for (int i = 0; i < hitBufferList.Count; i++)
+        {
+            Vector2 currentNormal = hitBufferList[i].normal;
+            if (currentNormal.y > minGroundNormalY)
+            {
+                grounded = true;
+                if (yMovement)
                 {
-                    hitBufferList.Add(hitBuffer[i]);
+                    groundNormal = currentNormal;
+                    currentNormal.x = 0;
                 }
             }
 
-            for (int i = 0; i < hitBufferList.Count; i++)
+            float projection = Vector2.Dot(velocity, currentNormal);
+            if (projection < 0)
             {
-                Vector2 currentNormal = hitBufferList[i].normal;
-                if (currentNormal.y > minGroundNormalY)
-                {
-                    grounded = true;
-                    if (yMovement)
-                    {
-                        groundNormal = currentNormal;
-                        currentNormal.x = 0;
-                    }
-                }
-
-                float projection = Vector2.Dot(velocity, currentNormal);
-                if (projection < 0)
-                {
-                    Debug.Log("changing vel from: " + velocity);
-                    // velocity = velocity 0.99f;
-                    // velocity = velocity - projection * currentNormal;
-                    Debug.Log("changing vel to: " + velocity);
-                }
-
-                float modifiedDistance = hitBuffer[i].distance - shellRadius;
-                distance = modifiedDistance < distance ? modifiedDistance : distance;
+                // Debug.Log("changing vel from: " + velocity);
+                velocity = velocity - projection * currentNormal;
+                // Debug.Log("changing vel to: " + velocity);
             }
 
+            float modifiedDistance = hitBuffer[i].distance - shellRadius;
+            distance = modifiedDistance < distance ? modifiedDistance : distance;
         }
         rb2d.position = rb2d.position + move.normalized * distance;
     }

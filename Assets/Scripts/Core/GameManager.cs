@@ -14,10 +14,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] public AudioTrigger gameMusic;
     [SerializeField] public AudioTrigger gameAmbience;
-    public enum BodyParts { LeftArm, RightArm, Legs, Core };
-    public BodyParts activeBodyPart;
 
-        public CinemachineVirtualCamera virtualCamera;
 
     // Singleton instantiation
     public static GameManager Instance
@@ -33,32 +30,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        activeBodyPart = BodyParts.Core;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            activeBodyPart = BodyParts.Core;
-            virtualCamera.Follow = Floppy.Instance.transform;
-
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && !Floppy.Instance.hasLeftArm)
-        {
-            activeBodyPart = BodyParts.LeftArm;
-            virtualCamera.Follow = LeftArm.Instance.transform;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && !Floppy.Instance.hasRightArm)
-        {
-            activeBodyPart = BodyParts.RightArm;
-            virtualCamera.Follow = RightArm.Instance.transform;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && !Floppy.Instance.hasLegs)
-        {
-            activeBodyPart = BodyParts.Legs;
-            virtualCamera.Follow = Legs.Instance.transform;
-        }
     }
 
     // Use this for initialization

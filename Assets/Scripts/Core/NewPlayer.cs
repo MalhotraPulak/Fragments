@@ -99,7 +99,7 @@ public class NewPlayer : PhysicsObject
 
     protected void ComputeVelocity()
     {
-        Debug.Log("Y velocity: " + velocity.y);
+        // Debug.Log("Y velocity: " + velocity.y);
         //Player movement & attack
         Vector2 move = Vector2.zero;
         ground = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector2.up);
