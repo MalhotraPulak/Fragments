@@ -11,7 +11,8 @@ public class BodyPartManager : MonoBehaviour
     public bool hasLeftArm = true;
     public bool hasRightArm = true;
     public bool hasLegs = true;
-    public float ArmLaunchPower;
+    public float ArmLaunchX;
+    public float ArmLaunchY;
     public Vector3 legsOffset;
     public float attachDistance = 5f;
     public CinemachineVirtualCamera virtualCamera;
@@ -65,8 +66,10 @@ public class BodyPartManager : MonoBehaviour
 
     void Detach()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        // arm direction
+        if (Input.GetKey(KeyCode.Z))
         {
+
             if (hasLeftArm)
                 detachLeftArm();
             else if (hasRightArm)
@@ -173,10 +176,21 @@ public class BodyPartManager : MonoBehaviour
         detachArm(RightArm.Instance);
     }
 
-    private void detachArm(Arm arm) {
-        arm.graphic.transform.position = Floppy.Instance.graphic.transform.position + new Vector3(2f, 0f, 0);
-        arm.velocity.y = 20;
-        arm.launch = ArmLaunchPower;
+    private void detachArm(Arm arm)
+    {
+        float right = Input.GetAxis("Horizontal");
+        float up = Input.GetAxis("Vertical");
+
+        arm.graphic.transform.position = Floppy.Instance.graphic.transform.position;
+
+        // float right = 1f;
+        // float up = 1f;
+        Vector2 dir = new Vector2(right, up);
+        dir.Normalize();
+
+        arm.velocity.y = ArmLaunchY * dir.y;
+        arm.launch = ArmLaunchX * dir.x;
+
         virtualCamera.Follow = arm.transform;
         arm.graphic.SetActive(true);
     }

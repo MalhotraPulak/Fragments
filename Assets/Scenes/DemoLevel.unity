@@ -549,6 +549,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lead
       objectReference: {fileID: 0}
+    - target: {fileID: 2721500317687537462, guid: 7394c21d5273b4b49a822ce9264b11de,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7298503097725840162, guid: 7394c21d5273b4b49a822ce9264b11de,
         type: 3}
       propertyPath: m_Constraints
@@ -8091,7 +8096,8 @@ MonoBehaviour:
   hasLeftArm: 1
   hasRightArm: 1
   hasLegs: 1
-  ArmLaunchPower: 5
+  ArmLaunchX: 5
+  ArmLaunchY: 20
   legsOffset: {x: 0, y: 0, z: 0}
   attachDistance: 5
   virtualCamera: {fileID: 2080967542}
@@ -9671,7 +9677,7 @@ PrefabInstance:
     - target: {fileID: 787754829228175929, guid: d71dde37471daa842a8ba1d722eaf78d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.6
+      value: -6.3
       objectReference: {fileID: 0}
     - target: {fileID: 787754829228175929, guid: d71dde37471daa842a8ba1d722eaf78d,
         type: 3}

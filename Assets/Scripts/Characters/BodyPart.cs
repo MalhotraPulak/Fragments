@@ -57,9 +57,19 @@ public class BodyPart : PhysicsObject
     }
 
     protected void launchUpdate()
-    {
-        launch -= launchRecovery * Time.deltaTime;
-        if (launch < 0.01)
+    {   
+        float deltaLaunch = launchRecovery * Time.deltaTime;
+        if (launch > 0)
+        {
+            launch -= deltaLaunch;
+            launch = Mathf.Max(0, launch);
+        }
+        else if (launch < 0)
+        {
+            launch += deltaLaunch;
+            launch = Mathf.Min(0, launch);
+        }
+        if (Mathf.Abs(launch) < 0.01)
             launch = 0;
     }
 
