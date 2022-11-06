@@ -25,7 +25,7 @@ public class AttackHit : MonoBehaviour
         if (isBomb) StartCoroutine(TempColliderDisable());
     }
 
-    void OnTriggerStay2D(Collider2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         //Determine which side the attack is on
         if (parent.transform.position.x < col.transform.position.x)
@@ -41,27 +41,45 @@ public class AttackHit : MonoBehaviour
 
         //Attack Player
         // if (attacksWhat == AttacksWhat.Floppy)
-        if (attacksWhat == AttacksWhat.Floppy && col.GetComponent<Floppy>() != null)
+        if (attacksWhat == AttacksWhat.Floppy && col.gameObject.GetComponent<Floppy>() != null)
         {
-            Floppy.Instance.GetHurt(targetSide, hitPower);
-            // if (col.GetComponent<Floppy>() != null)
-            // {
-                
-                // if (isBomb) transform.parent.GetComponent<EnemyBase>().Die(); 
-            // }
+            Debug.Log(col.contactCount);
+            for(int i = 0; i < col.contactCount ;i++){
+                Debug.Log("Contact " + i +" " + col.GetContact(i).point.y);
+            }
+            float posCollision = col.GetContact(0).point.y;
+            float enemyCapHeight  = gameObject.GetComponent<CapsuleCollider2D>().size.y * gameObject.transform.localScale.y;
+            float actualHeight = 2 *(transform.position.y + 1.27f);
+            Debug.Log("Actual height: " + (2 *(transform.position.y + 1.27)));
+            Debug.Log("enemyCapHeight: " + enemyCapHeight);
+            Debug.Log("posCollision: " + posCollision);
+            Debug.Log("0.8 * (enemyCapHeight / 2): " + 0.8 * (enemyCapHeight / 2));
+            Debug.Log("posCollision - transform.position.y: " + (posCollision - transform.position.y));
+            Debug.Log("posCollision: " + posCollision);
+
+            if (posCollision - transform.position.y < 0.7 * (actualHeight / 2))
+            {
+                Debug.Log("Fuck got atytacked");
+                Floppy.Instance.GetHurt(targetSide, hitPower);
+            }
+            else
+            {
+                Debug.Log("Attacked enemy");
+            }
+
         }
 
         //Attack Enemies
-        else if (attacksWhat == AttacksWhat.EnemyBase && col.GetComponent<EnemyBase>() != null)
+        else if (attacksWhat == AttacksWhat.EnemyBase && col.gameObject.GetComponent<EnemyBase>() != null)
         {
             Debug.Log("Attacking enemy");
-            col.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
+            col.gameObject.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
         }
 
         //Attack Breakables
-        else if (attacksWhat == AttacksWhat.EnemyBase && col.GetComponent<EnemyBase>() == null && col.GetComponent<Breakable>() != null)
+        else if (attacksWhat == AttacksWhat.EnemyBase && col.gameObject.GetComponent<EnemyBase>() == null && col.gameObject.GetComponent<Breakable>() != null)
         {
-            col.GetComponent<Breakable>().GetHurt(hitPower);
+            col.gameObject.GetComponent<Breakable>().GetHurt(hitPower);
         }
 
         //Blow up bombs if they touch walls
