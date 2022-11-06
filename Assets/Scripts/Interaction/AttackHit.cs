@@ -52,12 +52,33 @@ public class AttackHit : MonoBehaviour
 
         //Attack Player
         // if (attacksWhat == AttacksWhat.Floppy)
-        if (attacksWhat == AttacksWhat.Floppy && col.gameObject.GetComponent<Floppy>() != null)
+        if (attacksWhat == AttacksWhat.Floppy)
         {
+            GameObject enemy = gameObject;
 
-            if (!enemyHit(gameObject, col))
+            if (col.gameObject.GetComponent<Floppy>() != null)
             {
-                Floppy.Instance.GetHurt(targetSide, hitPower);
+                if(enemyHit(enemy, col))
+                {   
+                    enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
+                }
+                else
+                {
+                    Floppy.Instance.GetHurt(targetSide, hitPower);
+                }
+            }
+
+            else if (col.gameObject.GetComponent<RightArm>() != null ||
+            col.gameObject.GetComponent<LeftArm>() != null)
+            {
+                if(enemyHit(enemy, col))
+                {   
+                    enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
+                }
+                else
+                {
+                    Floppy.Instance.GetHurt(targetSide, hitPower);
+                }
             }
 
         }
@@ -65,11 +86,6 @@ public class AttackHit : MonoBehaviour
         //Attack Enemies
         else if (attacksWhat == AttacksWhat.EnemyBase && col.gameObject.GetComponent<EnemyBase>() != null)
         {
-            GameObject enemy = col.gameObject;
-            if(enemyHit(enemy, col))
-            {   
-                enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
-            }
         }
 
         //Attack Breakables
