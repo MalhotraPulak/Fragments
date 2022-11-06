@@ -72,7 +72,6 @@ public class PhysicsObject : MonoBehaviour
             rb2d.position = rb2d.position + move.normalized * distance;
             return;
         }
-
         // in this case we check for collision and then move
         int count = rb2d.Cast(move, contactFilter, hitBuffer, distance + shellRadius);
         hitBufferList.Clear();
@@ -98,7 +97,7 @@ public class PhysicsObject : MonoBehaviour
                     currentNormal.x = 0;
                 }
             }
-
+            
             float projection = Vector2.Dot(velocity, currentNormal);
             if (projection < 0)
             {

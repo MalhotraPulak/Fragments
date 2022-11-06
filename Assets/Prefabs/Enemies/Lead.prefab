@@ -9919,7 +9919,7 @@ GameObject:
   - component: {fileID: 6482014951828341232}
   - component: {fileID: 5700196497399743274}
   - component: {fileID: 5913565969721049118}
-  - component: {fileID: 2721500317687537462}
+  - component: {fileID: 4138347245660276015}
   m_Layer: 0
   m_Name: Lead
   m_TagString: Untagged
@@ -10047,8 +10047,8 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!61 &2721500317687537462
-BoxCollider2D:
+--- !u!60 &4138347245660276015
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10070,9 +10070,11 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.07748947, y: 1.8930244}
+      - {x: -1.5128858, y: -0.40561575}
+      - {x: 1.4454312, y: -0.44170034}
 --- !u!1 &5060043951991403988
 GameObject:
   m_ObjectHideFlags: 0

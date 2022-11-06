@@ -75,9 +75,9 @@ public class Walker : PhysicsObject
     {
         Vector2 move = Vector2.zero;
 
-        if (!NewPlayer.Instance.frozen)
+        if (!Floppy.Instance.frozen)
         {
-            distanceFromPlayer = new Vector2 (NewPlayer.Instance.gameObject.transform.position.x - transform.position.x, NewPlayer.Instance.gameObject.transform.position.y - transform.position.y);
+            distanceFromPlayer = new Vector2 (Floppy.Instance.gameObject.transform.position.x - transform.position.x, Floppy.Instance.gameObject.transform.position.y - transform.position.y);
             directionSmooth += ((direction * sitStillMultiplier) - directionSmooth) * Time.deltaTime * changeDirectionEase;
             move.x = (1 * directionSmooth) + launch;
             launch += (0 - launch) * Time.deltaTime;

@@ -8,14 +8,14 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    [Header ("Reference")]
+    [Header("Reference")]
     [System.NonSerialized] public AudioSource audioSource;
     public Animator animator;
     private AnimatorFunctions animatorFunctions;
     [SerializeField] Instantiator instantiator;
     [System.NonSerialized] public RecoveryCounter recoveryCounter;
 
-    [Header ("Properties")]
+    [Header("Properties")]
     [SerializeField] private GameObject deathParticles;
     [SerializeField] private int health = 1;
     public AudioClip hitSound;
@@ -48,8 +48,9 @@ public class EnemyBase : MonoBehaviour
                 Floppy.Instance.cameraEffects.Shake(100, 1);
                 health -= 1;
                 animator.SetTrigger("hurt");
-                
-                if (audioSource!=null) {
+
+                if (audioSource != null)
+                {
                     audioSource.pitch = (1);
                     audioSource.PlayOneShot(hitSound);
                 }

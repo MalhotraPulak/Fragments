@@ -90,7 +90,7 @@ public class Floppy : BodyPart
     public void Hide(bool hide)
     {
         // todo uncomment
-        // Freeze(hide);
+        Freeze(hide);
         foreach (SpriteRenderer sprite in graphicSprites)
             sprite.gameObject.SetActive(!hide);
     }
@@ -148,6 +148,23 @@ public class Floppy : BodyPart
                 graphic.transform.GetChild(i).gameObject.SetActive(true);
             }
         }
+    }
+
+    public void Freeze(bool freeze)
+    {
+        //Set all animator params to ensure the player stops running, jumping, etc and simply stands
+        if (freeze)
+        {
+            animator.SetInteger("moveDirection", 0);
+            animator.SetBool("grounded", true);
+            animator.SetFloat("velocityX", 0f);
+            animator.SetFloat("velocityY", 0f);
+            GetComponent<PhysicsObject>().targetVelocity = Vector2.zero;
+        }
+
+        frozen = freeze;
+        // shooting = false;
+        launch = 0;
     }
 
 }

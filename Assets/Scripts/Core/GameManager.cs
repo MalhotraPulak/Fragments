@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Use this for initialization
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void ClearInventory()
-    {   
+    {
         inventory.Clear();
         hud.SetInventoryImage(hud.blankUI);
     }

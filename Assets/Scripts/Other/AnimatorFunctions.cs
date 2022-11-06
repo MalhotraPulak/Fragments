@@ -21,19 +21,19 @@ public class AnimatorFunctions : MonoBehaviour
     //Hide and unhide the player
     public void HidePlayer(bool hide)
     {
-        NewPlayer.Instance.Hide(hide);
+        Floppy.Instance.Hide(hide);
     }
   
     //Sometimes we want an animated object to force the player to jump, like a jump pad.
     public void JumpPlayer(float power = 1f)
     {
-        NewPlayer.Instance.Jump(power);
+        // Floppy.Instance.Jump(power);
     }
 
     //Freeze and unfreeze the player movement
     void FreezePlayer(bool freeze)
     {
-        NewPlayer.Instance.Freeze(freeze);
+        Floppy.Instance.Freeze(freeze);
     }
 
     //Play a sound through the specified audioSource
@@ -49,7 +49,7 @@ public class AnimatorFunctions : MonoBehaviour
 
     public void ScreenShake(float power)
     {
-        NewPlayer.Instance.cameraEffects.Shake(power, 1f);
+        Floppy.Instance.cameraEffects.Shake(power, 1f);
     }
 
     public void SetTimeScale(float time)
