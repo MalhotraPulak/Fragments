@@ -579,25 +579,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4138347245660276015, guid: 7394c21d5273b4b49a822ce9264b11de,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4138347245660276015, guid: 7394c21d5273b4b49a822ce9264b11de,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5060043951991403988, guid: 7394c21d5273b4b49a822ce9264b11de,
         type: 3}
       propertyPath: m_Layer
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6579365872506498771, guid: 7394c21d5273b4b49a822ce9264b11de,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7298503097725840162, guid: 7394c21d5273b4b49a822ce9264b11de,
         type: 3}
@@ -624,9 +609,27 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4138347245660276015, guid: 7394c21d5273b4b49a822ce9264b11de, type: 3}
-    - {fileID: 6579365872506498771, guid: 7394c21d5273b4b49a822ce9264b11de, type: 3}
+    - target: {fileID: 8295213629241005450, guid: 7394c21d5273b4b49a822ce9264b11de,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.258525
+      objectReference: {fileID: 0}
+    - target: {fileID: 8295213629241005450, guid: 7394c21d5273b4b49a822ce9264b11de,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.3068955
+      objectReference: {fileID: 0}
+    - target: {fileID: 8295213629241005450, guid: 7394c21d5273b4b49a822ce9264b11de,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -0.06080866
+      objectReference: {fileID: 0}
+    - target: {fileID: 8295213629241005450, guid: 7394c21d5273b4b49a822ce9264b11de,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.69080126
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7394c21d5273b4b49a822ce9264b11de, type: 3}
 --- !u!1001 &84137534
 PrefabInstance:
@@ -2506,89 +2509,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce1bbe003f390412a80f34448b33c93c, type: 3}
---- !u!1 &503197951 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2131454300029191135, guid: 7394c21d5273b4b49a822ce9264b11de,
-    type: 3}
-  m_PrefabInstance: {fileID: 82810629}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &503197955 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6482014951828341232, guid: 7394c21d5273b4b49a822ce9264b11de,
-    type: 3}
-  m_PrefabInstance: {fileID: 82810629}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503197951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f76df804f07458b8dd06edeba7002d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &503197960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503197951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24bd338ffcf5247648de88f565c8b84c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  gravityModifier: 3
-  contactFilter:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 1280
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  enemyBase: {fileID: 503197955}
-  graphic: {fileID: 503197951}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 16640
-  enemyType: 0
-  attentionRange: 1.09
-  changeDirectionEase: 2
-  followPlayer: 0
-  flipWhenTurning: 0
-  hurtLaunchPower: 14
-  jumping: 0
-  jumpPower: 7
-  maxSpeed: 3
-  maxSpeedDeviation: 1
-  neverStopFollowing: 0
-  rayCastSize: {x: 1.5, y: 1}
-  rayCastOffset: {x: 1, y: 0.46}
-  sitStillWhenNotFollowing: 0
-  jumpSound: {fileID: 8300000, guid: a69256e0605cd46c19e2fe34da9587b5, type: 3}
-  stepSound: {fileID: 0}
---- !u!70 &503197961
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503197951}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.54487467}
-  m_Size: {x: 1.31, y: 1.8204737}
-  m_Direction: 0
 --- !u!1 &556293161
 GameObject:
   m_ObjectHideFlags: 0
@@ -6431,7 +6351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1437137786
 Transform:
   m_ObjectHideFlags: 0
@@ -6503,7 +6423,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1437137785}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd3b469cc09d64f4695c6375aacdaa97, type: 3}
   m_Name: 
@@ -10850,6 +10770,7 @@ GameObject:
   - component: {fileID: 6562885625332436214}
   - component: {fileID: 6562885625332436213}
   - component: {fileID: 6562885625332436217}
+  - component: {fileID: 6562885625332436218}
   m_Layer: 10
   m_Name: Floppy
   m_TagString: Floppy
@@ -10968,6 +10889,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6562885625332436218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6562885625332436212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3b469cc09d64f4695c6375aacdaa97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacksWhat: 0
+  oneHitKill: 0
+  startCollisionDelay: 0
+  parent: {fileID: 1572331044}
+  isBomb: 0
+  hitPower: 1
 --- !u!4 &6834455170387927757
 Transform:
   m_ObjectHideFlags: 0

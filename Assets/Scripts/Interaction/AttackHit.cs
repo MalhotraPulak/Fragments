@@ -5,7 +5,6 @@ using UnityEngine;
 /*This script can be placed on any collider that is a trigger. It can hurt enemies or the player, 
 so we use it for both player attacks and enemy attacks. 
 */
-
 public class AttackHit : MonoBehaviour
 {
     private enum AttacksWhat { EnemyBase, Floppy };
@@ -23,6 +22,18 @@ public class AttackHit : MonoBehaviour
         /*If isBomb = true, we want to be sure the collider is disabled when first launched,
         otherwise it will blow up when touching the object shooting it!*/
         if (isBomb) StartCoroutine(TempColliderDisable());
+    }
+
+    bool enemyHit(GameObject enemy, Collision2D col)
+    {
+        float posCollision = col.GetContact(0).point.y;
+
+        float enemyCapHeight  = enemy.GetComponent<CapsuleCollider2D>().size.y * enemy.transform.localScale.y;
+
+        // was not working wiithout scaling th
+        float posEnemyCollider = enemy.transform.position.y + enemy.GetComponent<CapsuleCollider2D>().offset.y * enemy.transform.localScale.y;
+        
+        return (posCollision - posEnemyCollider) > 0.7 * (enemyCapHeight / 2);
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -43,12 +54,12 @@ public class AttackHit : MonoBehaviour
         // if (attacksWhat == AttacksWhat.Floppy)
         if (attacksWhat == AttacksWhat.Floppy && col.gameObject.GetComponent<Floppy>() != null)
         {
-            float posCollision = col.GetContact(0).point.y;
-            float enemyCapHeight  = gameObject.GetComponent<CapsuleCollider2D>().size.y * gameObject.transform.localScale.y;
+            // float posCollision = col.GetContact(0).point.y;
+            // float enemyCapHeight  = gameObject.GetComponent<CapsuleCollider2D>().size.y * gameObject.transform.localScale.y;
 
-            float posEnemyCollider = transform.position.y + gameObject.GetComponent<CapsuleCollider2D>().offset.y;
+            // float posEnemyCollider = transform.position.y + gameObject.GetComponent<CapsuleCollider2D>().offset.y;
 
-            if (posCollision - posEnemyCollider < 0.8 * (enemyCapHeight / 2))
+            if (!enemyHit(gameObject, col))
             {
                 Floppy.Instance.GetHurt(targetSide, hitPower);
             }
@@ -62,8 +73,12 @@ public class AttackHit : MonoBehaviour
         //Attack Enemies
         else if (attacksWhat == AttacksWhat.EnemyBase && col.gameObject.GetComponent<EnemyBase>() != null)
         {
-            Debug.Log("Attacking enemy");
-            col.gameObject.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
+            GameObject enemy = col.gameObject;
+            if(enemyHit(enemy, col))
+            {   
+                Debug.Log("Mereko mat marrroooo");
+                enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
+            }
         }
 
         //Attack Breakables

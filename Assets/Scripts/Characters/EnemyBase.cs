@@ -40,7 +40,7 @@ public class EnemyBase : MonoBehaviour
     public void GetHurt(int launchDirection, int hitPower)
     {
         //Hit the enemy, causing a damage effect, and decreasing health. Allows for requiring a downward pound attack
-        if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null) && !recoveryCounter.recovering)
+        if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null || GetComponent<Cap>() != null) && !recoveryCounter.recovering)
         {
             Debug.Log("Hitting something");
             if (!requirePoundAttack || (requirePoundAttack && NewPlayer.Instance.pounding))
@@ -82,6 +82,11 @@ public class EnemyBase : MonoBehaviour
                     // walker.velocity.y = walker.hurtLaunchPower;
                     // walker.directionSmooth = launchDirection;
                     // walker.direction = walker.directionSmooth;
+                }
+
+                if (GetComponent<Cap>() != null)
+                {
+                    Debug.Log("HIT A CAP");
                 }
 
                 if (GetComponent<Flyer>() != null)
