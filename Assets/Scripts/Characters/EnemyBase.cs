@@ -56,12 +56,12 @@ public class EnemyBase : MonoBehaviour
                 }
                 //Ensure the enemy and also the player cannot engage in hitting each other for the max recoveryTime for each
                 recoveryCounter.counter = 0;
-                NewPlayer.Instance.recoveryCounter.counter = 0;
+                Floppy.Instance.recoveryCounter.counter = 0;
 
-                if (NewPlayer.Instance.pounding)
-                {
-                    NewPlayer.Instance.PoundEffect();
-                }
+                // if (NewPlayer.Instance.pounding)
+                // {
+                //     NewPlayer.Instance.PoundEffect();
+                // }
 
 
                 //The Walker being launched after getting hit is a little different than the Flyer getting launched by a hit.
@@ -98,7 +98,7 @@ public class EnemyBase : MonoBehaviour
                     flyer.speed.y = flyer.speedEased.y;
                 }
 
-                NewPlayer.Instance.FreezeFrameEffect();
+                // NewPlayer.Instance.FreezeFrameEffect();
             }
         }
     }

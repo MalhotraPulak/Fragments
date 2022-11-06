@@ -30,7 +30,7 @@ public class AttackHit : MonoBehaviour
 
         float enemyCapHeight  = enemy.GetComponent<CapsuleCollider2D>().size.y * enemy.transform.localScale.y;
 
-        // was not working wiithout scaling th
+        // was not working wiithout scaling the offset with object scale
         float posEnemyCollider = enemy.transform.position.y + enemy.GetComponent<CapsuleCollider2D>().offset.y * enemy.transform.localScale.y;
         
         return (posCollision - posEnemyCollider) > 0.7 * (enemyCapHeight / 2);
@@ -54,18 +54,10 @@ public class AttackHit : MonoBehaviour
         // if (attacksWhat == AttacksWhat.Floppy)
         if (attacksWhat == AttacksWhat.Floppy && col.gameObject.GetComponent<Floppy>() != null)
         {
-            // float posCollision = col.GetContact(0).point.y;
-            // float enemyCapHeight  = gameObject.GetComponent<CapsuleCollider2D>().size.y * gameObject.transform.localScale.y;
-
-            // float posEnemyCollider = transform.position.y + gameObject.GetComponent<CapsuleCollider2D>().offset.y;
 
             if (!enemyHit(gameObject, col))
             {
                 Floppy.Instance.GetHurt(targetSide, hitPower);
-            }
-            else
-            {
-                Debug.Log("Attacked enemy");
             }
 
         }
@@ -76,7 +68,6 @@ public class AttackHit : MonoBehaviour
             GameObject enemy = col.gameObject;
             if(enemyHit(enemy, col))
             {   
-                Debug.Log("Mereko mat marrroooo");
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
             }
         }
