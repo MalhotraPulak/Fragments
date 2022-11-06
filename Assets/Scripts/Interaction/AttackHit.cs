@@ -43,23 +43,13 @@ public class AttackHit : MonoBehaviour
         // if (attacksWhat == AttacksWhat.Floppy)
         if (attacksWhat == AttacksWhat.Floppy && col.gameObject.GetComponent<Floppy>() != null)
         {
-            Debug.Log(col.contactCount);
-            for(int i = 0; i < col.contactCount ;i++){
-                Debug.Log("Contact " + i +" " + col.GetContact(i).point.y);
-            }
             float posCollision = col.GetContact(0).point.y;
             float enemyCapHeight  = gameObject.GetComponent<CapsuleCollider2D>().size.y * gameObject.transform.localScale.y;
-            float actualHeight = 2 *(transform.position.y + 1.27f);
-            Debug.Log("Actual height: " + (2 *(transform.position.y + 1.27)));
-            Debug.Log("enemyCapHeight: " + enemyCapHeight);
-            Debug.Log("posCollision: " + posCollision);
-            Debug.Log("0.8 * (enemyCapHeight / 2): " + 0.8 * (enemyCapHeight / 2));
-            Debug.Log("posCollision - transform.position.y: " + (posCollision - transform.position.y));
-            Debug.Log("posCollision: " + posCollision);
 
-            if (posCollision - transform.position.y < 0.7 * (actualHeight / 2))
+            float posEnemyCollider = transform.position.y + gameObject.GetComponent<CapsuleCollider2D>().offset.y;
+
+            if (posCollision - posEnemyCollider < 0.8 * (enemyCapHeight / 2))
             {
-                Debug.Log("Fuck got atytacked");
                 Floppy.Instance.GetHurt(targetSide, hitPower);
             }
             else
