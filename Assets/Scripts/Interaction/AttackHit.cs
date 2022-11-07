@@ -55,8 +55,9 @@ public class AttackHit : MonoBehaviour
         if (attacksWhat == AttacksWhat.Floppy)
         {
             GameObject enemy = gameObject;
+            GameObject player = col.gameObject;
 
-            if (col.gameObject.GetComponent<Floppy>() != null)
+            if (player.GetComponent<Floppy>() != null)
             {
                 if(enemyHit(enemy, col))
                 {   
@@ -68,15 +69,27 @@ public class AttackHit : MonoBehaviour
                 }
             }
 
-            else if (col.gameObject.GetComponent<RightArm>() != null ||
-            col.gameObject.GetComponent<LeftArm>() != null)
+            else if (player.tag == "Arm")
             {
-                if(enemyHit(enemy, col))
-                {   
+                bool isLaunched;
+
+                if(player.GetComponent<LeftArm>() != null )
+                {
+                    isLaunched = Mathf.Abs(LeftArm.Instance.launch) > 0;
+                }
+                else
+                {
+                    isLaunched = Mathf.Abs(RightArm.Instance.launch) > 0;
+                }
+
+                if(isLaunched)
+                {
+                    Debug.Log("launched true");   
                     enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
                 }
                 else
                 {
+                    Debug.Log("launched false");   
                     Floppy.Instance.GetHurt(targetSide, hitPower);
                 }
             }

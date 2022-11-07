@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 6210631}
   m_Layer: 10
   m_Name: DetachedLeftArm
-  m_TagString: Untagged
+  m_TagString: Arm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3848,7 +3848,7 @@ GameObject:
   - component: {fileID: 924430821}
   m_Layer: 10
   m_Name: DetachedRightArm
-  m_TagString: Untagged
+  m_TagString: Arm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

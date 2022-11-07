@@ -9,10 +9,6 @@ public class Arm : BodyPart
     public bool isLeftArm;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        base.Start();
-    }
 
     protected override void ComputeVelocity() {
 
