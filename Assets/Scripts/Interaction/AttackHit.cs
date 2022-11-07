@@ -36,7 +36,7 @@ public class AttackHit : MonoBehaviour
         return (posCollisionY - posEnemyCollider) > 0.7 * (enemyCapHeight / 2);
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionStay2D(Collision2D col)
     {
         //Determine which side the attack is on
         if (parent.transform.position.x < col.transform.position.x)
@@ -66,7 +66,7 @@ public class AttackHit : MonoBehaviour
                         Vector2 posCollision = col.GetContact(0).point;
                         enemy.GetComponent<Cap>().CapHit(posCollision);
                     }
-                    Floppy.Instance.GetPushed(targetSide);
+                    Floppy.Instance.GetPushed(targetSide, false);
                 }
                 else
                 {
@@ -112,11 +112,11 @@ public class AttackHit : MonoBehaviour
             col.gameObject.GetComponent<Breakable>().GetHurt(hitPower);
         }
 
-        //Blow up bombs if they touch walls
-        if (isBomb && col.gameObject.layer == 8)
-        {
-            transform.parent.GetComponent<EnemyBase>().Die();
-        }
+        // //Blow up bombs if they touch walls
+        // if (isBomb && col.gameObject.layer == 8)
+        // {
+        //     transform.parent.GetComponent<EnemyBase>().Die();
+        // }
     }
 
     //Temporarily disable this collider to ensure bombs can launch from inside enemies without blowing up!
