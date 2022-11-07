@@ -60,7 +60,12 @@ public class Floppy : BodyPart
 
     }
 
-
+    public void GetPushed(int hurtDirection) {
+        cameraEffects.Shake(100, 1);
+        animator.SetTrigger("hurt");
+        velocity.y = hurtLaunchPower.y;
+        launch = hurtDirection * (hurtLaunchPower.x);
+    }
 
     public void GetHurt(int hurtDirection, int hitPower)
     {
@@ -68,10 +73,7 @@ public class Floppy : BodyPart
         if (!frozen && !recoveryCounter.recovering)
         {
             HurtEffect();
-            // cameraEffects.Shake(100, 1);
-            animator.SetTrigger("hurt");
-            velocity.y = hurtLaunchPower.y;
-            launch = hurtDirection * (hurtLaunchPower.x);
+            GetPushed(hurtDirection);
             recoveryCounter.counter = 0;
 
             if (health <= 0)
@@ -165,6 +167,12 @@ public class Floppy : BodyPart
         frozen = freeze;
         // shooting = false;
         launch = 0;
+    }
+
+    public void FlashEffect()
+    {
+        //Flash the player quickly
+        animator.SetTrigger("flash");
     }
 
 }

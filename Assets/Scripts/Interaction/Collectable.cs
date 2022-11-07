@@ -23,7 +23,7 @@ public class Collectable : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject == NewPlayer.Instance.gameObject)
+        if (col.gameObject == Floppy.Instance.gameObject)
         {
             Collect();
         }
@@ -46,28 +46,28 @@ public class Collectable : MonoBehaviour
         }
         else if (itemType == ItemType.Coin)
         {
-            NewPlayer.Instance.coins += itemAmount;
+            // Floppy.Instance.coins += itemAmount;
         }
         else if (itemType == ItemType.Health)
         {
-            if (NewPlayer.Instance.health < NewPlayer.Instance.maxHealth)
+            if (Floppy.Instance.health < Floppy.Instance.maxHealth)
             {
                 GameManager.Instance.hud.HealthBarHurt();
-                NewPlayer.Instance.health += itemAmount;
+                Floppy.Instance.health += itemAmount;
             }
         }
         else if (itemType == ItemType.Ammo)
         {
-            if (NewPlayer.Instance.ammo < NewPlayer.Instance.maxAmmo)
-            {
-                GameManager.Instance.hud.HealthBarHurt();
-                NewPlayer.Instance.ammo += itemAmount;
-            }
+            // if (Floppy.Instance.ammo < Floppy.Instance.maxAmmo)
+            // {
+            //     GameManager.Instance.hud.HealthBarHurt();
+            //     Floppy.Instance.ammo += itemAmount;
+            // }
         }
 
         GameManager.Instance.audioSource.PlayOneShot(collectSounds[Random.Range(0, collectSounds.Length)], Random.Range(.6f, 1f));
 
-        NewPlayer.Instance.FlashEffect();
+        Floppy.Instance.FlashEffect();
 
 
         //If my parent has an Ejector script, it means that my parent is actually what needs to be destroyed, along with me, once collected

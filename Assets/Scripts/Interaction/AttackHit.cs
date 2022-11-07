@@ -66,6 +66,7 @@ public class AttackHit : MonoBehaviour
                         Vector2 posCollision = col.GetContact(0).point;
                         enemy.GetComponent<Cap>().CapHit(posCollision);
                     }
+                    Floppy.Instance.GetPushed(targetSide);
                 }
                 else
                 {
