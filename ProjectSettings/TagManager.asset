@@ -9,6 +9,7 @@ TagManager:
   - Startup
   - Floppy
   - Arm
+  - Cap
   layers:
   - Default
   - TransparentFX

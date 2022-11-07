@@ -44,6 +44,8 @@ public class Cap : PhysicsObject
     [Header("Sounds")]
     public AudioClip jumpSound;
     public AudioClip stepSound;
+
+    public int attackCounter = 0;
     
     void Start()
     {
@@ -69,6 +71,61 @@ public class Cap : PhysicsObject
     private void Update()
     {
         ComputeVelocity();
+    }
+
+    public void CheckWalls()
+    {            
+        //Check for walls
+        rightWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right, rayCastSize.x, layerMask);
+        Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right * rayCastSize.x, Color.yellow);
+
+        if (rightWall.collider != null)
+        {
+            if (!followPlayer)
+            {
+                direction = -1;
+            }
+            else if (direction == 1)
+            {
+                Jump();
+            }
+
+        }
+
+        leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
+        Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left * rayCastSize.x, Color.blue);
+
+        if (leftWall.collider != null)
+        {
+            if (!followPlayer)
+            {
+                direction = 1;
+            }
+            else if (direction == -1)
+            {
+                Jump();
+            }
+        }
+    }
+
+    public void CheckLedges(){
+
+        if(attackCounter >= 2)
+            return;
+        //Check for ledges. Walker's height check is much higher! They will fall pretty far, but will not fall to death. 
+        rightLedge = Physics2D.Raycast(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
+        Debug.DrawRay(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
+        if ((rightLedge.collider == null || rightLedge.collider.gameObject.layer == 14) && direction == 1)
+        {
+            direction = -1;
+        }
+
+        leftLedge = Physics2D.Raycast(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
+        Debug.DrawRay(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
+        if ((leftLedge.collider == null || leftLedge.collider.gameObject.layer == 14) && direction == -1)
+        {
+            direction = 1;
+        }
     }
 
     protected void ComputeVelocity()
@@ -156,57 +213,14 @@ public class Cap : PhysicsObject
                     rayCastSize.y = rayCastSizeOrig.y;
                 }
 
-                //Check for walls
-                rightWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right, rayCastSize.x, layerMask);
-                Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right * rayCastSize.x, Color.yellow);
+                CheckWalls();
+                CheckLedges();
 
-                if (rightWall.collider != null)
-                {
-                    if (!followPlayer)
-                    {
-                        direction = -1;
-                    }
-                    else if (direction == 1)
-                    {
-                        Jump();
-                    }
-
-                }
-
-                leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
-                Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left * rayCastSize.x, Color.blue);
-
-                if (leftWall.collider != null)
-                {
-                    if (!followPlayer)
-                    {
-                        direction = 1;
-                    }
-                    else if (direction == -1)
-                    {
-                        Jump();
-                    }
-                }
-
-                //Check for ledges. Walker's height check is much higher! They will fall pretty far, but will not fall to death. 
-                rightLedge = Physics2D.Raycast(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
-                Debug.DrawRay(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
-                if ((rightLedge.collider == null || rightLedge.collider.gameObject.layer == 14) && direction == 1)
-                {
-                    direction = -1;
-                }
-
-                leftLedge = Physics2D.Raycast(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
-                Debug.DrawRay(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
-                if ((leftLedge.collider == null || leftLedge.collider.gameObject.layer == 14) && direction == -1)
-                {
-                    direction = 1;
-                }
             }
-        }
 
+        }
         enemyBase.animator.SetBool("grounded", grounded);
-        enemyBase.animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+        // enemyBase.animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
         targetVelocity = move * maxSpeed;
     }
 
@@ -218,6 +232,33 @@ public class Cap : PhysicsObject
             PlayJumpSound();
             PlayStepSound();
         }
+    }
+
+    public void CapHit(Vector2 collisionPoint){
+
+        if(attackCounter == 0){
+            attackCounter = 1;
+            maxSpeed      = 0;
+            // changeDirectionEase = 0.1f;
+        }
+        else if(attackCounter >= 1){
+            attackCounter++;
+            
+            float capPosX = transform.position.x + transform.localScale.x * gameObject.GetComponent<CapsuleCollider2D>().offset.x;
+
+            if(capPosX > collisionPoint.x)
+            {
+                // hit on left
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+            }
+
+            maxSpeed = 10;
+        }
+
     }
 
     public void PlayStepSound()

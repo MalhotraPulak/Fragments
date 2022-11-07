@@ -26,14 +26,14 @@ public class AttackHit : MonoBehaviour
 
     bool enemyHit(GameObject enemy, Collision2D col)
     {
-        float posCollision = col.GetContact(0).point.y;
+        float posCollisionY = col.GetContact(0).point.y;
 
         float enemyCapHeight  = enemy.GetComponent<CapsuleCollider2D>().size.y * enemy.transform.localScale.y;
 
         // was not working wiithout scaling the offset with object scale
         float posEnemyCollider = enemy.transform.position.y + enemy.GetComponent<CapsuleCollider2D>().offset.y * enemy.transform.localScale.y;
         
-        return (posCollision - posEnemyCollider) > 0.7 * (enemyCapHeight / 2);
+        return (posCollisionY - posEnemyCollider) > 0.7 * (enemyCapHeight / 2);
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -62,6 +62,10 @@ public class AttackHit : MonoBehaviour
                 if(enemyHit(enemy, col))
                 {   
                     enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower);
+                    if (enemy.tag == "Cap"){
+                        Vector2 posCollision = col.GetContact(0).point;
+                        enemy.GetComponent<Cap>().CapHit(posCollision);
+                    }
                 }
                 else
                 {

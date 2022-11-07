@@ -10452,6 +10452,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cap
       objectReference: {fileID: 0}
+    - target: {fileID: 2806315291673806657, guid: a6dad53f695ffb547a6755a7ac05b90d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Cap
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6dad53f695ffb547a6755a7ac05b90d, type: 3}
 --- !u!4 &4091186711690294427
