@@ -22,7 +22,7 @@ public class BodyPart : PhysicsObject
         Debug.Log(s);
     }
 
-    protected void Start()
+    protected new void Start()
     {
         base.Start();
         origLocalScale = transform.localScale;

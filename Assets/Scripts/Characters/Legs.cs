@@ -21,7 +21,7 @@ public class Legs : BodyPart
     }
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         base.Start();
     }
