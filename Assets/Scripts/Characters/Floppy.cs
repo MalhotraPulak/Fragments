@@ -133,24 +133,12 @@ public class Floppy : BodyPart
         }
     }
 
-    public void HideBodyPart (string name){
-        for (int i = 0; i < graphic.transform.childCount; i += 1)
-        {
-            if (graphic.transform.GetChild(i).name == name)
-            {
-                graphic.transform.GetChild(i).gameObject.SetActive(false);
-            }
-        }
+    public void HideBodyPart (GameObject obj){
+        obj.SetActive(false);
     }
 
-    public void ShowBodyPart (string name){
-        for (int i = 0; i < graphic.transform.childCount; i += 1)
-        {
-            if (graphic.transform.GetChild(i).name == name)
-            {
-                graphic.transform.GetChild(i).gameObject.SetActive(true);
-            }
-        }
+    public void ShowBodyPart (GameObject obj){
+        obj.SetActive(true);
     }
 
     public void Freeze(bool freeze)

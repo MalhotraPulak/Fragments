@@ -94,7 +94,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones:
-    - name: bone_1
+    - name: bone_leg
       position: {x: 571.7504, y: 227.04045, z: 0}
       rotation: {x: 0, y: 0, z: -0.6966351, w: 0.71742564}
       length: 123.62934

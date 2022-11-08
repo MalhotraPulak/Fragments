@@ -61,12 +61,8 @@ public class AttackHit : MonoBehaviour
             if (player.GetComponent<Floppy>() != null)
             {
                 if(enemyHit(enemy, col))
-                {   
+                {
                     enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
-                    // if (enemy.tag == "Cap"){
-                    //     Vector2 posCollision = col.GetContact(0).point;
-                    //     enemy.GetComponent<Cap>().CapHit(posCollision);
-                    // }
                     Floppy.Instance.GetPushed(targetSide, false);
                 }
                 else

@@ -94,14 +94,14 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones:
-    - name: bone_1
+    - name: bone_arm-R
       position: {x: 731.6722, y: 629.26794, z: 0}
-      rotation: {x: 0, y: 0, z: 0.25666797, w: 0.9664996}
-      length: 185.58554
+      rotation: {x: 0, y: 0, z: 0.25666785, w: 0.9664997}
+      length: 185.58559
       parentId: -1
-    - name: bone_2
-      position: {x: 185.58559, y: 0.000012753764, z: 0}
-      rotation: {x: 0, y: 0, z: -0.016289, w: 0.9998674}
+    - name: bone_forearm-R
+      position: {x: 185.58556, y: 0.000014485806, z: 0}
+      rotation: {x: 0, y: 0, z: -0.016288871, w: 0.9998674}
       length: 189.14204
       parentId: 0
     spriteID: 5e97eb03825dee720800000000000000

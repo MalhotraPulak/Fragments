@@ -18,6 +18,11 @@ public class BodyPartManager : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     public static BodyPartManager instance;
 
+    public GameObject coreObj;
+    public GameObject leftArmObj;
+    public GameObject rightArmObj;
+    public GameObject legsObj;
+
     public static BodyPartManager Instance
     {
         get
@@ -118,7 +123,7 @@ public class BodyPartManager : MonoBehaviour
 
     private void attachLeftArm()
     {
-        Floppy.Instance.ShowBodyPart("Arm-L");
+        Floppy.Instance.ShowBodyPart(leftArmObj);
         hasLeftArm = true;
         LeftArm.Instance.graphic.SetActive(false);
         activeBodyPart = BodyParts.Core;
@@ -128,7 +133,7 @@ public class BodyPartManager : MonoBehaviour
 
     private void attachRightArm()
     {
-        Floppy.Instance.ShowBodyPart("Arm-R");
+        Floppy.Instance.ShowBodyPart(rightArmObj);
         hasRightArm = true;
         RightArm.Instance.graphic.SetActive(false);
         activeBodyPart = BodyParts.Core;
@@ -139,8 +144,7 @@ public class BodyPartManager : MonoBehaviour
 
     private void attachLegs()
     {
-        Floppy.Instance.ShowBodyPart("Leg-L");
-        Floppy.Instance.ShowBodyPart("Leg-R");
+        Floppy.Instance.ShowBodyPart(legsObj);
         hasLegs = true;
         Legs.Instance.graphic.SetActive(false);
         activeBodyPart = BodyParts.Core;
@@ -149,8 +153,7 @@ public class BodyPartManager : MonoBehaviour
 
     private void detachLegs()
     {
-        Floppy.Instance.HideBodyPart("Leg-L");
-        Floppy.Instance.HideBodyPart("Leg-R");
+        Floppy.Instance.HideBodyPart(legsObj);
         hasLegs = false;
         Legs.Instance.graphic.transform.position = Floppy.Instance.graphic.transform.position + legsOffset;
         Legs.Instance.graphic.SetActive(true);
@@ -161,7 +164,7 @@ public class BodyPartManager : MonoBehaviour
     private void detachLeftArm()
     {
         // animator.SetBool("hasRightArm", false);
-        Floppy.Instance.HideBodyPart("Arm-L");
+        Floppy.Instance.HideBodyPart(leftArmObj);
         hasLeftArm = false;
         activeBodyPart = BodyParts.LeftArm;
         detachArm(LeftArm.Instance);
@@ -170,7 +173,7 @@ public class BodyPartManager : MonoBehaviour
     private void detachRightArm()
     {
         // animator.SetBool("hasRightArm", false);
-        Floppy.Instance.HideBodyPart("Arm-R");
+        Floppy.Instance.HideBodyPart(rightArmObj);
         hasRightArm = false;
         activeBodyPart = BodyParts.RightArm;
         detachArm(RightArm.Instance);
