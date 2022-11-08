@@ -67,13 +67,14 @@ public class Floppy : BodyPart
         if (moveX) launch = hurtDirection * (hurtLaunchPower.x);
     }
 
-    public void GetHurt(int hurtDirection, int hitPower)
+    public void GetHurt(int hurtDirection, int hitPower, bool push = true)
     {
         //If the player is not frozen (ie talking, spawning, etc), recovering, and pounding, get hurt!
         if (!frozen && !recoveryCounter.recovering)
         {
             HurtEffect();
-            GetPushed(hurtDirection);
+            if (push)
+                GetPushed(hurtDirection);
             recoveryCounter.counter = 0;
 
             if (health <= 0)
@@ -104,7 +105,7 @@ public class Floppy : BodyPart
         // StartCoroutine(FreezeFrameEffect());
         // GameManager.Instance.audioSource.PlayOneShot(hurtSounds[whichHurtSound]);
 
-        // todo audio cycling
+    
         // if (whichHurtSound >= hurtSounds.Length - 1)
         // {
         //     whichHurtSound = 0;
@@ -113,7 +114,7 @@ public class Floppy : BodyPart
         // {
         //     whichHurtSound++;
         // }
-        // cameraEffects.Shake(100, 1f);
+        cameraEffects.Shake(100, 1f);
     }
 
     public IEnumerator Die()

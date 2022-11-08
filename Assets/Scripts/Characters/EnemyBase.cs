@@ -37,7 +37,7 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    public void GetHurt(int launchDirection, int hitPower)
+    public void GetHurt(int launchDirection, int hitPower, Collision2D col = null)
     {
         //Hit the enemy, causing a damage effect, and decreasing health. Allows for requiring a downward pound attack
         if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null || GetComponent<Cap>() != null) && !recoveryCounter.recovering)
@@ -87,6 +87,8 @@ public class EnemyBase : MonoBehaviour
                 if (GetComponent<Cap>() != null)
                 {
                     Debug.Log("HIT A CAP");
+                    Vector2 posCollision = col.GetContact(0).point;
+                    GetComponent<Cap>().CapHit(posCollision);
                 }
 
                 if (GetComponent<Flyer>() != null)
