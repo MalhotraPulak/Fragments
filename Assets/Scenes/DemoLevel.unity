@@ -231,8 +231,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000003791378, y: -0.031804387}
-  m_Size: {x: 1.4936657, y: 0.40747744}
+  m_Offset: {x: 0, y: -0.031804387}
+  m_Size: {x: 1.4936657, y: 0.3}
   m_Direction: 1
 --- !u!4 &6210632
 Transform:
@@ -479,7 +479,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.10461846, y: -0.10736471}
+  m_Offset: {x: 0, y: -0.10736471}
   m_Size: {x: 0.46630698, y: 0.27324048}
   m_Direction: 1
 --- !u!1001 &82810629
@@ -869,7 +869,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131405666}
   m_LocalRotation: {x: -0, y: -0, z: 0.027238144, w: 0.999629}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.83, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1432710086}
@@ -2937,7 +2937,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14551163, y: -1.6768283}
+  m_Offset: {x: 0, y: -1.6768283}
   m_Size: {x: 5.825844, y: 12.238254}
   m_Direction: 0
 --- !u!50 &560103297
@@ -3425,7 +3425,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 882752503}
   m_Bounds:
-    m_Center: {x: 0.030843616, y: -0.62630975, z: 0}
+    m_Center: {x: -0.48130238, y: -0.62630975, z: 0}
     m_Extent: {x: 0.73387015, y: 0.7305051, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -4376,7 +4376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882752502}
   m_LocalRotation: {x: 0, y: 0, z: -0.6966351, w: 0.71742564}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.5121517, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 650783335}
@@ -4501,8 +4501,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.36997995, y: 0.01904611}
-  m_Size: {x: 0.7790902, y: 0.17991759}
+  m_Offset: {x: 0, y: 0.02}
+  m_Size: {x: 1.54, y: 0.3}
   m_Direction: 1
 --- !u!50 &924430822
 Rigidbody2D:
@@ -6127,7 +6127,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211771494}
   m_LocalRotation: {x: 0, y: 0, z: -0.6966351, w: 0.71742564}
-  m_LocalPosition: {x: 0.98215103, y: 0.15418023, z: 0}
+  m_LocalPosition: {x: 0.47, y: 0.15418023, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1415956276}
@@ -7194,7 +7194,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 1211771495}
   m_Bounds:
-    m_Center: {x: 1.0129908, y: -0.47212946, z: 0}
+    m_Center: {x: 0.50084484, y: -0.47212946, z: 0}
     m_Extent: {x: 0.73387015, y: 0.7305051, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -12843,8 +12843,8 @@ MonoBehaviour:
   - {fileID: 131405667}
   - {fileID: 1432710086}
   m_Bounds:
-    m_Center: {x: 1.8607258, y: 0.05256617, z: 0}
-    m_Extent: {x: 1.981317, y: 0.58845687, z: 0}
+    m_Center: {x: 0.0307163, y: 0.05256617, z: 0}
+    m_Extent: {x: 1.9813094, y: 0.58845687, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!212 &9043117899400948015
