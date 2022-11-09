@@ -52,6 +52,10 @@ public class Floppy : BodyPart
             move = moveHorizontal();
             animator.SetInteger("attackDirectionY", (int)Input.GetAxis("VerticalDirection"));
             animator.SetInteger("moveDirection", (int)Input.GetAxis("HorizontalDirection"));
+            if (Input.GetMouseButtonDown(0))
+            {
+                animator.SetTrigger("attack");
+            }
         } else{
             move =  Vector2.zero;
             animator.SetInteger("attackDirectionY", 0);
