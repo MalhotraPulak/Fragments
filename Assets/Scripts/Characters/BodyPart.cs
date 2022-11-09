@@ -78,7 +78,6 @@ public class BodyPart : PhysicsObject
         Vector2 move = Vector2.zero;
         move.x = Input.GetAxis("Horizontal") + launch;
         targetVelocity = move * maxSpeed;
-
         return move;
     }
 

@@ -33,6 +33,15 @@ public class Floppy : BodyPart
 
     }
 
+
+    private void animation(){
+        animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+        animator.SetFloat("velocityY", velocity.y);
+        animator.SetInteger("attackDirectionY", (int)Input.GetAxis("VerticalDirection"));
+        animator.SetInteger("moveDirection", (int)Input.GetAxis("HorizontalDirection"));
+        animator.SetBool("hasLegs", BodyPartManager.Instance.hasLegs);
+    }
+
     protected override void ComputeVelocity()
     {
         if (BodyPartManager.Instance.activeBodyPart != BodyPartManager.BodyParts.Core)
@@ -42,6 +51,7 @@ public class Floppy : BodyPart
 
         launchUpdate();
         Vector2 move = moveHorizontal();
+        animation();
         if (BodyPartManager.Instance.hasLegs)
         {
             Jump(jumpVelocity);
