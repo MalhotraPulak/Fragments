@@ -23,6 +23,8 @@ public class BodyPartManager : MonoBehaviour
     public GameObject rightArmObj;
     public GameObject legsObj;
 
+    public float yCoreOffset = 0.5f;
+
     public static BodyPartManager Instance
     {
         get
@@ -67,6 +69,7 @@ public class BodyPartManager : MonoBehaviour
         Attach();
         if (activeBodyPart == BodyParts.Core)
             Detach();
+
     }
 
     void Detach()
@@ -148,6 +151,9 @@ public class BodyPartManager : MonoBehaviour
         hasLegs = true;
         Legs.Instance.graphic.SetActive(false);
         activeBodyPart = BodyParts.Core;
+
+        coreObj.transform.position += new Vector3(0, yCoreOffset, 0);
+
         virtualCamera.Follow = Floppy.Instance.transform;
     }
 
@@ -158,6 +164,9 @@ public class BodyPartManager : MonoBehaviour
         Legs.Instance.graphic.transform.position = Floppy.Instance.graphic.transform.position + legsOffset;
         Legs.Instance.graphic.SetActive(true);
         activeBodyPart = BodyParts.Legs;
+
+        coreObj.transform.position -= new Vector3(0, yCoreOffset, 0);
+
         virtualCamera.Follow = Legs.Instance.transform;
     }
 

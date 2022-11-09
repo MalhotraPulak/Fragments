@@ -94,6 +94,11 @@ public class AttackHit : MonoBehaviour
                 }
             }
 
+            else if (player.tag == "Legs")
+            {
+                Floppy.Instance.GetHurt(targetSide, hitPower);
+            }
+
         }
 
         //Attack Enemies
