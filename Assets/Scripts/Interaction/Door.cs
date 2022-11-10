@@ -65,10 +65,11 @@ public class Door : MonoBehaviour
     public void RegisterPatternSwitch(int switchId)
     {
         switchStream.Add(switchId);
-        if (switchStream.Count > 3)
+        if (switchStream.Count > togglePattern.Count)
         {
             switchStream.RemoveAt(0);
         }
+        
 
         if (compareLists(switchStream, togglePattern))
         {

@@ -14,15 +14,6 @@ public class Switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            door.GetComponent<Door>().RegisterPressedSwitch(true);
-        }
-
-        if(Input.GetKeyUp(KeyCode.S))
-        {
-            door.GetComponent<Door>().RegisterPressedSwitch(false);
-        }
-
+        
     }
 }
