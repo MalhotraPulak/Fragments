@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Switch : MonoBehaviour
 {
-    public GameObject door;
+    public List<GameObject> doors;
     public enum switchType { pressed, pattern };
     public switchType type;
     public int switchId = 0;
@@ -16,16 +16,35 @@ public class Switch : MonoBehaviour
         // check type and toggle door
         if (col.gameObject.tag == "Floppy" || col.gameObject.tag == "Legs")
         {
-            if (type == switchType.pressed)
+            foreach (GameObject door in doors)
             {
-                Door doorScript = door.GetComponent<Door>();
-                doorScript.RegisterPressedSwitch(!doorScript.isDoorOpen);
-            }
-            else if (type == switchType.pattern)
-            {
-                door.GetComponent<Door>().RegisterPatternSwitch(switchId);
+                if (type == switchType.pressed)
+                {
+                    Door doorScript = door.GetComponent<Door>();
+                    doorScript.RegisterPressedSwitch(true);
+                }
+                else if (type == switchType.pattern)
+                {
+                    door.GetComponent<Door>().RegisterPatternSwitch(switchId);
+                }
             }
         }
-        
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+
+        // check type and toggle door
+        if (col.gameObject.tag == "Floppy" || col.gameObject.tag == "Legs")
+        {
+            foreach (GameObject door in doors)
+            {
+                if (type == switchType.pressed)
+                {
+                    Door doorScript = door.GetComponent<Door>();
+                    doorScript.RegisterPressedSwitch(false);
+                }
+            }
+        }
     }
 }
