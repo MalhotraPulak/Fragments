@@ -24,18 +24,6 @@ public class AttackHit : MonoBehaviour
         if (isBomb) StartCoroutine(TempColliderDisable());
     }
 
-    bool enemyHit(GameObject enemy, Collision2D col)
-    {
-        float posCollisionY = col.GetContact(0).point.y;
-
-        float enemyCapHeight  = enemy.GetComponent<CapsuleCollider2D>().size.y * enemy.transform.localScale.y;
-
-        // was not working wiithout scaling the offset with object scale
-        float posEnemyCollider = enemy.transform.position.y + enemy.GetComponent<CapsuleCollider2D>().offset.y * enemy.transform.localScale.y;
-        
-        return (posCollisionY - posEnemyCollider) > 0.7 * (enemyCapHeight / 2);
-    }
-
     void OnCollisionEnter2D(Collision2D col)
     {
         //Determine which side the attack is on
@@ -60,7 +48,7 @@ public class AttackHit : MonoBehaviour
 
             if (player.GetComponent<Floppy>() != null)
             {
-                if(enemyHit(enemy, col))
+                if(GameManager.Instance.topHit(enemy, col))
                 {
                     enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
                     Floppy.Instance.GetPushed(targetSide, false);

@@ -5,15 +5,27 @@ using UnityEngine;
 public class Switch : MonoBehaviour
 {
     public GameObject door;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public enum switchType { pressed, pattern };
+    public switchType type;
+    public int switchId = 0;
 
-    // Update is called once per frame
-    void Update()
+    // detect collisionEnter2D
+    void OnTriggerEnter2D(Collider2D col)
     {
+
+        // check type and toggle door
+        if (col.gameObject.tag == "Floppy" || col.gameObject.tag == "Legs")
+        {
+            if (type == switchType.pressed)
+            {
+                Door doorScript = door.GetComponent<Door>();
+                doorScript.RegisterPressedSwitch(!doorScript.isDoorOpen);
+            }
+            else if (type == switchType.pattern)
+            {
+                door.GetComponent<Door>().RegisterPatternSwitch(switchId);
+            }
+        }
         
     }
 }

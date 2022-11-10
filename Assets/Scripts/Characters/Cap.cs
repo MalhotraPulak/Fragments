@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Cap : PhysicsObject
 {
+    public Camera cam;
+
     [Header ("Reference")]
     public EnemyBase enemyBase;
     [SerializeField] private GameObject graphic;
@@ -130,6 +132,7 @@ public class Cap : PhysicsObject
 
     protected void ComputeVelocity()
     {
+
         Vector2 move = Vector2.zero;
 
         if (!Floppy.Instance.frozen)
@@ -272,5 +275,4 @@ public class Cap : PhysicsObject
         enemyBase.audioSource.pitch = (Random.Range(0.6f, 1f));
         enemyBase.audioSource.PlayOneShot(jumpSound);
     }
-
 }

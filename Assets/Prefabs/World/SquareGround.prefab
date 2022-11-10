@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5261715317377755290}
   - component: {fileID: 2574041133972050964}
   - component: {fileID: 6105929982356752673}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SquareGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}

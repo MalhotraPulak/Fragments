@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6415418708877851127}
   - component: {fileID: 6415418708877851124}
   - component: {fileID: 2975547666920355177}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SlantGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}

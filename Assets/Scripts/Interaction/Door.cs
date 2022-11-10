@@ -9,21 +9,22 @@ public class Door : MonoBehaviour
     // private int id;
 
     // Pressed, Pattern
-    bool isDoorOpen = false;
+    public bool isDoorOpen = false;
     public List<int> togglePattern;
 
-    List<int> switchStream;
+    List<int> switchStream = new List<int>();
 
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // CloseDoor if not isDoorOpen
+        if (!isDoorOpen)
+        {
+            CloseDoor();
+        }
+        else
+        {
+            OpenDoor();
+        }
     }
 
     bool compareLists(List<int> l1, List<int> l2)
@@ -43,12 +44,14 @@ public class Door : MonoBehaviour
     {   
         isDoorOpen = true;
         Debug.Log("Door opened");
+        gameObject.SetActive(false);
     }
 
     void CloseDoor()
     {
         isDoorOpen = false;
         Debug.Log("Door closed");
+        gameObject.SetActive(true);
     }
 
     public void RegisterPressedSwitch(bool pressed){

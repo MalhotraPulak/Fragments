@@ -19854,7 +19854,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!82 &2869036901821487607
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20060,6 +20060,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  cam: {fileID: 0}
   enemyBase: {fileID: 2838142510990096825}
   graphic: {fileID: 2806315291673806657}
   layerMask:
@@ -20081,6 +20082,7 @@ MonoBehaviour:
   sitStillWhenNotFollowing: 0
   jumpSound: {fileID: 8300000, guid: a69256e0605cd46c19e2fe34da9587b5, type: 3}
   stepSound: {fileID: 0}
+  attackCounter: 0
 --- !u!114 &2806315291673806687
 MonoBehaviour:
   m_ObjectHideFlags: 0

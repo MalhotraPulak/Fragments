@@ -60,4 +60,23 @@ public class GameManager : MonoBehaviour
         hud.SetInventoryImage(hud.blankUI);
     }
 
+    // check if a gameobject is visible to the camera
+    public bool IsVisible(GameObject obj, Camera cams)
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cams);
+        return GeometryUtility.TestPlanesAABB(planes , obj.GetComponent<Collider2D>().bounds);
+    }
+
+    public bool topHit(GameObject enemy, Collision2D col)
+    {
+        float posCollisionY = col.GetContact(0).point.y;
+
+        float enemyCapHeight  = enemy.GetComponent<CapsuleCollider2D>().size.y * enemy.transform.localScale.y;
+
+        // was not working wiithout scaling the offset with object scale
+        float posEnemyCollider = enemy.transform.position.y + enemy.GetComponent<CapsuleCollider2D>().offset.y * enemy.transform.localScale.y;
+        
+        return (posCollisionY - posEnemyCollider) > 0.7 * (enemyCapHeight / 2);
+    }
+
 }
