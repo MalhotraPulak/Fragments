@@ -14,7 +14,18 @@ public class Switch : MonoBehaviour
     {
 
         // check type and toggle door
-        if (col.gameObject.tag == "Floppy" || col.gameObject.tag == "Legs")
+        if (col.gameObject.tag == "attackCollider")
+        {
+            foreach (GameObject door in doors)
+            {
+                if (type == switchType.pattern)
+                {
+                    door.GetComponent<Door>().RegisterPatternSwitch(switchId);
+                }
+            }
+        }
+
+        else if (col.gameObject.tag == "Floppy" || col.gameObject.tag == "Legs")
         {
             foreach (GameObject door in doors)
             {
@@ -22,10 +33,6 @@ public class Switch : MonoBehaviour
                 {
                     Door doorScript = door.GetComponent<Door>();
                     doorScript.RegisterPressedSwitch(true);
-                }
-                else if (type == switchType.pattern)
-                {
-                    door.GetComponent<Door>().RegisterPatternSwitch(switchId);
                 }
             }
         }

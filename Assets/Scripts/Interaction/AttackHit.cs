@@ -49,7 +49,7 @@ public class AttackHit : MonoBehaviour
             if (col.GetContact(0).collider.name == "Slam Collider"){
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
             }
-            else if (player.GetComponent<Floppy>() != null)
+            else if (player.GetComponent<Floppy>() != null && !Floppy.Instance.animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
             {
                 if(GameManager.Instance.topHit(enemy, col))
                 {

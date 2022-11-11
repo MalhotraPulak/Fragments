@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Floppy : BodyPart
 {
-    [SerializeField] private Animator animator;
+    [SerializeField] public Animator animator;
     public CameraEffects cameraEffects;
     public bool dead = false;
     public bool frozen = false;
@@ -38,6 +38,7 @@ public class Floppy : BodyPart
         animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
         animator.SetFloat("velocityY", velocity.y);
         animator.SetBool("hasLegs", BodyPartManager.Instance.hasLegs);
+        animator.SetBool("grounded", grounded);
     }
 
     protected override void ComputeVelocity()
