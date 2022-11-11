@@ -26,6 +26,7 @@ public class AttackHit : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        // Debug.Log(col.gameObject.name);
         //Determine which side the attack is on
         if (parent.transform.position.x < col.transform.position.x)
         {
@@ -45,8 +46,10 @@ public class AttackHit : MonoBehaviour
             GameObject enemy = gameObject;
             GameObject player = col.gameObject;
 
-
-            if (player.GetComponent<Floppy>() != null)
+            if (col.GetContact(0).collider.name == "Slam Collider"){
+                enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
+            }
+            else if (player.GetComponent<Floppy>() != null)
             {
                 if(GameManager.Instance.topHit(enemy, col))
                 {
