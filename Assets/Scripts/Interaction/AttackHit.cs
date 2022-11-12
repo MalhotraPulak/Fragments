@@ -49,7 +49,8 @@ public class AttackHit : MonoBehaviour
             if (col.GetContact(0).collider.name == "Slam Collider"){
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
             }
-            else if (player.GetComponent<Floppy>() != null && !Floppy.Instance.animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
+
+            else if (player.tag == "Floppy" && !Floppy.Instance.animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
             {
                 if(GameManager.Instance.topHit(enemy, col))
                 {
@@ -88,6 +89,13 @@ public class AttackHit : MonoBehaviour
             else if (player.tag == "Legs")
             {
                 Floppy.Instance.GetHurt(targetSide, hitPower);
+            }
+
+            else if (player.tag == "Cap")
+            {
+                print("hit by cap");
+                //  && player.GetComponent<Cap>().attackCounter >= 2
+                enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
             }
 
         }

@@ -259,7 +259,7 @@ public class Cap : PhysicsObject
                 direction = -1;
             }
 
-            maxSpeed = 10;
+            maxSpeed = 10f;
         }
 
     }

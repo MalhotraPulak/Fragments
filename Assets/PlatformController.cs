@@ -8,6 +8,8 @@ public class PlatformController : MonoBehaviour
     public Vector3 dir = Vector3.up;
     public float destroyDistance = 30f;
 
+    float gravityModifier = 0f;
+
     Vector2 initPosition;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,28 @@ public class PlatformController : MonoBehaviour
         if (Vector2.Distance(initPosition, transform.position) > destroyDistance)
         {
             Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        GameObject player = other.gameObject;
+        if (player.tag == "Floppy")
+        {   
+            print("hi");
+            Floppy.Instance.gravityModifier = 0f;
+            Floppy.Instance.velocity.y = speed;
+            // Floppy.Instance.grounded = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        GameObject player = other.gameObject;
+        if (player.tag == "Floppy")
+        {   
+            print("exited");
+            Floppy.Instance.gravityModifier = 2f;
+            // Floppy.Instance.grounded = false;
         }
     }
 }
