@@ -22,15 +22,15 @@ public class TwoDimensionalSound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanceBetweenPlayer = transform.position - NewPlayer.Instance.transform.position;
-        magnitude = (range - distanceBetweenPlayer.magnitude) / range;
-        if (magnitude <= 1)
-        {
-            audioSource.volume = magnitude;
-        }
-        else
-        {
-            audioSource.volume = 1;
-        }
+        // distanceBetweenPlayer = transform.position - NewPlayer.Instance.transform.position;
+        // magnitude = (range - distanceBetweenPlayer.magnitude) / range;
+        // if (magnitude <= 1)
+        // {
+        //     audioSource.volume = magnitude;
+        // }
+        // else
+        // {
+        //     audioSource.volume = 1;
+        // }
     }
 }

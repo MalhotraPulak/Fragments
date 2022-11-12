@@ -15,7 +15,7 @@ public class AnimatorFunctions : MonoBehaviour
     // If we don't specify what audio source to play sounds through, just use the one on player.
     void Start()
     {
-        if (!audioSource) audioSource = NewPlayer.Instance.audioSource;
+        // if (!audioSource) audioSource = NewPlayer.Instance.audioSource;
     }
 
     //Hide and unhide the player
@@ -39,7 +39,7 @@ public class AnimatorFunctions : MonoBehaviour
     //Play a sound through the specified audioSource
     void PlaySound(AudioClip whichSound)
     {
-        audioSource.PlayOneShot(whichSound);
+        // audioSource.PlayOneShot(whichSound);
     }
 
     public void EmitParticles(int amount)

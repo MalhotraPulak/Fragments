@@ -34,22 +34,22 @@ public class HUD : MonoBehaviour
         healthBarWidthEased = healthBarWidth;
         ammoBarWidth = 1;
         ammoBarWidthEased = ammoBarWidth;
-        coins = (float)NewPlayer.Instance.coins;
-        coinsEased = coins;
+        // coins = (float)NewPlayer.Instance.coins;
+        // coinsEased = coins;
         blankUI = inventoryItemGraphic.GetComponent<Image>().sprite;
     }
 
     void Update()
     {
         //Update coins text mesh to reflect how many coins the player has! However, we want them to count up.
-        coinsMesh.text = Mathf.Round(coinsEased).ToString();
-        coinsEased += ((float)NewPlayer.Instance.coins - coinsEased) * Time.deltaTime * 5f;
+        // coinsMesh.text = Mathf.Round(coinsEased).ToString();
+        // coinsEased += ((float)NewPlayer.Instance.coins - coinsEased) * Time.deltaTime * 5f;
 
-        if (coinsEased >= coins)
-        {
-            animator.SetTrigger("getGem");
-            coins = coinsEased + 1;
-        }
+        // if (coinsEased >= coins)
+        // {
+        //     animator.SetTrigger("getGem");
+        //     coins = coinsEased + 1;
+        // }
 
         //Controls the width of the health bar based on the player's total health
         healthBarWidth = (float)Floppy.Instance.health / (float)Floppy.Instance.maxHealth;
@@ -57,12 +57,12 @@ public class HUD : MonoBehaviour
         healthBar.transform.localScale = new Vector2(healthBarWidthEased, 1);
 
         //Controls the width of the ammo bar based on the player's total ammo
-        if (ammoBar)
-        {
-            ammoBarWidth = (float)NewPlayer.Instance.ammo / (float)NewPlayer.Instance.maxAmmo;
-            ammoBarWidthEased += (ammoBarWidth - ammoBarWidthEased) * Time.deltaTime * ammoBarWidthEased;
-            ammoBar.transform.localScale = new Vector2(ammoBarWidthEased, transform.localScale.y);
-        }
+        // if (ammoBar)
+        // {
+        //     ammoBarWidth = (float)NewPlayer.Instance.ammo / (float)NewPlayer.Instance.maxAmmo;
+        //     ammoBarWidthEased += (ammoBarWidth - ammoBarWidthEased) * Time.deltaTime * ammoBarWidthEased;
+        //     ammoBar.transform.localScale = new Vector2(ammoBarWidthEased, transform.localScale.y);
+        // }
         
     }
 
