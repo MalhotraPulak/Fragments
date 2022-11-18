@@ -19814,7 +19814,7 @@ MonoBehaviour:
   animator: {fileID: 7997412516808560284}
   instantiator: {fileID: 2837600936027430163}
   deathParticles: {fileID: 2806315230481690437}
-  health: 3
+  health: 100
   hitSound: {fileID: 8300000, guid: a6da7dd234fd74164bcdbdb0e1eb8fbc, type: 3}
   isBomb: 0
   requirePoundAttack: 0
@@ -20066,8 +20066,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16640
-  enemyType: 0
-  attentionRange: 1.09
+  enemyType: 1
+  attentionRange: 9
   changeDirectionEase: 2
   followPlayer: 0
   flipWhenTurning: 0

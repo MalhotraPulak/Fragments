@@ -5,25 +5,31 @@ using UnityEngine;
 public class InfiniteEnemySpawner : MonoBehaviour
 {
     public GameObject spawnObject;
+    public float spawnDelay = 2f;
     GameObject currentObject = null;
+    IEnumerator spawnCoroutine;
+    bool isSpawning = false;
 
     void Start()
     {
+        isSpawning = false;
         currentObject = null;
     }
 
     void Update()
     {
-        if(currentObject == null)
+        if(currentObject == null && !isSpawning)
         {
-            print("yes null");
-            SpawnObject();
+            isSpawning = true;
+            spawnCoroutine = SpawnObject();
+            StartCoroutine(spawnCoroutine);
         }
     }
 
-    void SpawnObject()
+    IEnumerator SpawnObject()
     {
-        print("instantition");
+        yield return new WaitForSeconds(spawnDelay);
         currentObject = Instantiate(spawnObject, transform.position, Quaternion.identity);
+        isSpawning = false;
     }
 }

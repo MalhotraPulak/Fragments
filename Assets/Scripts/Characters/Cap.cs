@@ -246,10 +246,13 @@ public class Cap : PhysicsObject
         }
         else if(attackCounter >= 1){
             attackCounter++;
-            
+            enemyType = EnemyType.Bug;
+            followPlayer = false;
+
             float capPosX = transform.position.x + transform.localScale.x * gameObject.GetComponent<CapsuleCollider2D>().offset.x;
 
-            if(capPosX > collisionPoint.x)
+            // if(capPosX > collisionPoint.x)
+            if(capPosX > Floppy.Instance.transform.position.x)
             {
                 // hit on left
                 direction = 1;
@@ -259,7 +262,7 @@ public class Cap : PhysicsObject
                 direction = -1;
             }
 
-            maxSpeed = 10f;
+            maxSpeed = 6f;
         }
 
     }
