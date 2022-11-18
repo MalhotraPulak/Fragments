@@ -91,10 +91,8 @@ public class AttackHit : MonoBehaviour
                 Floppy.Instance.GetHurt(targetSide, hitPower);
             }
 
-            else if (player.tag == "Cap")
+            else if (player.tag == "Cap" && player.GetComponent<Cap>().attackCounter > 1)
             {
-                print("hit by cap");
-                //  && player.GetComponent<Cap>().attackCounter >= 2
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
             }
 

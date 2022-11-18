@@ -9921,7 +9921,7 @@ GameObject:
   - component: {fileID: 216076969209253971}
   - component: {fileID: 8295213629241005450}
   - component: {fileID: 7624596095723106644}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10125,7 +10125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6655409906102683198}
   - component: {fileID: 3926385007536615506}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ship_H
   m_TagString: Untagged
   m_Icon: {fileID: 0}

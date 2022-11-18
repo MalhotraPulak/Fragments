@@ -14,13 +14,14 @@ public class Door : MonoBehaviour
     public bool toggleOpen = false;
     public bool pressedOpen = false;
 
+    public bool isDesiredOpen = true;
+
     public List<int> togglePattern;
 
     List<int> switchStream = new List<int>();
 
     void Start()
     {
-        // CloseDoor if not isDoorOpen
         if (!isDoorOpen)
         {
             SetDoor(true);
@@ -35,11 +36,11 @@ public class Door : MonoBehaviour
     {
         if((toggleOpen) || (!toggleOpen && pressedOpen))
         {
-            SetDoor(false);
+            SetDoor(!isDesiredOpen);
         }
         else
         {
-            SetDoor(true);
+            SetDoor(isDesiredOpen);
         }
 
     }
@@ -80,10 +81,6 @@ public class Door : MonoBehaviour
         if (compareLists(switchStream, togglePattern))
         {
             toggleOpen = true;
-        }
-        else
-        {
-            toggleOpen = false;
         }
 
     }

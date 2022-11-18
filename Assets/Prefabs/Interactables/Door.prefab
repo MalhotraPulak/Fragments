@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1793213041235473742}
   - component: {fileID: 5375366234588234555}
   - component: {fileID: 5247147574699206422}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDoorOpen: 0
+  toggleOpen: 0
+  pressedOpen: 0
   togglePattern: 
 --- !u!212 &5375366234588234555
 SpriteRenderer:
