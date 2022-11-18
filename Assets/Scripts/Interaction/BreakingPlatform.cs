@@ -12,7 +12,8 @@ public class BreakingPlatform : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.tag == "Floppy" && !isDestroyed)
+        print("name: " + col.gameObject.name + ", layer: " + LayerMask.LayerToName(col.gameObject.layer));
+        if(LayerMask.LayerToName(col.gameObject.layer) == "Player" && !isDestroyed)
         {
             breakCoroutine = DestroyAfterSeconds();
             StartCoroutine(breakCoroutine);

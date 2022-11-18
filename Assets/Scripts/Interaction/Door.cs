@@ -10,6 +10,10 @@ public class Door : MonoBehaviour
 
     // Pressed, Pattern
     public bool isDoorOpen = false;
+
+    public bool toggleOpen = false;
+    public bool pressedOpen = false;
+
     public List<int> togglePattern;
 
     List<int> switchStream = new List<int>();
@@ -19,12 +23,25 @@ public class Door : MonoBehaviour
         // CloseDoor if not isDoorOpen
         if (!isDoorOpen)
         {
-            CloseDoor();
+            SetDoor(true);
         }
         else
         {
-            OpenDoor();
+            SetDoor(false);
         }
+    }
+
+    void Update ()
+    {
+        if((toggleOpen) || (!toggleOpen && pressedOpen))
+        {
+            SetDoor(false);
+        }
+        else
+        {
+            SetDoor(true);
+        }
+
     }
 
     bool compareLists(List<int> l1, List<int> l2)
@@ -40,29 +57,15 @@ public class Door : MonoBehaviour
         return true;
     }
 
-    void OpenDoor()
-    {   
-        isDoorOpen = true;
-        Debug.Log("Door opened");
-        gameObject.SetActive(false);
-    }
-
-    void CloseDoor()
+    void SetDoor(bool active)
     {
-        isDoorOpen = false;
-        Debug.Log("Door closed");
-        gameObject.SetActive(true);
+        isDoorOpen = !active;
+        GetComponent<SpriteRenderer>().enabled = active;
+        GetComponent<BoxCollider2D>().enabled = active;
     }
 
     public void RegisterPressedSwitch(bool pressed){
-        if (pressed)
-        {
-            OpenDoor();
-        }
-        else
-        {
-            CloseDoor();
-        }
+        pressedOpen = pressed;
     }
 
     public void RegisterPatternSwitch(int switchId)
@@ -76,14 +79,11 @@ public class Door : MonoBehaviour
 
         if (compareLists(switchStream, togglePattern))
         {
-            if (isDoorOpen)
-            {
-                CloseDoor();
-            }
-            else
-            {
-                OpenDoor();
-            }
+            toggleOpen = true;
+        }
+        else
+        {
+            toggleOpen = false;
         }
 
     }
