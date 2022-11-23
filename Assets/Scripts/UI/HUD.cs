@@ -25,6 +25,7 @@ public class HUD : MonoBehaviour
     private float healthBarWidth;
     private float healthBarWidthEased;
     [System.NonSerialized] public string loadSceneName;
+    public int loadSceneId;
     [System.NonSerialized] public bool resetPlayer;
 
     void Start()
@@ -86,7 +87,7 @@ public class HUD : MonoBehaviour
         else
         {
             //Reload entire scene
-            SceneManager.LoadScene(loadSceneName);
+            SceneManager.LoadScene(loadSceneId);
         }
     }
 

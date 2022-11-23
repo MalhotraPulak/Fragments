@@ -8,7 +8,7 @@ Lots of complex stuff going on here. In ten years of making games, I've never wo
 public class PhysicsObject : MonoBehaviour
 {
     [Header ("Physics")]
-    public float minGroundNormalY = .65f;
+    public float minGroundNormalY = .45f;
     public float gravityModifier = 1f;
     [System.NonSerialized] public Vector2 targetVelocity;
     [System.NonSerialized] public bool grounded;

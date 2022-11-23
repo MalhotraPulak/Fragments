@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using Cinemachine;
 
@@ -40,6 +41,27 @@ public class BodyPartManager : MonoBehaviour
         RightArm.Instance.graphic.SetActive(false);
         Legs.Instance.graphic.SetActive(false);
         activeBodyPart = BodyParts.Core;
+        // if current scene id is 3 then disable arms and legs and move them out of the scene
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            detachLeftArm();
+            detachRightArm();
+            detachLegs();
+            LeftArm.Instance.transform.position = new Vector3(0, -100, 0);
+            RightArm.Instance.transform.position = new Vector3(0, -100, 0);
+            Legs.Instance.transform.position = new Vector3(0, -100, 0);
+        }
+        // if current scene id is 4 then disable arms and move them out of the scene
+        if (SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            detachLeftArm();
+            detachRightArm();
+            LeftArm.Instance.transform.position = new Vector3(0, -100, 0);
+            RightArm.Instance.transform.position = new Vector3(0, -100, 0);
+        }
+        virtualCamera.Follow = Floppy.Instance.transform;
+        activeBodyPart = BodyParts.Core;
+
     }
 
     // Update is called once per frame

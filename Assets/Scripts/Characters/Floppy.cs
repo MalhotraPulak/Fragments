@@ -29,8 +29,6 @@ public class Floppy : BodyPart
     {
         base.Start();
         health = maxHealth;
-        // disable all detached body parts
-
     }
 
 
@@ -43,8 +41,12 @@ public class Floppy : BodyPart
 
     protected override void ComputeVelocity()
     {
-
-
+        // if the current y axis is less than -20 then the player is dead
+        if (transform.position.y < -20)
+        {
+            StartCoroutine(Die());
+            return;
+        }
         launchUpdate();
 
         Vector2 move;
@@ -149,7 +151,15 @@ public class Floppy : BodyPart
             Time.timeScale = .6f;
             yield return new WaitForSeconds(5f);
             GameManager.Instance.hud.animator.SetTrigger("coverScreen");
-            GameManager.Instance.hud.loadSceneName = SceneManager.GetActiveScene().name;
+            // if the position of floppy is more than 192 units load the next scene
+            if (transform.position.x > 192)
+            {
+                GameManager.Instance.hud.loadSceneId = SceneManager.GetActiveScene().buildIndex + 1;
+            }
+            else
+            {
+                GameManager.Instance.hud.loadSceneId = SceneManager.GetActiveScene().buildIndex;
+            }
             Time.timeScale = 1f;
         }
     }
