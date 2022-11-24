@@ -9801,11 +9801,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4569125025086690, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.726818
+      value: -54.41
       objectReference: {fileID: 0}
     - target: {fileID: 4569125025086690, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.23089674
+      value: 0.030000476
       objectReference: {fileID: 0}
     - target: {fileID: 4569125025086690, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9971,14 +9971,29 @@ PrefabInstance:
       objectReference: {fileID: 1572823967}
     - target: {fileID: 619143005700998224, guid: b022250573709434c9737ce47e1017e3,
         type: 3}
+      propertyPath: hasLegs
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619143005700998224, guid: b022250573709434c9737ce47e1017e3,
+        type: 3}
       propertyPath: legsObj
       value: 
       objectReference: {fileID: 1461224832}
     - target: {fileID: 619143005700998224, guid: b022250573709434c9737ce47e1017e3,
         type: 3}
+      propertyPath: hasLeftArm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619143005700998224, guid: b022250573709434c9737ce47e1017e3,
+        type: 3}
       propertyPath: leftArmObj
       value: 
       objectReference: {fileID: 246598303}
+    - target: {fileID: 619143005700998224, guid: b022250573709434c9737ce47e1017e3,
+        type: 3}
+      propertyPath: hasRightArm
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 619143005700998224, guid: b022250573709434c9737ce47e1017e3,
         type: 3}
       propertyPath: rightArmObj

@@ -12,6 +12,9 @@ public class BodyPartManager : MonoBehaviour
     public bool hasLeftArm = true;
     public bool hasRightArm = true;
     public bool hasLegs = true;
+    bool initHasLeftArm;
+    bool initHasRightArm;
+    bool initHasLegs;
     public float ArmLaunchX;
     public float ArmLaunchY;
     public Vector3 legsOffset;
@@ -37,28 +40,50 @@ public class BodyPartManager : MonoBehaviour
 
     void Start()
     {
+        initHasLeftArm = hasLeftArm;
+        initHasRightArm = hasRightArm;
+        initHasLegs = hasLegs;
+
         LeftArm.Instance.graphic.SetActive(false);
         RightArm.Instance.graphic.SetActive(false);
         Legs.Instance.graphic.SetActive(false);
-        activeBodyPart = BodyParts.Core;
-        // if current scene id is 3 then disable arms and legs and move them out of the scene
-        if (SceneManager.GetActiveScene().buildIndex == 3)
+
+        // if current scene id is 3 then disable arms and legs and move them out of the scene - Level 1
+        if (!initHasLegs)
         {
-            detachLeftArm();
-            detachRightArm();
             detachLegs();
-            LeftArm.Instance.transform.position = new Vector3(0, -100, 0);
-            RightArm.Instance.transform.position = new Vector3(0, -100, 0);
-            Legs.Instance.transform.position = new Vector3(0, -100, 0);
+            Legs.Instance.graphic.SetActive(false);
         }
-        // if current scene id is 4 then disable arms and move them out of the scene
-        if (SceneManager.GetActiveScene().buildIndex == 4)
+
+        if (!initHasLeftArm)
         {
             detachLeftArm();
-            detachRightArm();
-            LeftArm.Instance.transform.position = new Vector3(0, -100, 0);
-            RightArm.Instance.transform.position = new Vector3(0, -100, 0);
+            LeftArm.Instance.graphic.SetActive(false);
         }
+        if (!initHasRightArm)
+        {
+            detachRightArm();
+            RightArm.Instance.graphic.SetActive(false);
+        } 
+        
+        // if (SceneManager.GetActiveScene().buildIndex == 3)
+        // {
+        //     detachLeftArm();
+        //     detachRightArm();
+        //     detachLegs();
+        //     LeftArm.Instance.transform.position = new Vector3(0, -100, 0);
+        //     RightArm.Instance.transform.position = new Vector3(0, -100, 0);
+        //     Legs.Instance.transform.position = new Vector3(0, -100, 0);
+        // }
+        // // if current scene id is 4 then disable arms and move them out of the scene - Level 2
+        // if (SceneManager.GetActiveScene().buildIndex == 4)
+        // {
+        //     detachLeftArm();
+        //     detachRightArm();
+        //     LeftArm.Instance.transform.position = new Vector3(0, -100, 0);
+        //     RightArm.Instance.transform.position = new Vector3(0, -100, 0);
+        // }
+
         virtualCamera.Follow = Floppy.Instance.transform;
         activeBodyPart = BodyParts.Core;
 
@@ -73,17 +98,17 @@ public class BodyPartManager : MonoBehaviour
             virtualCamera.Follow = Floppy.Instance.transform;
 
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && !hasLeftArm)
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && !hasLeftArm && initHasLeftArm)
         {
             activeBodyPart = BodyParts.LeftArm;
             virtualCamera.Follow = LeftArm.Instance.transform;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && !hasRightArm)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && !hasRightArm && initHasRightArm)
         {
             activeBodyPart = BodyParts.RightArm;
             virtualCamera.Follow = RightArm.Instance.transform;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && !hasLegs)
+        else if (Input.GetKeyDown(KeyCode.Alpha4) && !hasLegs && initHasLegs)
         {
             activeBodyPart = BodyParts.Legs;
             virtualCamera.Follow = Legs.Instance.transform;
@@ -122,21 +147,20 @@ public class BodyPartManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            if (!hasLeftArm && Vector2.Distance(Floppy.Instance.graphic.transform.position, LeftArm.Instance.transform.position) < attachDistance)
+            if (!hasLeftArm && initHasLeftArm && Vector2.Distance(Floppy.Instance.graphic.transform.position, LeftArm.Instance.transform.position) < attachDistance)
             {
                 attachLeftArm(); // todo add range condition
             }
-            else if (!hasRightArm && Vector2.Distance(Floppy.Instance.graphic.transform.position, RightArm.Instance.transform.position) < attachDistance)
+            else if (!hasRightArm && initHasRightArm && Vector2.Distance(Floppy.Instance.graphic.transform.position, RightArm.Instance.transform.position) < attachDistance)
             {
                 attachRightArm();
                 virtualCamera.Follow = Floppy.Instance.transform;
             }
         }
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V) && initHasLegs)
         {
             if (!hasLegs && Vector2.Distance(Floppy.Instance.graphic.transform.position, Legs.Instance.transform.position) < attachDistance)
             {
-                Debug.Log("Attach Legs called");
                 attachLegs(); // todo add range condition
                 virtualCamera.Follow = Floppy.Instance.transform;
             }

@@ -86,7 +86,7 @@ public class Floppy : BodyPart
     public void GetPushed(int hurtDirection, bool moveX = true) {
         cameraEffects.Shake(100, 1);
         animator.SetTrigger("hurt");
-        velocity.y = hurtLaunchPower.y;
+        // velocity.y = hurtLaunchPower.y;
         if (moveX) launch = hurtDirection * (hurtLaunchPower.x);
     }
 
