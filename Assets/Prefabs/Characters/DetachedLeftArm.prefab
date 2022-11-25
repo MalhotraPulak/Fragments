@@ -104,7 +104,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   graphic: {fileID: 5426947434256373384}
-  maxSpeed: 5
+  maxSpeed: 8
   graphicSprites: []
   launch: 0
   launchRecovery: 4
@@ -289,8 +289,8 @@ MonoBehaviour:
   - {fileID: 5426947434301357725}
   - {fileID: 5426947434758300219}
   m_Bounds:
-    m_Center: {x: -2.0143366, y: 0.8324771, z: 0}
-    m_Extent: {x: 1.9766973, y: 0.58611655, z: 0}
+    m_Center: {x: -2.0143366, y: 0.8324729, z: 0}
+    m_Extent: {x: 1.976705, y: 0.5861167, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1001 &2664173831750588583

@@ -163,8 +163,8 @@ MonoBehaviour:
   hasLeftArm: 1
   hasRightArm: 1
   hasLegs: 1
-  ArmLaunchX: 5
-  ArmLaunchY: 20
+  ArmLaunchX: 8
+  ArmLaunchY: 23
   legsOffset: {x: 0, y: 0, z: 0}
   attachDistance: 5
   virtualCamera: {fileID: 0}
