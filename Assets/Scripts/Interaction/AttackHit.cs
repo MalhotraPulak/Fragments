@@ -98,11 +98,6 @@ public class AttackHit : MonoBehaviour
 
         }
 
-        //Attack Enemies
-        else if (attacksWhat == AttacksWhat.EnemyBase && col.gameObject.GetComponent<EnemyBase>() != null)
-        {
-        }
-
         //Attack Breakables
         else if (attacksWhat == AttacksWhat.EnemyBase && col.gameObject.GetComponent<EnemyBase>() == null && col.gameObject.GetComponent<Breakable>() != null)
         {

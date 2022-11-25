@@ -61,6 +61,10 @@ public class Boss : PhysicsObject
             return;
         }
 
+        // Distance from Floppy
+        float floppyDist = Vector3.Distance(Floppy.Instance.transform.position, transform.position);
+        print("Distance from Floppy" + floppyDist);
+
         // Conditions when to move horizontally 
         Move(maxSpeed);
    
@@ -71,6 +75,7 @@ public class Boss : PhysicsObject
         Throw();
 
         // Conditions when to charge towards Floppy
+        // 1. When it is far away from Floppy and its direction is
         Dash();
     }
 
