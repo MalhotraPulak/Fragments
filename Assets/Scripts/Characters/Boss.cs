@@ -48,8 +48,8 @@ public class Boss : PhysicsObject
         spawnPos = transform.localPosition;
         targetVelocity.x = -maxSpeed;
         targetVelocity.y = 0;
+        GetComponent<EnemyBase>().health = 5;
     }
-
 
     // private void animation(){
     //     animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
@@ -69,16 +69,22 @@ public class Boss : PhysicsObject
         else{
             // Conditions when to move horizontally 
             Move(maxSpeed);
+
             shouldDash();
         }
-   
+        
         // Conditions when to Jump
-        Jump();
+        if (GetComponent<EnemyBase>().health < 3)
+            Jump();
 
         // Conditions when to throw objects
         // Throws 3 balls every x seconds
-        Throw();
-
+        if (GetComponent<EnemyBase>().health < 3)
+            throwFrequency = 7;
+        if (GetComponent<EnemyBase>().health < 4)
+            Throw();
+        
+        // print("Health= " + GetComponent<EnemyBase>().health);
     }
 
     public void Move(float speed) {
@@ -91,6 +97,7 @@ public class Boss : PhysicsObject
             dir = 1;
             isDashing = false;
         }
+
         if (grounded)
             targetVelocity.x = dir * speed;
         else
@@ -181,23 +188,23 @@ public class Boss : PhysicsObject
     // }
 
 
-    private void HurtEffect()
-    {
-        // GameManager.Instance.audioSource.PlayOneShot(hurtSound);
-        // StartCoroutine(FreezeFrameEffect());
-        // GameManager.Instance.audioSource.PlayOneShot(hurtSounds[whichHurtSound]);
+    // private void HurtEffect()
+    // {
+    //     // GameManager.Instance.audioSource.PlayOneShot(hurtSound);
+    //     // StartCoroutine(FreezeFrameEffect());
+    //     // GameManager.Instance.audioSource.PlayOneShot(hurtSounds[whichHurtSound]);
 
     
-        // if (whichHurtSound >= hurtSounds.Length - 1)
-        // {
-        //     whichHurtSound = 0;
-        // }
-        // else
-        // {
-        //     whichHurtSound++;
-        // }
-        // cameraEffects.Shake(100, 1f);
-    }
+    //     // if (whichHurtSound >= hurtSounds.Length - 1)
+    //     // {
+    //     //     whichHurtSound = 0;
+    //     // }
+    //     // else
+    //     // {
+    //     //     whichHurtSound++;
+    //     // }
+    //     // cameraEffects.Shake(100, 1f);
+    // }
 
     // public void Freeze(bool freeze)
     // {
