@@ -81,7 +81,7 @@ public class Cap : PhysicsObject
         rightWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right, rayCastSize.x, layerMask);
         Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right * rayCastSize.x, Color.yellow);
 
-        if (rightWall.collider != null)
+        if (rightWall.collider != null && rightWall.transform.gameObject.tag != "SlantGround")
         {
             if (!followPlayer)
             {
@@ -97,7 +97,7 @@ public class Cap : PhysicsObject
         leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
         Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left * rayCastSize.x, Color.blue);
 
-        if (leftWall.collider != null)
+        if (leftWall.collider != null && leftWall.transform.gameObject.tag != "SlantGround")
         {
             if (!followPlayer)
             {
@@ -232,8 +232,8 @@ public class Cap : PhysicsObject
         if (grounded)
         {
             velocity.y = jumpPower;
-            PlayJumpSound();
-            PlayStepSound();
+            // PlayJumpSound();
+            // PlayStepSound();
         }
     }
 

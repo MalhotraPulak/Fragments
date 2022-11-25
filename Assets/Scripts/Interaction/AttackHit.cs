@@ -93,6 +93,10 @@ public class AttackHit : MonoBehaviour
 
             else if (player.tag == "Cap" && player.GetComponent<Cap>().attackCounter > 1)
             {
+                if (enemy.tag == "Cap")
+                {
+                    player.GetComponent<Cap>().direction *= -1;
+                }
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
             }
 

@@ -12,6 +12,7 @@ TagManager:
   - Cap
   - Legs
   - attackCollider
+  - SlantGround
   layers:
   - Default
   - TransparentFX
