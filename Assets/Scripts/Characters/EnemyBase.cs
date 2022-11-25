@@ -17,7 +17,7 @@ public class EnemyBase : MonoBehaviour
 
     [Header("Properties")]
     [SerializeField] private GameObject deathParticles;
-    [SerializeField] private int health = 1;
+    [SerializeField] public int health = 1;
     public AudioClip hitSound;
     public bool isBomb;
     [SerializeField] bool requirePoundAttack; //Requires the player to use the down attack to hurt
@@ -40,7 +40,7 @@ public class EnemyBase : MonoBehaviour
     public void GetHurt(int launchDirection, int hitPower, Collision2D col = null)
     {
         //Hit the enemy, causing a damage effect, and decreasing health. Allows for requiring a downward pound attack
-        if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null || GetComponent<Cap>() != null) && !recoveryCounter.recovering)
+        if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null || GetComponent<Cap>() != null || GetComponent<Boss>() != null) && !recoveryCounter.recovering)
         {
             Debug.Log("Hitting something");
             if (!requirePoundAttack || (requirePoundAttack && NewPlayer.Instance.pounding))

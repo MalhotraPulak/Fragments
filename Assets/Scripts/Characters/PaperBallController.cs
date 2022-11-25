@@ -9,10 +9,12 @@ public class PaperBallController : PhysicsObject
     public float horVel = 0.0f;
     public float verVel = 8.0f;
     private bool existent = false;
+    [System.NonSerialized] public EnemyBase enemyBase;
 
     void Start()
     {
         base.Start();
+        enemyBase = GetComponent<EnemyBase>();
     }
 
     public void InitialiseVelocity(float hor_vel, float ver_vel){

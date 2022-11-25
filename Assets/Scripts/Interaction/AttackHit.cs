@@ -46,8 +46,16 @@ public class AttackHit : MonoBehaviour
             GameObject enemy = gameObject;
             GameObject player = col.gameObject;
 
-            if (col.GetContact(0).collider.name == "Slam Collider"){
+            // Paper ball must be destroyed as soon as it hits Floppy
+            if (enemy.tag == "PaperBall" && player.tag == "Floppy"){
+                Floppy.Instance.GetHurt(targetSide, hitPower);
+                Destroy(enemy);
+            }
+
+            else if (col.GetContact(0).collider.name == "Slam Collider"){
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
+                print("Hit the boss");
+                print("Current health is " + enemy.GetComponent<EnemyBase>().health);
             }
 
             else if (player.tag == "Floppy" && !Floppy.Instance.animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))

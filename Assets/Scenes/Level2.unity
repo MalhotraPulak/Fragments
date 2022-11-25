@@ -1735,11 +1735,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4039398741816762, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -64.92
+      value: 124.8
       objectReference: {fileID: 0}
     - target: {fileID: 4039398741816762, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.72246
+      value: 81.02246
       objectReference: {fileID: 0}
     - target: {fileID: 4039398741816762, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1747,11 +1747,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4569125025086690, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -64.92
+      value: 124.8
       objectReference: {fileID: 0}
     - target: {fileID: 4569125025086690, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.72246
+      value: 81.02246
       objectReference: {fileID: 0}
     - target: {fileID: 4569125025086690, guid: 927e473a2ba484d75b382fc1faaf0eeb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3533,8 +3533,11 @@ GameObject:
   - component: {fileID: 920181748}
   - component: {fileID: 920181747}
   - component: {fileID: 920181746}
-  - component: {fileID: 920181745}
   - component: {fileID: 920181744}
+  - component: {fileID: 920181751}
+  - component: {fileID: 920181750}
+  - component: {fileID: 920181749}
+  - component: {fileID: 920181745}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -3573,20 +3576,21 @@ MonoBehaviour:
   dead: 0
   frozen: 0
   recoveryCounter: {fileID: 0}
-  health: 0
-  maxHealth: 0
   movementDistance: 20
   spawnPos: {x: 0, y: 0, z: 0}
   maxSpeed: 4
-  dashSpeed: 8
+  thresholdDist: 20
+  isDashing: 0
+  dashSpeed: 20
+  dashFrequency: 5
   jumpPower: 4
-  jumpFrequency: 0.0066
+  jumpFrequency: 5
   paperball: {fileID: 1117261904}
-  throwFrequency: 0.0066
+  throwFrequency: 5
   paperBallVelocity: 10
-  throwAngle: 45
---- !u!61 &920181745
-BoxCollider2D:
+  rangeAngle: 15
+--- !u!70 &920181745
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3598,19 +3602,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0.04299164}
+  m_Size: {x: 1, y: 1.0859833}
+  m_Direction: 0
 --- !u!50 &920181746
 Rigidbody2D:
   serializedVersion: 4
@@ -3698,6 +3692,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &920181749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920181743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3b469cc09d64f4695c6375aacdaa97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacksWhat: 1
+  oneHitKill: 0
+  startCollisionDelay: 0
+  parent: {fileID: 920181743}
+  isBomb: 0
+  hitPower: 1
+--- !u!114 &920181750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920181743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f76df804f07458b8dd06edeba7002d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  instantiator: {fileID: 0}
+  deathParticles: {fileID: 0}
+  health: 1
+  hitSound: {fileID: 0}
+  isBomb: 0
+  requirePoundAttack: 0
+--- !u!114 &920181751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920181743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420e96ddfe1ad484ebaaf99004b00fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoveryTime: 1
 --- !u!1 &920257832
 GameObject:
   m_ObjectHideFlags: 0
@@ -4496,12 +4540,12 @@ PrefabInstance:
     - target: {fileID: 8046356897004745407, guid: 94a5b7b35a5464bc781dd676605f90b7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -64.92
+      value: 124.8
       objectReference: {fileID: 0}
     - target: {fileID: 8046356897004745407, guid: 94a5b7b35a5464bc781dd676605f90b7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.5
+      value: 79.8
       objectReference: {fileID: 0}
     - target: {fileID: 8046356897004745407, guid: 94a5b7b35a5464bc781dd676605f90b7,
         type: 3}
@@ -4591,11 +4635,14 @@ GameObject:
   - component: {fileID: 1117261909}
   - component: {fileID: 1117261908}
   - component: {fileID: 1117261907}
-  - component: {fileID: 1117261906}
   - component: {fileID: 1117261905}
-  m_Layer: 0
+  - component: {fileID: 1117261912}
+  - component: {fileID: 1117261911}
+  - component: {fileID: 1117261910}
+  - component: {fileID: 1117261906}
+  m_Layer: 12
   m_Name: PaperBall
-  m_TagString: Untagged
+  m_TagString: paperball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4630,8 +4677,8 @@ MonoBehaviour:
     maxNormalAngle: 0
   horVel: 0
   verVel: 8
---- !u!58 &1117261906
-CircleCollider2D:
+--- !u!70 &1117261906
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4644,8 +4691,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1}
+  m_Direction: 0
 --- !u!50 &1117261907
 Rigidbody2D:
   serializedVersion: 4
@@ -4733,6 +4780,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1117261910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117261904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd3b469cc09d64f4695c6375aacdaa97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacksWhat: 1
+  oneHitKill: 0
+  startCollisionDelay: 0
+  parent: {fileID: 1117261904}
+  isBomb: 0
+  hitPower: 1
+--- !u!114 &1117261911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117261904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f76df804f07458b8dd06edeba7002d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  instantiator: {fileID: 0}
+  deathParticles: {fileID: 0}
+  health: 1
+  hitSound: {fileID: 0}
+  isBomb: 0
+  requirePoundAttack: 0
+--- !u!114 &1117261912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117261904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420e96ddfe1ad484ebaaf99004b00fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoveryTime: 1
 --- !u!1001 &1124949524
 PrefabInstance:
   m_ObjectHideFlags: 0

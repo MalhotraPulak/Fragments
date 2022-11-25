@@ -13,6 +13,7 @@ TagManager:
   - Legs
   - attackCollider
   - SlantGround
+  - paperball
   layers:
   - Default
   - TransparentFX

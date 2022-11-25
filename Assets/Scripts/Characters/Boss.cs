@@ -9,21 +9,28 @@ public class Boss : PhysicsObject
     public bool dead = false;
     public bool frozen = false;
     public RecoveryCounter recoveryCounter;
-    public int health;
-    public int maxHealth;
     public int movementDistance;
     public Vector3 spawnPos;
     private int dir = -1;
     public float maxSpeed = 4.0f;
+    // Dashing Parameters
+    public float thresholdDist = 20.0f;
+    public bool isDashing = false;
     public float dashSpeed = 8.0f;
-    public float jumpPower = 4.0f;
-    public float jumpFrequency = 0.0066f;
+    public float jumpSpeed = 6.0f;
+    public int dashFrequency = 5;
+    // Jumping Parameters
+    public float jumpPower = 10.0f;
+    public int jumpFrequency = 5;
+    public float jumpThresholdDist = 20.0f;
     // List of paperballs
     public GameObject paperball;
-    public float throwFrequency = 0.0066f;
+    public int throwFrequency = 5;
     public float paperBallVelocity = 10.0f;
-    public float throwAngle = 45.0f;
+    public float rangeAngle = 15.0f;
 
+    // Distance from Floppy
+    float floppyDist = 0.0f;
     // Singleton instantiation
     private static Boss instance;
     public static Boss Instance
@@ -39,7 +46,6 @@ public class Boss : PhysicsObject
     {
         base.Start();
         spawnPos = transform.localPosition;
-        health = maxHealth;
         targetVelocity.x = -maxSpeed;
         targetVelocity.y = 0;
     }
@@ -54,77 +60,90 @@ public class Boss : PhysicsObject
 
     protected override void ComputeVelocity()
     {
-        // if the current y axis is less than -20 then the boss is dead
-        if (transform.position.y < -20)
-        {
-            // StartCoroutine(Die());
-            return;
+        // Pre Computations
+        floppyDist = Vector3.Distance(Floppy.Instance.transform.position, transform.position);
+
+        if (isDashing){
+            Move(dashSpeed);
         }
-
-        // Distance from Floppy
-        float floppyDist = Vector3.Distance(Floppy.Instance.transform.position, transform.position);
-        print("Distance from Floppy" + floppyDist);
-
-        // Conditions when to move horizontally 
-        Move(maxSpeed);
+        else{
+            // Conditions when to move horizontally 
+            Move(maxSpeed);
+            shouldDash();
+        }
    
         // Conditions when to Jump
         Jump();
 
         // Conditions when to throw objects
+        // Throws 3 balls every x seconds
         Throw();
 
-        // Conditions when to charge towards Floppy
-        // 1. When it is far away from Floppy and its direction is
-        Dash();
     }
 
     public void Move(float speed) {
-        if (transform.position.x > spawnPos.x)
+        if (transform.position.x > spawnPos.x){
+            // Since direction is changing, we stop dashing if we are, if we arent then all good
             dir = -1;
-        else if(transform.position.x + movementDistance < spawnPos.x)
+            isDashing = false;
+        }
+        else if(transform.position.x + movementDistance < spawnPos.x){
             dir = 1;
-        targetVelocity.x = dir * speed;
+            isDashing = false;
+        }
+        if (grounded)
+            targetVelocity.x = dir * speed;
+        else
+            targetVelocity.x = dir * jumpSpeed;
     }
 
-    public void Dash(){
-        if(Random.Range(0, 5) < 2 && grounded){
-           if(dir == -1){
-                print("Dashing");
-                Move(dashSpeed);
-           }
+    public void shouldDash(){
+        // Should only be called when not dashing already
+        if(Random.Range(0, 1000) < dashFrequency && grounded){
+            // Cases
+            // 1. enemy - left and floppy on left - dash
+            // 2. enemy - left and floppy on right - dont dash
+            // 3. enemy - right and floppy on left - dont dash
+            // 4. enemy - right and floppy on right - dash
+            bool isMovingTowardsFloppy = !(dir < 0 ^ transform.position.x > Floppy.Instance.transform.position.x);
+            if(isMovingTowardsFloppy && floppyDist > thresholdDist){
+                isDashing = true;
+            }
         }
     }
 
     public void Jump(){
         // Jumps over Floppy
-        if(grounded){
-            if (Random.Range(0, (int)(1/ jumpFrequency)) < 2)
+        if(Random.Range(0, 1000) < jumpFrequency && grounded){
+            // Cases
+            // 1. enemy - left and floppy on left - dash
+            // 2. enemy - left and floppy on right - dont dash
+            // 3. enemy - right and floppy on left - dont dash
+            // 4. enemy - right and floppy on right - dash
+            bool isMovingTowardsFloppy = !(dir < 0 ^ transform.position.x > Floppy.Instance.transform.position.x);
+            if(isMovingTowardsFloppy && floppyDist < jumpThresholdDist){
                 velocity.y = jumpPower;
+            }
         }
     }
 
     public void Throw(){
         // Throws paper balls at Floppy
-        if (Random.Range(0, (int)(1 / throwFrequency)) < 2 && grounded){
-            for (int i=0; i<2; i++) {
-                int neg = 1;
-                if (i < 1) neg = -1;
+        if (Random.Range(0, 1000) < throwFrequency && grounded){
+            float angletowardsFloppy = Mathf.Atan2(transform.position.y - Floppy.Instance.transform.position.y,
+                transform.position.x - Floppy.Instance.transform.position.x
+            );
+            if(angletowardsFloppy < 0){
+                angletowardsFloppy += Mathf.PI;
+            }
+            for (int i=0; i<3; i++) {
             
                 Vector3 paperBallSpawnPos = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
-                print("Attempting to create new paper ball at ");
                 GameObject newPaperBall = Instantiate(paperball, paperBallSpawnPos, Quaternion.identity);
-                print("Created new paper ball at " + newPaperBall.transform);
-                List<int> angles = new List<int>{90};
-                float throwAngleRad = Mathf.PI / 180 * angles[Random.Range(0, angles.Count)];
+                float throwAngleRad = angletowardsFloppy + i * Mathf.PI / 180 * (rangeAngle);
 
-                float horVel = paperBallVelocity * Mathf.Cos(throwAngleRad) * neg;
+                float horVel = paperBallVelocity * Mathf.Cos(throwAngleRad);
                 float verVel = paperBallVelocity * Mathf.Sin(throwAngleRad);
-
-                // if ((velocity.x < 0 && horVel < 0) || (velocity.x > 0 && horVel > 0))
-                //     horVel += 2 * velocity.x;
-                
-                print("Velocities are " + horVel + " " + verVel);
 
                 newPaperBall.GetComponent<PaperBallController>().InitialiseVelocity(horVel, verVel);
             }
@@ -178,38 +197,6 @@ public class Boss : PhysicsObject
         //     whichHurtSound++;
         // }
         // cameraEffects.Shake(100, 1f);
-    }
-
-    // public IEnumerator Die()
-    // {
-    //     if (!frozen)
-    //     {
-    //         dead = true;
-    //         // deathParticles.Emit(10);
-    //         // GameManager.Instance.audioSource.PlayOneShot(deathSound);
-    //         Hide(true);
-    //         Time.timeScale = .6f;
-    //         yield return new WaitForSeconds(5f);
-    //         GameManager.Instance.hud.animator.SetTrigger("coverScreen");
-    //         // if the position of floppy is more than 192 units load the next scene
-    //         if (transform.position.x > 192)
-    //         {
-    //             GameManager.Instance.hud.loadSceneId = SceneManager.GetActiveScene().buildIndex + 1;
-    //         }
-    //         else
-    //         {
-    //             GameManager.Instance.hud.loadSceneId = SceneManager.GetActiveScene().buildIndex;
-    //         }
-    //         Time.timeScale = 1f;
-    //     }
-    // }
-
-    public void HideBodyPart (GameObject obj){
-        obj.SetActive(false);
-    }
-
-    public void ShowBodyPart (GameObject obj){
-        obj.SetActive(true);
     }
 
     // public void Freeze(bool freeze)
