@@ -32,7 +32,7 @@ public class BreakingPlatform : MonoBehaviour
 
     void TogglePlatform(bool active)
     {
-        GetComponent<SpriteRenderer>().enabled = active;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = active;
         GetComponent<BoxCollider2D>().enabled = active;
     }
 }
