@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*Loads a new scene, while also clearing level-specific inventory!*/
 
@@ -8,11 +9,14 @@ public class SceneLoadTrigger : MonoBehaviour
 {
 
     [SerializeField] string loadSceneName;
+    [SerializeField] int loadSceneId;
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject == NewPlayer.Instance.gameObject)
+        if (col.gameObject == Floppy.Instance.gameObject)
         {
+            print("Scene Change");
+            SceneManager.LoadScene(loadSceneId);
             GameManager.Instance.hud.loadSceneName = loadSceneName;
             GameManager.Instance.inventory.Clear();
             GameManager.Instance.hud.animator.SetTrigger("coverScreen");

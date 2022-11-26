@@ -152,14 +152,7 @@ public class Floppy : BodyPart
             yield return new WaitForSeconds(5f);
             GameManager.Instance.hud.animator.SetTrigger("coverScreen");
             // if the position of floppy is more than 192 units load the next scene
-            if (transform.position.x > 192)
-            {
-                GameManager.Instance.hud.loadSceneId = SceneManager.GetActiveScene().buildIndex + 1;
-            }
-            else
-            {
-                GameManager.Instance.hud.loadSceneId = SceneManager.GetActiveScene().buildIndex;
-            }
+            GameManager.Instance.hud.loadSceneId = SceneManager.GetActiveScene().buildIndex;
             Time.timeScale = 1f;
         }
     }

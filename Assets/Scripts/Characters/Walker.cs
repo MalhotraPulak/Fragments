@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Walker : PhysicsObject
 {
+    public Camera cam;
+
     [Header ("Reference")]
     public EnemyBase enemyBase;
     [SerializeField] private GameObject graphic;
@@ -44,7 +46,7 @@ public class Walker : PhysicsObject
     [Header("Sounds")]
     public AudioClip jumpSound;
     public AudioClip stepSound;
-    
+
     void Start()
     {
         enemyBase = GetComponent<EnemyBase>();
@@ -71,8 +73,62 @@ public class Walker : PhysicsObject
         ComputeVelocity();
     }
 
+    public void CheckWalls()
+    {            
+        //Check for walls
+        rightWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right, rayCastSize.x, layerMask);
+        Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right * rayCastSize.x, Color.yellow);
+
+        if (rightWall.collider != null)
+        {
+            if (!followPlayer)
+            {
+                direction = -1;
+            }
+            else if (direction == 1)
+            {
+                Jump();
+            }
+
+        }
+
+        leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
+        Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left * rayCastSize.x, Color.blue);
+
+        if (leftWall.collider != null)
+        {
+            if (!followPlayer)
+            {
+                direction = 1;
+            }
+            else if (direction == -1)
+            {
+                Jump();
+            }
+        }
+    }
+
+    public void CheckLedges(){
+
+        //Check for ledges. Walker's height check is much higher! They will fall pretty far, but will not fall to death. 
+        rightLedge = Physics2D.Raycast(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
+        Debug.DrawRay(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
+        if ((rightLedge.collider == null || rightLedge.collider.gameObject.layer == 14) && direction == 1)
+        {
+            direction = -1;
+        }
+
+        leftLedge = Physics2D.Raycast(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
+        Debug.DrawRay(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
+        if ((leftLedge.collider == null || leftLedge.collider.gameObject.layer == 14) && direction == -1)
+        {
+            direction = 1;
+        }
+    }
+
     protected void ComputeVelocity()
     {
+
         Vector2 move = Vector2.zero;
 
         if (!Floppy.Instance.frozen)
@@ -156,57 +212,14 @@ public class Walker : PhysicsObject
                     rayCastSize.y = rayCastSizeOrig.y;
                 }
 
-                //Check for walls
-                rightWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right, rayCastSize.x, layerMask);
-                Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right * rayCastSize.x, Color.yellow);
+                CheckWalls();
+                CheckLedges();
 
-                if (rightWall.collider != null)
-                {
-                    if (!followPlayer)
-                    {
-                        direction = -1;
-                    }
-                    else if (direction == 1)
-                    {
-                        Jump();
-                    }
-
-                }
-
-                leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
-                Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left * rayCastSize.x, Color.blue);
-
-                if (leftWall.collider != null)
-                {
-                    if (!followPlayer)
-                    {
-                        direction = 1;
-                    }
-                    else if (direction == -1)
-                    {
-                        Jump();
-                    }
-                }
-
-                //Check for ledges. Walker's height check is much higher! They will fall pretty far, but will not fall to death. 
-                rightLedge = Physics2D.Raycast(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
-                Debug.DrawRay(new Vector2(transform.position.x + rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
-                if ((rightLedge.collider == null || rightLedge.collider.gameObject.layer == 14) && direction == 1)
-                {
-                    direction = -1;
-                }
-
-                leftLedge = Physics2D.Raycast(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down, rayCastSize.y, layerMask);
-                Debug.DrawRay(new Vector2(transform.position.x - rayCastOffset.x, transform.position.y), Vector2.down * rayCastSize.y, Color.blue);
-                if ((leftLedge.collider == null || leftLedge.collider.gameObject.layer == 14) && direction == -1)
-                {
-                    direction = 1;
-                }
             }
-        }
 
+        }
         enemyBase.animator.SetBool("grounded", grounded);
-        enemyBase.animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+        // enemyBase.animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
         targetVelocity = move * maxSpeed;
     }
 
@@ -231,5 +244,4 @@ public class Walker : PhysicsObject
         enemyBase.audioSource.pitch = (Random.Range(0.6f, 1f));
         enemyBase.audioSource.PlayOneShot(jumpSound);
     }
-
 }

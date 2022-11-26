@@ -61,7 +61,6 @@ public class HighlightBox : MonoBehaviour
             return true;
         }
 
-        print(script.velocity);
         if(Mathf.Abs(script.velocity.x) < 0.001 && Mathf.Abs(script.velocity.y) < 0.001 && script.grounded)
         {
             return true;
