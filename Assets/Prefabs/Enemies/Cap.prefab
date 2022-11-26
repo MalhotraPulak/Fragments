@@ -9782,7 +9782,7 @@ Transform:
   m_LocalScale: {x: 5.0666075, y: 5.92446, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 2803333164006802773}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2595691785822776697
 SpriteRenderer:
@@ -14813,7 +14813,7 @@ Transform:
   - {fileID: 2808537743114830023}
   - {fileID: 2808009183125183727}
   m_Father: {fileID: 2803333164006802773}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &2609671762755872563
 ParticleSystem:
@@ -19793,9 +19793,9 @@ Transform:
   m_LocalPosition: {x: -38.35, y: -1.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 3983023569712033332}
   - {fileID: 2803468600359102147}
   - {fileID: 2803313467173689735}
-  - {fileID: 3983023569712033332}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19812,11 +19812,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7997412516808560284}
-  instantiator: {fileID: 2837600936027430163}
   deathParticles: {fileID: 2806315230481690437}
-  health: 100
+  health: 3
   hitSound: {fileID: 8300000, guid: a6da7dd234fd74164bcdbdb0e1eb8fbc, type: 3}
   isBomb: 0
+  finalDoor: {fileID: 0}
   requirePoundAttack: 0
 --- !u!70 &2742478812771437809
 CapsuleCollider2D:
@@ -20045,7 +20045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
-  gravityModifier: 2
+  gravityModifier: 10
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -20061,6 +20061,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   cam: {fileID: 0}
+  capD: {fileID: 21300000, guid: ca2b042b8167c4f1cab1cbee8f7a6f96, type: 3}
   enemyBase: {fileID: 2838142510990096825}
   graphic: {fileID: 2806315291673806657}
   layerMask:
@@ -20074,7 +20075,7 @@ MonoBehaviour:
   hurtLaunchPower: 14
   jumping: 0
   jumpPower: 7
-  maxSpeed: 3
+  maxSpeed: 5
   maxSpeedDeviation: 1
   neverStopFollowing: 0
   rayCastSize: {x: 1.5, y: 1}
@@ -25005,7 +25006,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 2803333164006802773}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3983023569712033333
 SpriteRenderer:

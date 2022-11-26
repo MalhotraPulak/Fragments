@@ -109,7 +109,7 @@ public class AttackHit : MonoBehaviour
                 Floppy.Instance.GetHurt(targetSide, hitPower);
             }
 
-            else if (player.tag == "Cap" && player.GetComponent<Cap>().attackCounter > 1)
+            else if (player.tag == "Cap" && player.GetComponent<Cap>().attackCounter > 0)
             {
                 if (enemy.tag == "Cap")
                 {
