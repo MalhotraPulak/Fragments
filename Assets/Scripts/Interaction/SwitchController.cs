@@ -5,6 +5,20 @@ using UnityEngine;
 public class SwitchController : MonoBehaviour
 {
     public bool isPressed = false;
+    public Sprite pressedButtonSprite;
+    public Sprite unpressedButtonSprite;
+
+    void Update()
+    {
+        if(isPressed)
+        {
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = pressedButtonSprite;
+        }
+        else
+        {
+            transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = unpressedButtonSprite;
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D col)
     {
