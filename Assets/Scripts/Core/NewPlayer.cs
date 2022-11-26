@@ -283,7 +283,7 @@ public class NewPlayer : PhysicsObject
             Time.timeScale = .6f;
             yield return new WaitForSeconds(5f);
             GameManager.Instance.hud.animator.SetTrigger("coverScreen");
-            GameManager.Instance.hud.loadSceneName = SceneManager.GetActiveScene().name;
+            // GameManager.Instance.hud.loadSceneName = SceneManager.GetActiveScene().name;
             Time.timeScale = 1f;
         }
     }

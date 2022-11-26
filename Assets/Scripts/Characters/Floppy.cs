@@ -14,6 +14,8 @@ public class Floppy : BodyPart
     public int maxHealth;
     public float jumpVelocity = 5f;
     public int coins = 0;
+    public AudioClip deathSound;
+    [SerializeField] private GameObject deathParticles;
 
     // Singleton instantiation
     private static Floppy instance;
@@ -54,7 +56,7 @@ public class Floppy : BodyPart
         if (BodyPartManager.Instance.activeBodyPart == BodyPartManager.BodyParts.Core)
         {
             move = moveHorizontal();
-            animator.SetInteger("attackDirectionY", (int)Input.GetAxis("VerticalDirection"));
+            // animator.SetInteger("attackDirectionY", (int)Input.GetAxis("VerticalDirection"));
             animator.SetInteger("moveDirection", (int)Input.GetAxis("HorizontalDirection"));
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -86,7 +88,7 @@ public class Floppy : BodyPart
 
     public void GetPushed(int hurtDirection, bool moveX = true) {
         cameraEffects.Shake(100, 1);
-        animator.SetTrigger("hurt");
+        // animator.SetTrigger("hurt");
         // velocity.y = hurtLaunchPower.y;
         if (moveX) launch = hurtDirection * (hurtLaunchPower.x);
     }
@@ -100,17 +102,12 @@ public class Floppy : BodyPart
             if (push)
                 GetPushed(hurtDirection);
             recoveryCounter.counter = 0;
-
+            health -= hitPower;
+            GameManager.Instance.hud.HealthBarHurt();
             if (health <= 0)
             {
                 StartCoroutine(Die());
             }
-            else
-            {
-                health -= hitPower;
-            }
-
-            GameManager.Instance.hud.HealthBarHurt();
         }
     }
 
@@ -143,19 +140,18 @@ public class Floppy : BodyPart
 
     public IEnumerator Die()
     {
-        if (!frozen)
-        {
-            dead = true;
-            // deathParticles.Emit(10);
-            // GameManager.Instance.audioSource.PlayOneShot(deathSound);
-            Hide(true);
-            Time.timeScale = .6f;
-            yield return new WaitForSeconds(5f);
-            GameManager.Instance.hud.animator.SetTrigger("coverScreen");
-            // if the position of floppy is more than 192 units load the next scene
-            GameManager.Instance.hud.loadSceneId = SceneManager.GetActiveScene().buildIndex;
-            Time.timeScale = 1f;
-        }
+        dead = true;
+        deathParticles.SetActive(true);
+        deathParticles.transform.parent = null;
+
+        GameManager.Instance.audioSource.PlayOneShot(deathSound);
+        Hide(true);
+        Time.timeScale = .6f;
+        yield return new WaitForSeconds(1f);
+        GameManager.Instance.hud.animator.SetTrigger("coverScreen");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
     }
 
     public void HideBodyPart (GameObject obj){
