@@ -25,13 +25,13 @@ public class BreakableDoor : MonoBehaviour
             health -= 1;
             if(health == 0)
             {
+                Destroy(col.gameObject);
                 Destroy(gameObject);
             }
             else
             {
                 col.gameObject.GetComponent<Cap>().direction *= -1;
             }
-            print("health" + health);
         }
     }
 }

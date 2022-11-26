@@ -48,6 +48,7 @@ public class Cap : PhysicsObject
     public AudioClip stepSound;
 
     public int attackCounter = 0;
+    private float origSpeed;
     
     void Start()
     {
@@ -61,6 +62,7 @@ public class Cap : PhysicsObject
             direction = 0;
             directionSmooth = 0;
         }
+        origSpeed = maxSpeed;
     }
 
     void OnDrawGizmosSelected()
@@ -250,9 +252,8 @@ public class Cap : PhysicsObject
                 direction = -1;
             }
 
-            maxSpeed = 6f;
+            maxSpeed = origSpeed * 2;
         }
-
     }
 
     public void PlayStepSound()

@@ -12,9 +12,7 @@ public class EnemyBase : MonoBehaviour
     [System.NonSerialized] public AudioSource audioSource;
     public Animator animator;
     private AnimatorFunctions animatorFunctions;
-    [SerializeField] Instantiator instantiator;
     [System.NonSerialized] public RecoveryCounter recoveryCounter;
-
     [Header("Properties")]
     [SerializeField] private GameObject deathParticles;
     [SerializeField] public int health = 1;
@@ -45,7 +43,6 @@ public class EnemyBase : MonoBehaviour
         if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null || GetComponent<Cap>() != null || GetComponent<Boss>() != null) && !recoveryCounter.recovering)
         {
             Debug.Log("Hitting something");
-            // Floppy.Instance.cameraEffects.Shake(100, 1);
             health -= 1;
             animator.SetTrigger("hurt");
 
@@ -111,11 +108,9 @@ public class EnemyBase : MonoBehaviour
         //     NewPlayer.Instance.PoundEffect();
         // }
 
-        Floppy.Instance.cameraEffects.Shake(200, 1);
         health = 0;
         deathParticles.SetActive(true);
         deathParticles.transform.parent = transform.parent;
-        instantiator.InstantiateObjects();
         Time.timeScale = 1f;
         if(gameObject.tag == "Boss")
         {
