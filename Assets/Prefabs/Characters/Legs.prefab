@@ -130,7 +130,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2656615715587209199}
   m_Bounds:
-    m_Center: {x: -0.48130238, y: -0.62630975, z: 0}
+    m_Center: {x: -0.4813329, y: -0.62630785, z: 0}
     m_Extent: {x: 0.73387015, y: 0.7305051, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2656615717678098047}
   m_Bounds:
-    m_Center: {x: 0.50084484, y: -0.47212946, z: 0}
+    m_Center: {x: 0.5008296, y: -0.47212732, z: 0}
     m_Extent: {x: 0.73387015, y: 0.7305051, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -398,6 +398,11 @@ PrefabInstance:
       propertyPath: targetObject
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3164010260233618746, guid: e4f318bd48f242944a9cf77415cec54b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3164010260233618747, guid: e4f318bd48f242944a9cf77415cec54b,
         type: 3}
       propertyPath: m_RootOrder
@@ -406,12 +411,12 @@ PrefabInstance:
     - target: {fileID: 3164010260233618747, guid: e4f318bd48f242944a9cf77415cec54b,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3164010260233618747, guid: e4f318bd48f242944a9cf77415cec54b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3164010260233618747, guid: e4f318bd48f242944a9cf77415cec54b,
         type: 3}
@@ -421,7 +426,7 @@ PrefabInstance:
     - target: {fileID: 3164010260233618747, guid: e4f318bd48f242944a9cf77415cec54b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.71
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 3164010260233618747, guid: e4f318bd48f242944a9cf77415cec54b,
         type: 3}
