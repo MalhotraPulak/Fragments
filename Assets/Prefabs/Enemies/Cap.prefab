@@ -19814,9 +19814,10 @@ MonoBehaviour:
   animator: {fileID: 7997412516808560284}
   instantiator: {fileID: 2837600936027430163}
   deathParticles: {fileID: 2806315230481690437}
-  health: 100
+  health: 3
   hitSound: {fileID: 8300000, guid: a6da7dd234fd74164bcdbdb0e1eb8fbc, type: 3}
   isBomb: 0
+  finalDoor: {fileID: 0}
   requirePoundAttack: 0
 --- !u!70 &2742478812771437809
 CapsuleCollider2D:

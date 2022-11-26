@@ -45,65 +45,62 @@ public class EnemyBase : MonoBehaviour
         if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null || GetComponent<Cap>() != null || GetComponent<Boss>() != null) && !recoveryCounter.recovering)
         {
             Debug.Log("Hitting something");
-            if (!requirePoundAttack || (requirePoundAttack && NewPlayer.Instance.pounding))
+            // Floppy.Instance.cameraEffects.Shake(100, 1);
+            health -= 1;
+            animator.SetTrigger("hurt");
+
+            if (audioSource != null)
             {
-                Floppy.Instance.cameraEffects.Shake(100, 1);
-                health -= 1;
-                animator.SetTrigger("hurt");
-
-                if (audioSource != null)
-                {
-                    audioSource.pitch = (1);
-                    audioSource.PlayOneShot(hitSound);
-                }
-                //Ensure the enemy and also the player cannot engage in hitting each other for the max recoveryTime for each
-                recoveryCounter.counter = 0;
-                Floppy.Instance.recoveryCounter.counter = 0;
-
-                // if (NewPlayer.Instance.pounding)
-                // {
-                //     NewPlayer.Instance.PoundEffect();
-                // }
-
-
-                //The Walker being launched after getting hit is a little different than the Flyer getting launched by a hit.
-                if (GetComponent<Walker>() != null)
-                {
-                    Walker walker = GetComponent<Walker>();
-                    walker.launch = launchDirection * walker.hurtLaunchPower / 5;
-                    walker.velocity.y = walker.hurtLaunchPower;
-                    walker.directionSmooth = launchDirection;
-                    walker.direction = walker.directionSmooth;
-                }
-
-                if (GetComponent<Lead>() != null)
-                {
-                    Debug.Log("HIT A LEAD");
-                    Lead walker = GetComponent<Lead>();
-                    // walker.launch = launchDirection * walker.hurtLaunchPower / 5;
-                    // walker.velocity.y = walker.hurtLaunchPower;
-                    // walker.directionSmooth = launchDirection;
-                    // walker.direction = walker.directionSmooth;
-                }
-
-                if (GetComponent<Cap>() != null)
-                {
-                    Debug.Log("HIT A CAP");
-                    Vector2 posCollision = col.GetContact(0).point;
-                    GetComponent<Cap>().CapHit(posCollision);
-                }
-
-                if (GetComponent<Flyer>() != null)
-                {
-                    Flyer flyer = GetComponent<Flyer>();
-                    flyer.speedEased.x = launchDirection * 5;
-                    flyer.speedEased.y = 4;
-                    flyer.speed.x = flyer.speedEased.x;
-                    flyer.speed.y = flyer.speedEased.y;
-                }
-
-                // NewPlayer.Instance.FreezeFrameEffect();
+                audioSource.pitch = (1);
+                audioSource.PlayOneShot(hitSound);
             }
+            //Ensure the enemy and also the player cannot engage in hitting each other for the max recoveryTime for each
+            recoveryCounter.counter = 0;
+            Floppy.Instance.recoveryCounter.counter = 0;
+
+            // if (NewPlayer.Instance.pounding)
+            // {
+            //     NewPlayer.Instance.PoundEffect();
+            // }
+
+
+            //The Walker being launched after getting hit is a little different than the Flyer getting launched by a hit.
+            if (GetComponent<Walker>() != null)
+            {
+                Walker walker = GetComponent<Walker>();
+                walker.launch = launchDirection * walker.hurtLaunchPower / 5;
+                walker.velocity.y = walker.hurtLaunchPower;
+                walker.directionSmooth = launchDirection;
+                walker.direction = walker.directionSmooth;
+            }
+
+            if (GetComponent<Lead>() != null)
+            {
+                Debug.Log("HIT A LEAD");
+                Lead walker = GetComponent<Lead>();
+                // walker.launch = launchDirection * walker.hurtLaunchPower / 5;
+                // walker.velocity.y = walker.hurtLaunchPower;
+                // walker.directionSmooth = launchDirection;
+                // walker.direction = walker.directionSmooth;
+            }
+
+            if (GetComponent<Cap>() != null)
+            {
+                Debug.Log("HIT A CAP");
+                Vector2 posCollision = col.GetContact(0).point;
+                GetComponent<Cap>().CapHit(posCollision);
+            }
+
+            if (GetComponent<Flyer>() != null)
+            {
+                Flyer flyer = GetComponent<Flyer>();
+                flyer.speedEased.x = launchDirection * 5;
+                flyer.speedEased.y = 4;
+                flyer.speed.x = flyer.speedEased.x;
+                flyer.speed.y = flyer.speedEased.y;
+            }
+
+        
         }
     }
 

@@ -77,36 +77,24 @@ public class Cap : PhysicsObject
 
     public void CheckWalls()
     {            
+        if (followPlayer){
+            return;
+        }
         //Check for walls
         rightWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right, rayCastSize.x, layerMask);
         Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.right * rayCastSize.x, Color.yellow);
 
-        if (rightWall.collider != null)
+        if (rightWall.collider != null && rightWall.collider.gameObject.tag != "SlantGround")
         {
-            if (!followPlayer)
-            {
-                direction = -1;
-            }
-            else if (direction == 1)
-            {
-                Jump();
-            }
-
+            direction = -1;
         }
 
         leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
         Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left * rayCastSize.x, Color.blue);
 
-        if (leftWall.collider != null)
+        if (leftWall.collider != null && leftWall.collider.gameObject.tag != "SlantGround")
         {
-            if (!followPlayer)
-            {
-                direction = 1;
-            }
-            else if (direction == -1)
-            {
-                Jump();
-            }
+            direction = 1;
         }
     }
 
