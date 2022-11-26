@@ -20045,7 +20045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
-  gravityModifier: 2
+  gravityModifier: 10
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
