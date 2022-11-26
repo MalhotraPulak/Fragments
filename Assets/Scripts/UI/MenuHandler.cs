@@ -7,15 +7,28 @@ using UnityEngine.SceneManagement;
 
 public class MenuHandler : MonoBehaviour {
 
-	[SerializeField] private string whichScene;
-
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    public void LoadScene()
+    public void LoadCutScene()
     {
-        SceneManager.LoadScene(whichScene);
+        SceneManager.LoadScene("CutScene1");
+    }
+
+    public void LoadLevel1()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void LoadLevel2()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void LoadLevel3()
+    {
+        SceneManager.LoadScene("Level3");
     }
 }
