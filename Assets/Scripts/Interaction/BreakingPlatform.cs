@@ -7,6 +7,9 @@ public class BreakingPlatform : MonoBehaviour
     public float destroyDelay = 2f;
     public float rebuildDelay = 2f;
 
+    public Sprite unbrokenPlatform;
+    public Sprite littleBrokenPlatform;
+
     bool isDestroyed = false;
     private IEnumerator breakCoroutine;
 
@@ -23,10 +26,13 @@ public class BreakingPlatform : MonoBehaviour
     IEnumerator DestroyAfterSeconds()
     {
         isDestroyed = true;
-        yield return new WaitForSeconds(destroyDelay);
+        yield return new WaitForSeconds(destroyDelay / 2);
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = littleBrokenPlatform;
+        yield return new WaitForSeconds(destroyDelay / 2);
         TogglePlatform(false);
         yield return new WaitForSeconds(rebuildDelay);
         TogglePlatform(true);
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = unbrokenPlatform;
         isDestroyed = false;
     }
 

@@ -8,6 +8,9 @@ public class PermanentDoor : MonoBehaviour
     public List<GameObject> switches;
     public bool isDesiredOpen = true;
     public bool open;
+
+    public Sprite closedDoorSprite;
+    public Sprite openDoorSprite;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +31,7 @@ public class PermanentDoor : MonoBehaviour
 
     void OpenDoor(){
         open = true;
-        GetComponent<SpriteRenderer>().enabled = !isDesiredOpen;
+        GetComponent<SpriteRenderer>().sprite = isDesiredOpen ? openDoorSprite : closedDoorSprite;
         GetComponent<BoxCollider2D>().enabled = !isDesiredOpen;
     }
 

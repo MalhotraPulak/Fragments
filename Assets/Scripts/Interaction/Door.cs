@@ -16,6 +16,9 @@ public class Door : MonoBehaviour
 
     public bool isDesiredOpen = true;
 
+    public Sprite closedDoorSprite;
+    public Sprite openDoorSprite;
+
     public List<int> togglePattern;
 
     List<int> switchStream = new List<int>();
@@ -61,7 +64,7 @@ public class Door : MonoBehaviour
     void SetDoor(bool active)
     {
         isDoorOpen = !active;
-        GetComponent<SpriteRenderer>().enabled = active;
+        GetComponent<SpriteRenderer>().sprite = active ? closedDoorSprite : openDoorSprite;
         GetComponent<BoxCollider2D>().enabled = active;
     }
 

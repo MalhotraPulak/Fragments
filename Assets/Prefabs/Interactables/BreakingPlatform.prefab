@@ -73,6 +73,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyDelay: 0.7
   rebuildDelay: 2
+  unbrokenPlatform: {fileID: 21300000, guid: e038900c99feeeb40859f8004f676e74, type: 3}
+  littleBrokenPlatform: {fileID: 21300000, guid: 7eecf6ada137ae74ea8de3b68a2e8660,
+    type: 3}
 --- !u!1 &5852557026246923241
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,8 +101,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5852557026246923241}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.734, y: 0.55, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.78, z: 1}
+  m_LocalPosition: {x: -0.8521, y: -3.3161, z: 0}
+  m_LocalScale: {x: 1.8000002, y: 1.78, z: 1}
   m_Children: []
   m_Father: {fileID: 2094780474426731263}
   m_RootOrder: 0
@@ -144,12 +147,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b40efa3c38d96094caed291213ceb335, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e038900c99feeeb40859f8004f676e74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
-  m_Size: {x: 1.894387, y: 2.4062693}
+  m_DrawMode: 2
+  m_Size: {x: 1.5230547, y: 4.247888}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
