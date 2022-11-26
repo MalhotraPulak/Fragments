@@ -18,6 +18,8 @@ public class VideoController : MonoBehaviour
     void Start()
     {
         //Begin invoke!
+        videoPlayer.url = System.IO.Path.Combine (Application.streamingAssetsPath,"Starting_Scene.mp4"); 
+        videoPlayer.Play();
         InvokeRepeating("CheckOver", .1f, .1f);
     }
 

@@ -42,10 +42,10 @@ public class EnemyBase : MonoBehaviour
         //Hit the enemy, causing a damage effect, and decreasing health. Allows for requiring a downward pound attack
         if ((GetComponent<Walker>() != null || GetComponent<Flyer>() != null || GetComponent<Lead>() != null || GetComponent<Cap>() != null || GetComponent<Boss>() != null) && !recoveryCounter.recovering)
         {
-            Debug.Log("Hitting something");
             health -= 1;
-            animator.SetTrigger("hurt");
-
+            if (animator != null){
+                animator.SetTrigger("hurt");
+            }
             if (audioSource != null)
             {
                 audioSource.pitch = (1);

@@ -13,6 +13,7 @@ public class Floppy : BodyPart
     public int health;
     public int maxHealth;
     public float jumpVelocity = 5f;
+    public int coins = 0;
 
     // Singleton instantiation
     private static Floppy instance;

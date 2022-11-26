@@ -46,7 +46,7 @@ public class Collectable : MonoBehaviour
         }
         else if (itemType == ItemType.Coin)
         {
-            // Floppy.Instance.coins += itemAmount;
+            Floppy.Instance.coins += itemAmount;
         }
         else if (itemType == ItemType.Health)
         {
