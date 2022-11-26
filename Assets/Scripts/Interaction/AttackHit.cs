@@ -115,7 +115,7 @@ public class AttackHit : MonoBehaviour
                 {
                     player.GetComponent<Cap>().direction *= -1;
                 }
-                enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
+                enemy.GetComponent<EnemyBase>().GetHurt(targetSide, 3, col);
             }
 
         }

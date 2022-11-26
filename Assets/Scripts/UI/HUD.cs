@@ -34,7 +34,6 @@ public class HUD : MonoBehaviour
         //Controls the width of the health bar based on the player's total health
         healthBarWidth = ((float)Floppy.Instance.health) / ((float)Floppy.Instance.maxHealth);
         healthBar.transform.localScale = new Vector2(healthBarWidth, 1);
-        
     }
 
     public void HealthBarHurt()

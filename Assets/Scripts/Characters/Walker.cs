@@ -81,15 +81,7 @@ public class Walker : PhysicsObject
 
         if (rightWall.collider != null)
         {
-            if (!followPlayer)
-            {
-                direction = -1;
-            }
-            else if (direction == 1)
-            {
-                Jump();
-            }
-
+            direction = -1;
         }
 
         leftWall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + rayCastOffset.y), Vector2.left, rayCastSize.x, layerMask);
@@ -97,14 +89,7 @@ public class Walker : PhysicsObject
 
         if (leftWall.collider != null)
         {
-            if (!followPlayer)
-            {
-                direction = 1;
-            }
-            else if (direction == -1)
-            {
-                Jump();
-            }
+            direction = 1;
         }
     }
 

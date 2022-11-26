@@ -18,6 +18,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] public int health = 1;
     public AudioClip hitSound;
     public bool isBomb;
+    public Instantiator instantiator;
 
     public GameObject finalDoor;
     [SerializeField] bool requirePoundAttack; //Requires the player to use the down attack to hurt
@@ -117,6 +118,7 @@ public class EnemyBase : MonoBehaviour
             finalDoor.GetComponent<PermanentDoor>().OpenDoor();
 
         }
+        instantiator.InstantiateObjects();
         Destroy(gameObject);
     }
 }
