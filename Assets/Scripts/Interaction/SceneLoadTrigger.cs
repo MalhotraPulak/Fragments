@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoadTrigger : MonoBehaviour
 {
-
-    [SerializeField] string loadSceneName;
     [SerializeField] int loadSceneId;
 
     void OnTriggerEnter2D(Collider2D col)
@@ -17,7 +15,6 @@ public class SceneLoadTrigger : MonoBehaviour
         {
             print("Scene Change");
             SceneManager.LoadScene(loadSceneId);
-            GameManager.Instance.hud.loadSceneName = loadSceneName;
             GameManager.Instance.inventory.Clear();
             GameManager.Instance.hud.animator.SetTrigger("coverScreen");
             enabled = false;

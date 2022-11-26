@@ -48,7 +48,6 @@ public class Boss : PhysicsObject
         spawnPos = transform.localPosition;
         targetVelocity.x = -maxSpeed;
         targetVelocity.y = 0;
-        GetComponent<EnemyBase>().health = 5;
     }
 
     // private void animation(){
@@ -63,28 +62,58 @@ public class Boss : PhysicsObject
         // Pre Computations
         floppyDist = Vector3.Distance(Floppy.Instance.transform.position, transform.position);
 
-        if (isDashing){
-            Move(dashSpeed);
+        // Level 1 Boss only Moves and Dashes
+        if(SceneManager.GetActiveScene().name == "Level1"){
+            print("Currently in Level 1");
+            if (isDashing){
+                Move(dashSpeed);
+            }
+            else{
+                // Conditions when to move horizontally 
+                Move(maxSpeed);
+                ShouldDash();
+            }
         }
-        else{
-            // Conditions when to move horizontally 
-            Move(maxSpeed);
 
-            shouldDash();
+        // Level 2 Boss Moves, Dashes and Throws
+        if(SceneManager.GetActiveScene().name == "Level2"){
+            print("Currently in Level 2");
+            if (isDashing){
+                Move(dashSpeed);
+            }
+            else{
+                // Conditions when to move horizontally 
+                Move(maxSpeed);
+                ShouldDash();
+            }
+            if (GetComponent<EnemyBase>().health < 3)
+                Throw();
         }
-        
-        // Conditions when to Jump
-        if (GetComponent<EnemyBase>().health < 3)
-            Jump();
 
-        // Conditions when to throw objects
-        // Throws 3 balls every x seconds
-        if (GetComponent<EnemyBase>().health < 3)
-            throwFrequency = 7;
-        if (GetComponent<EnemyBase>().health < 4)
-            Throw();
-        
-        // print("Health= " + GetComponent<EnemyBase>().health);
+        // Level 3 Boss Moves, Dashes, Jumps and Throws
+        if(SceneManager.GetActiveScene().name == "Level3"){
+            print("Currently in Level 3");
+            if (isDashing){
+                Move(dashSpeed);
+            }
+            else{
+                // Conditions when to move horizontally 
+                Move(maxSpeed);
+                ShouldDash();
+            }
+            if (GetComponent<EnemyBase>().health == 1){
+                Throw(true);
+                Jump();
+                jumpFrequency = 100; 
+                dashFrequency = 100; 
+            }
+            else if(GetComponent<EnemyBase>().health == 2 || GetComponent<EnemyBase>().health == 3){
+                Throw(true);
+            }
+            else{
+                Throw();
+            }
+        }
     }
 
     public void Move(float speed) {
@@ -104,7 +133,7 @@ public class Boss : PhysicsObject
             targetVelocity.x = dir * jumpSpeed;
     }
 
-    public void shouldDash(){
+    public void ShouldDash(){
         // Should only be called when not dashing already
         if(Random.Range(0, 1000) < dashFrequency && grounded){
             // Cases
@@ -134,25 +163,40 @@ public class Boss : PhysicsObject
         }
     }
 
-    public void Throw(){
+    public void Throw(bool allDirections = false){
         // Throws paper balls at Floppy
         if (Random.Range(0, 1000) < throwFrequency && grounded){
-            float angletowardsFloppy = Mathf.Atan2(transform.position.y - Floppy.Instance.transform.position.y,
-                transform.position.x - Floppy.Instance.transform.position.x
-            );
-            if(angletowardsFloppy < 0){
-                angletowardsFloppy += Mathf.PI;
+
+            if(allDirections){
+                for (int i=0; i<(int)(180/rangeAngle); i++) {
+                    
+                    Vector3 paperBallSpawnPos = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
+                    GameObject newPaperBall = Instantiate(paperball, paperBallSpawnPos, Quaternion.identity);
+                    float throwAngleRad = i * Mathf.PI * rangeAngle / 180.0f;
+                    float horVel = paperBallVelocity * Mathf.Cos(throwAngleRad);
+                    float verVel = paperBallVelocity * Mathf.Sin(throwAngleRad);
+                    print("Paper ball vh = " + horVel + " vv = " + verVel);
+                    newPaperBall.GetComponent<PaperBallController>().InitialiseVelocity(horVel, verVel);
+                }
             }
-            for (int i=0; i<3; i++) {
-            
-                Vector3 paperBallSpawnPos = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
-                GameObject newPaperBall = Instantiate(paperball, paperBallSpawnPos, Quaternion.identity);
-                float throwAngleRad = angletowardsFloppy + i * Mathf.PI / 180 * (rangeAngle);
+            else{
+                float angletowardsFloppy = Mathf.Atan2(transform.position.y - Floppy.Instance.transform.position.y,
+                    transform.position.x - Floppy.Instance.transform.position.x
+                );
+                if(angletowardsFloppy < 0){
+                    angletowardsFloppy += Mathf.PI;
+                }
+                for (int i=0; i<3; i++) {
+                
+                    Vector3 paperBallSpawnPos = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
+                    GameObject newPaperBall = Instantiate(paperball, paperBallSpawnPos, Quaternion.identity);
+                    float throwAngleRad = angletowardsFloppy + i * Mathf.PI / 180 * (rangeAngle);
 
-                float horVel = paperBallVelocity * Mathf.Cos(throwAngleRad);
-                float verVel = paperBallVelocity * Mathf.Sin(throwAngleRad);
+                    float horVel = paperBallVelocity * Mathf.Cos(throwAngleRad);
+                    float verVel = paperBallVelocity * Mathf.Sin(throwAngleRad);
 
-                newPaperBall.GetComponent<PaperBallController>().InitialiseVelocity(horVel, verVel);
+                    newPaperBall.GetComponent<PaperBallController>().InitialiseVelocity(horVel, verVel);
+                }
             }
         }
     }
@@ -162,71 +206,6 @@ public class Boss : PhysicsObject
     //     // animator.SetTrigger("hurt");
     //     velocity.y = hurtLaunchPower.y;
     //     if (moveX) launch = hurtDirection * (hurtLaunchPower.x);
-    // }
-
-    // public void GetHurt(int hurtDirection, int hitPower, bool push = true)
-    // {
-    //     //If the player is not frozen (ie talking, spawning, etc), recovering, and pounding, get hurt!
-    //     if (!frozen && !recoveryCounter.recovering)
-    //     {
-    //         HurtEffect();
-    //         if (push)
-    //             GetPushed(hurtDirection);
-    //         recoveryCounter.counter = 0;
-
-    //         if (health <= 0)
-    //         {
-    //             StartCoroutine(Die());
-    //         }
-    //         else
-    //         {
-    //             health -= hitPower;
-    //         }
-
-    //         GameManager.Instance.hud.HealthBarHurt();
-    //     }
-    // }
-
-
-    // private void HurtEffect()
-    // {
-    //     // GameManager.Instance.audioSource.PlayOneShot(hurtSound);
-    //     // StartCoroutine(FreezeFrameEffect());
-    //     // GameManager.Instance.audioSource.PlayOneShot(hurtSounds[whichHurtSound]);
-
-    
-    //     // if (whichHurtSound >= hurtSounds.Length - 1)
-    //     // {
-    //     //     whichHurtSound = 0;
-    //     // }
-    //     // else
-    //     // {
-    //     //     whichHurtSound++;
-    //     // }
-    //     // cameraEffects.Shake(100, 1f);
-    // }
-
-    // public void Freeze(bool freeze)
-    // {
-    //     //Set all animator params to ensure the player stops running, jumping, etc and simply stands
-    //     if (freeze)
-    //     {
-    //         animator.SetInteger("moveDirection", 0);
-    //         animator.SetBool("grounded", true);
-    //         animator.SetFloat("velocityX", 0f);
-    //         animator.SetFloat("velocityY", 0f);
-    //         GetComponent<PhysicsObject>().targetVelocity = Vector2.zero;
-    //     }
-
-    //     frozen = freeze;
-    //     // shooting = false;
-    //     launch = 0;
-    // }
-
-    // public void FlashEffect()
-    // {
-    //     //Flash the player quickly
-    //     animator.SetTrigger("flash");
     // }
 
 }

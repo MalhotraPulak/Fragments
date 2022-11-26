@@ -20,6 +20,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] public int health = 1;
     public AudioClip hitSound;
     public bool isBomb;
+
+    public GameObject finalDoor;
     [SerializeField] bool requirePoundAttack; //Requires the player to use the down attack to hurt
 
     void Start()
@@ -118,6 +120,11 @@ public class EnemyBase : MonoBehaviour
         deathParticles.transform.parent = transform.parent;
         instantiator.InstantiateObjects();
         Time.timeScale = 1f;
+        if(gameObject.tag == "Boss")
+        {
+            finalDoor.GetComponent<PermanentDoor>().OpenDoor();
+
+        }
         Destroy(gameObject);
     }
 }

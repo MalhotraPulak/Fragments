@@ -24,6 +24,23 @@ public class AttackHit : MonoBehaviour
         if (isBomb) StartCoroutine(TempColliderDisable());
     }
 
+    void OnTriggerEnter2D(Collider2D col){
+
+        GameObject enemy = gameObject;
+        GameObject player = col.gameObject;
+
+        if(attacksWhat == AttacksWhat.Floppy){
+            // Paper ball must be destroyed as soon as it hits Floppy
+            if (enemy.tag == "paperball" && player.tag == "Floppy"){
+                print("Hitting Floppy");
+
+                Floppy.Instance.GetHurt(targetSide, hitPower);
+                Destroy(enemy);
+            }
+        }
+
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         // Debug.Log(col.gameObject.name);
@@ -45,14 +62,7 @@ public class AttackHit : MonoBehaviour
         {
             GameObject enemy = gameObject;
             GameObject player = col.gameObject;
-
-            // Paper ball must be destroyed as soon as it hits Floppy
-            if (enemy.tag == "PaperBall" && player.tag == "Floppy"){
-                Floppy.Instance.GetHurt(targetSide, hitPower);
-                Destroy(enemy);
-            }
-
-            else if (col.GetContact(0).collider.name == "Slam Collider"){
+            if (col.GetContact(0).collider.name == "Slam Collider"){
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
                 // print("Hit the boss");
                 // print("Current health is " + enemy.GetComponent<EnemyBase>().health);

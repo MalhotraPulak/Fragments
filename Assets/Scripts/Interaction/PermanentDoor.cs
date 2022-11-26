@@ -25,11 +25,11 @@ public class PermanentDoor : MonoBehaviour
         bool flag = true;
         foreach (GameObject currentSwitch in switches)
                 flag &= currentSwitch.GetComponent<SwitchController>().isPressed;
-        if(flag)
+        if(flag && switches.Count != 0)
             OpenDoor();
     }
 
-    void OpenDoor(){
+    public void OpenDoor(){
         open = true;
         GetComponent<SpriteRenderer>().sprite = isDesiredOpen ? openDoorSprite : closedDoorSprite;
         GetComponent<BoxCollider2D>().enabled = !isDesiredOpen;

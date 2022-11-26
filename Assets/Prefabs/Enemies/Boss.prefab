@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 39094500475622527}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,10 +185,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   instantiator: {fileID: 0}
-  deathParticles: {fileID: 0}
+  deathParticles: {fileID: 5221117288423464771}
   health: 1
   hitSound: {fileID: 0}
   isBomb: 0
+  finalDoor: {fileID: 0}
   requirePoundAttack: 0
 --- !u!114 &39094500475622523
 MonoBehaviour:
