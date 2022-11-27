@@ -5,13 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class Boss : PhysicsObject
 {
+    public float launch;
+    public float launchRecovery = 4f;
+    public float hurtLaunchPower = 10f;
     // [SerializeField] public Animator animator;
     public bool dead = false;
     public bool frozen = false;
     public RecoveryCounter recoveryCounter;
     public int movementDistance;
     public Vector3 spawnPos;
-    private int dir = -1;
+    public int dir = -1;
     public float maxSpeed = 4.0f;
     // Dashing Parameters
     public float thresholdDist = 20.0f;
@@ -64,7 +67,7 @@ public class Boss : PhysicsObject
 
         // Level 1 Boss only Moves and Dashes
         if(SceneManager.GetActiveScene().name == "Level1"){
-            print("Currently in Level 1");
+            // print("Currently in Level 1");
             if (isDashing){
                 Move(dashSpeed);
             }
@@ -77,7 +80,7 @@ public class Boss : PhysicsObject
 
         // Level 2 Boss Moves, Dashes and Throws
         if(SceneManager.GetActiveScene().name == "Level2"){
-            print("Currently in Level 2");
+            // print("Currently in Level 2");
             if (isDashing){
                 Move(dashSpeed);
             }
@@ -92,7 +95,7 @@ public class Boss : PhysicsObject
 
         // Level 3 Boss Moves, Dashes, Jumps and Throws
         if(SceneManager.GetActiveScene().name == "Level3"){
-            print("Currently in Level 3");
+            // print("Currently in Level 3");
             if (isDashing){
                 Move(dashSpeed);
             }

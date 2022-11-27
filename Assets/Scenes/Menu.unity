@@ -365,8 +365,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1285968901}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: LoadScene
+        m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
+        m_MethodName: LoadLevel2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -499,8 +499,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1285968901}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: LoadScene
+        m_TargetAssemblyTypeName: MenuHandler, Assembly-CSharp
+        m_MethodName: LoadLevel3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

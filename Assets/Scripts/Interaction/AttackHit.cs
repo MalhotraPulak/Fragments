@@ -64,8 +64,8 @@ public class AttackHit : MonoBehaviour
             GameObject player = col.gameObject;
             if (col.GetContact(0).collider.name == "Slam Collider"){
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
-                // print("Hit the boss");
-                // print("Current health is " + enemy.GetComponent<EnemyBase>().health);
+                print("Hit the boss");
+                print("Current health is " + enemy.GetComponent<EnemyBase>().health);
             }
 
             else if (player.tag == "Floppy" && !Floppy.Instance.animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))

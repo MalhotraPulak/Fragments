@@ -19,9 +19,7 @@ public class EnemyBase : MonoBehaviour
     public AudioClip hitSound;
     public bool isBomb;
     public Instantiator instantiator;
-
     public GameObject finalDoor;
-    [SerializeField] bool requirePoundAttack; //Requires the player to use the down attack to hurt
 
     void Start()
     {
@@ -63,6 +61,14 @@ public class EnemyBase : MonoBehaviour
 
 
             //The Walker being launched after getting hit is a little different than the Flyer getting launched by a hit.
+            if (GetComponent<Boss>() != null)
+            {
+                Boss walker = GetComponent<Boss>();
+                walker.launch = launchDirection * walker.hurtLaunchPower / 5;
+                walker.velocity.y = walker.hurtLaunchPower;
+                walker.dir *= -1;
+            }
+
             if (GetComponent<Walker>() != null)
             {
                 Walker walker = GetComponent<Walker>();
@@ -74,7 +80,6 @@ public class EnemyBase : MonoBehaviour
 
             if (GetComponent<Lead>() != null)
             {
-                Debug.Log("HIT A LEAD");
                 Lead walker = GetComponent<Lead>();
                 // walker.launch = launchDirection * walker.hurtLaunchPower / 5;
                 // walker.velocity.y = walker.hurtLaunchPower;
@@ -84,7 +89,6 @@ public class EnemyBase : MonoBehaviour
 
             if (GetComponent<Cap>() != null)
             {
-                Debug.Log("HIT A CAP");
                 Vector2 posCollision = col.GetContact(0).point;
                 GetComponent<Cap>().CapHit(posCollision);
             }
@@ -104,11 +108,6 @@ public class EnemyBase : MonoBehaviour
 
     public void Die()
     {
-        // if (NewPlayer.Instance.pounding)
-        // {
-        //     NewPlayer.Instance.PoundEffect();
-        // }
-
         health = 0;
         deathParticles.SetActive(true);
         deathParticles.transform.parent = transform.parent;
@@ -116,7 +115,6 @@ public class EnemyBase : MonoBehaviour
         if(gameObject.tag == "Boss")
         {
             finalDoor.GetComponent<PermanentDoor>().OpenDoor();
-
         }
         instantiator.InstantiateObjects();
         Destroy(gameObject);
