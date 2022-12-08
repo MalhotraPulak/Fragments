@@ -15,10 +15,12 @@ public class VideoController : MonoBehaviour
     public long playerCurrentFrame;
     public long playerFrameCount;
 
+    public string video_file = "Starting_Scene.mp4";
+
     void Start()
     {
         //Begin invoke!
-        videoPlayer.url = System.IO.Path.Combine (Application.streamingAssetsPath,"Starting_Scene.mp4"); 
+        videoPlayer.url = System.IO.Path.Combine (Application.streamingAssetsPath, video_file); 
         videoPlayer.Play();
         InvokeRepeating("CheckOver", .1f, .1f);
     }

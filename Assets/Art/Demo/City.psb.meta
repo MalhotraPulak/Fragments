@@ -27,6 +27,8 @@ ScriptedImporter:
     convertToNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
     isReadable: 0
     streamingMipmaps: 1
     streamingMipmapsPriority: 0
@@ -53,6 +55,7 @@ ScriptedImporter:
     flipbookRows: 0
     flipbookColumns: 0
     ignorePngGamma: 0
+    cookieMode: 0
     filterMode: 1
     aniso: 1
     mipBias: 0
@@ -93,8 +96,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
   - name: Lock
@@ -116,8 +119,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -2733, y: 7085}
+    uvTransform: {x: 875, y: 7973}
+    spritePosition: {x: 3608, y: 888}
   - name: Foreground1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -137,8 +140,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -5408, y: 7117}
+    uvTransform: {x: 4, y: 7161}
+    spritePosition: {x: 5412, y: 44}
   - name: Ground3
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -158,8 +161,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -5257, y: 6105}
+    uvTransform: {x: 4, y: 6126}
+    spritePosition: {x: 5261, y: 21}
   - name: Bridge
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -179,8 +182,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: 1072, y: 6351}
+    uvTransform: {x: 1469, y: 7161}
+    spritePosition: {x: 397, y: 810}
   - name: Ground2
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -200,8 +203,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -2725, y: 5088}
+    uvTransform: {x: 4, y: 5112}
+    spritePosition: {x: 2729, y: 24}
   - name: Ground1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -221,8 +224,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: 2245, y: 5094}
+    uvTransform: {x: 2505, y: 5112}
+    spritePosition: {x: 260, y: 18}
   - name: Platform
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -242,8 +245,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -337, y: 5804}
+    uvTransform: {x: 2016, y: 6126}
+    spritePosition: {x: 2353, y: 322}
   - name: Gate
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -263,8 +266,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: -2471, y: 6473}
+    uvTransform: {x: 875, y: 7161}
+    spritePosition: {x: 3346, y: 688}
   - name: BuildingsMid
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -284,8 +287,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 2172}
+    spritePosition: {x: 0, y: 0}
   - name: BuildingsBG
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -305,8 +308,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
-    uvTransform: {x: 4, y: 3616}
+    uvTransform: {x: 4, y: 3963}
+    spritePosition: {x: 0, y: 347}
   - name: Sky
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -326,13 +329,14 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    parentGroupIndex: -1
     uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 0, y: 0}
   characterData:
     bones: []
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
+    pivot: {x: 0, y: 0}
     boneReadOnly: 0
   sharedRigSpriteImportData: []
   sharedRigCharacterData:
@@ -340,6 +344,7 @@ ScriptedImporter:
     parts: []
     dimension: {x: 0, y: 0}
     characterGroups: []
+    pivot: {x: 0, y: 0}
     boneReadOnly: 0
   platformSettings:
   - name: Default
@@ -363,6 +368,7 @@ ScriptedImporter:
   paperDollMode: 0
   keepDupilcateSpriteName: 0
   skeletonAssetReferenceID: 
+  padding: 4
   spriteCategoryList:
     categories: []
   spritePackingTag: 
@@ -481,6 +487,7 @@ ScriptedImporter:
     isVisible: 1
   sharedRigPSDLayers: []
   pSDLayerImportSetting: []
+  importFileNodeState: 1
   generateGOHierarchy: 0
   textureAssetName: City Texture
   prefabAssetName: City Prefab
