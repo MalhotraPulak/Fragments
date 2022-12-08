@@ -65,8 +65,9 @@ public class EnemyBase : MonoBehaviour
             {
                 Boss walker = GetComponent<Boss>();
                 walker.launch = launchDirection * walker.hurtLaunchPower / 5;
-                walker.velocity.y = walker.hurtLaunchPower;
-                walker.dir *= -1;
+                // walker.velocity.y = walker.hurtLaunchPower;
+                walker.dir = launchDirection;
+                // walker.dir *= -1;
             }
 
             if (GetComponent<Walker>() != null)

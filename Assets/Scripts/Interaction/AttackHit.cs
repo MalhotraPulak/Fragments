@@ -57,14 +57,13 @@ public class AttackHit : MonoBehaviour
         //Determine what components we're hitting
 
         //Attack Player
-        // if (attacksWhat == AttacksWhat.Floppy)
         if (attacksWhat == AttacksWhat.Floppy)
         {
             GameObject enemy = gameObject;
             GameObject player = col.gameObject;
+
             if (col.GetContact(0).collider.name == "Slam Collider"){
                 enemy.GetComponent<EnemyBase>().GetHurt(targetSide, hitPower, col);
-                print("Hit the boss");
                 print("Current health is " + enemy.GetComponent<EnemyBase>().health);
             }
 
